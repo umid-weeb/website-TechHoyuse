@@ -1,0 +1,164 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Inter, sans-serif;
+}
+
+body {
+  background: #f6f7f9;
+}
+
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.auth-card {
+  background: #fff;
+  width: 100%;
+  max-width: 420px;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  text-align: center;
+}
+
+.icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin-bottom: 6px;
+}
+
+.switch-text {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.switch-text a {
+  color: #ff5a00;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.form {
+  display: none;
+}
+
+.form.active {
+  display: block;
+}
+
+.input-group {
+  text-align: left;
+  margin-bottom: 14px;
+}
+
+.input-group label {
+  font-size: 13px;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  outline: none;
+}
+
+.password {
+  position: relative;
+}
+
+.toggle {
+  position: absolute;
+  right: 12px;
+  top: 36px;
+  cursor: pointer;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  gap: 6px;
+  margin: 10px 0 18px;
+}
+
+.checkbox a {
+  color: #ff5a00;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  background: #ff5a00;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* 📱 Mobile */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 24px;
+  }
+}
+#resetPasswordSection {
+  text-align: center;
+  padding: 10px;
+}
+
+#resetTitle {
+  font-size: 24px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.reset-desc {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+}
+
+.main-btn {
+  width: 100%;
+  padding: 12px;
+  background: #6200ea; /* Sizdagi binafsha rang */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.back-to-login {
+  display: block;
+  margin-top: 15px;
+  color: #ff6d00; /* To'q sariq rang */
+  text-decoration: none;
+  font-size: 14px;
+}

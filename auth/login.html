@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auth Page</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+
+      <div class="icon">👤</div>
+
+      <h2 id="formTitle">Yangi hisob yaratish</h2>
+      <p class="switch-text">
+        <span id="switchInfo">Hisobingiz allaqachon bormi?</span>
+        <a href="#" id="switchForm">Tizimga kirish</a>
+      </p>
+
+      <!-- SIGN UP  bolimi bu -->
+      <form id="signupForm" class="form active">
+        <div class="input-group">
+          <label>To‘liq ism</label>
+          <input type="text" id="signupFullname" placeholder="Ibroximjon Isroilov" />
+        </div>
+
+        <div class="input-group">
+          <label>E-pochta manzili</label>
+          <input type="email" id="signupEmail" placeholder="you@example.com">
+        </div>
+
+        <div class="input-group password">
+          <label>Parol</label>
+          <input type="password" id="signupPassword">
+          <span class="toggle">👁</span>
+        </div>
+
+        <div class="input-group">
+          <label>Parolni tasdiqlang</label>
+          <input type="password" id="signupConfirm">
+        </div>
+
+        <div class="checkbox">
+          <input type="checkbox" />
+          <span>Men <a href="#">Foydalanish shartlari</a> va <a href="#">qoidalarga</a> roziman</span>
+        </div>
+
+        <button class="btn">Hisob yaratish</button>
+      </form>
+
+      <!-- SIGN IN  qismi-->
+      <form id="signinForm" class="form">
+        <div class="input-group">
+          <label>E-pochta manzili</label>
+          <input type="email" id="signinEmail" placeholder="you@example.com">
+        </div>
+
+        <div class="input-group password">
+          <label>Parol</label>
+          
+          <input type="password" id="signinPassword" autocomplete="current-password">
+          <span class="toggle">👁</span>
+          <a style="text-decoration: none;" href="#" id="forgotPasswordLink">Parolni unutdingizni?</a>
+        </div>
+        
+
+        <button style="text-decoration: none;" class="btn"><a style="text-decoration: none; color: white;" href="index.html">Tizimga kirish</a></button>
+        
+      </form>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Tech House | Checkout</title>
+
+  <!-- MAIN CSS -->
+  <link rel="stylesheet" href="css/home.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+  <!-- ================= SITE HEADER ================= -->
+  <div class="site-header">
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+      <div class="container top-bar-inner">
+        <p>
+          299$ dan yuqori buyurtmalar uchun bepul yetkazib berish |
+          Kengaytirilgan kafolat mavjud
+        </p>
+        <div class="top-right">
+          <span>EN</span>
+          <span>USD</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN HEADER -->
+    <header class="main-header">
+      <div class="container header-inner">
+
+        <!-- LOGO -->
+        <div class="logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
+        <!-- SEARCH -->
+        <div class="search-box">
+          <select>
+            <option>Barcha kategoriyalar</option>
+            <option>Oshxona</option>
+            <option>Tozalash</option>
+            <option>Aqlli uy</option>
+          </select>
+          <input type="search" placeholder="Maishiy texnika qidirish...">
+          <button>
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="header-actions">
+          <div class="phone">
+            <small>Biz bilan bog‘lanish:</small>
+            <strong>+998 90 791 36 33</strong>
+          </div>
+
+          <div class="icons">
+            <a href="profile.html">
+              <i class="fa-solid fa-user"></i>
+            </a>
+
+            <i class="fa-solid fa-heart" style="color:red"></i>
+
+            <a href="checkout.html" class="cart">
+              <i class="fa-solid fa-cart-arrow-down"></i>
+              <b id="cart-count">0</b>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav class="nav-bar">
+      <div class="container nav-inner">
+        <a href="index.html">Uy</a>
+        <a href="products.html">Sotib olish</a>
+        <a href="#">Kategoriyalar</a>
+        <a href="index.html#membership">A’zolik</a>
+        <a href="#">Qo‘llab-quvvatlash</a>
+        <a href="#">Bog‘lanish</a>
+        <a class="offer" style="color: rgb(77, 77, 77);" href="#">Maxsus takliflar</a>
+        <a href="products.html" target="_blank">Barcha maxsulotlar</a>
+      </div>
+    </nav>
+
+  </div>
+
+  <!-- ================= INFO STRIP ================= -->
+  <section class="info-strip">
+    <div class="container info-inner">
+
+      <div class="info-item">
+        <span><i class="fa-solid fa-truck-fast"></i></span>
+        <div>
+          <h4>Bepul yetkazib berish</h4>
+          <p>299$ dan yuqori buyurtmalar uchun bepul.</p>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <span><i class="fa-solid fa-shield"></i></span>
+        <div>
+          <h4>Kafolat himoyasi</h4>
+          <p>Rasmiy ishlab chiqaruvchi kafolati.</p>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <span>↩</span>
+        <div>
+          <h4>Oson qaytarish</h4>
+          <p>30 kun ichida qaytarish.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="container" style="margin-top:40px; min-height:60vh;">
+
+    <!-- PAGE TOP BAR -->
+    <div class="page-top">
+      <a href="cart.html" class="back-link">
+        <i class="fa-solid fa-arrow-left"></i>
+        Savatga qaytish
+      </a>
+
+      <h1>Ro'yxatdan o'chirilish</h1>
+    </div>
+    <!-- CONTACT INFO -->
+    <div class="checkout-card">
+      <h3>Bog‘lanish uchun ma’lumot</h3>
+      <p class="subtitle">
+        Biz bundan buyurtma yangiliklarini yuborish uchun foydalanamiz
+      </p>
+
+      <div class="input-row">
+        <div class="field">
+          <label>Ism</label>
+          <input type="text" value="Ibrohim">
+        </div>
+        <div class="field">
+          <label>Familiya</label>
+          <input type="text" value="Isroilov">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Elektron pochta</label>
+        <input type="email" value="isroilov0705@gmail.com">
+      </div>
+
+      <div class="field">
+        <label>Telefon raqami</label>
+        <input type="tel" value="+998 90 791 36 33">
+      </div>
+    </div>
+
+    <!-- DELIVERY METHOD -->
+    <div class="checkout-card">
+      <h3>Yetkazib berish usuli</h3>
+
+      <div class="delivery-row">
+        <div class="delivery-option">
+          <i class="fa-solid fa-truck"></i>
+          <div>
+            <b>Uyga yetkazib berish</b>
+            <span>24 soat ichida yetkazib berish</span>
+          </div>
+        </div>
+
+        <div class="delivery-option active">
+          <i class="fa-solid fa-store"></i>
+          <div>
+            <b>Do‘kondan olib ketish</b>
+            <span>Eng yaqin do‘kondan olib ketish</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Do‘konni tanlang</label>
+        <select>
+          <option>Janubiy Texnologiyalar Uyi - Sergeli</option>
+        </select>
+      </div>
+
+      <p class="ok-text">
+        <i class="fa-solid fa-circle-check"></i>
+        Bugun buyurtmani ushbu joydan olib ketish mumkin.
+      </p>
+    </div>
+    <!-- PAYMENT METHOD -->
+    <div class="checkout-card">
+      <h3>To‘lov usuli</h3>
+
+      <!-- CARD PAYMENT -->
+      <label class="payment-option active">
+        <input type="radio" name="payment" checked>
+        <div class="payment-info">
+          <b>Kredit / Debet karta</b>
+          <span>Visa, Mastercard, Humo, Uzcard bilan xavfsiz to‘lovlarni amalga oshiring</span>
+        </div>
+        <div class="payment-icons">
+          <span class="card visa"></span>
+          <span class="card mc"></span>
+        </div>
+      </label>
+
+      <!-- CASH -->
+      <label class="payment-option">
+        <input type="radio" name="payment">
+        <div class="payment-info">
+          <b>Yetkazib berish / olib ketishda naqd pul</b>
+          <span>Buyurtmani olganingizda to‘lang</span>
+        </div>
+      </label>
+
+      <!-- CARD DETAILS -->
+      <div class="card-form">
+        <div class="field">
+          <label>Karta raqami</label>
+          <input type="text" value="4916 0066 2217 5444">
+        </div>
+
+        <div class="input-row">
+          <div class="field">
+            <label>Quyidagi sanagacha foydalanilsin</label>
+            <input type="text" value="05 / 11">
+          </div>
+          <div class="field">
+            <label>CVC</label>
+            <input type="text" value="978">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="products-section container">
+      <h2 class="section-title">ENG YAXSHI MAHSULOTLAR</h2>
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-image">
+            <img src="/assets/images/cleaning.jpg" alt="Elektr Chaynak">
+          </div>
+          <div class="product-info">
+            <h3>Elektr Chaynak 1.7L</h3>
+            <div class="rating">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <p class="price">$49.00</p>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <img src="assets/images/product1.jpg" alt="Air Fryer">
+            <span class="discount-badge">-20%</span>
+          </div>
+          <div class="product-info">
+            <h3>Digital Air Fryer</h3>
+            <div class="rating">⭐⭐⭐⭐⭐</div>
+            <p class="price">$119.00 <span class="old-price">$149.00</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="info-blocks container">
+      <div class="info-card delivery-home">
+        <i class="fa-solid fa-truck"></i>
+        <div class="info-content">
+          <h3>Uyga yetkazib berish</h3>
+          <p>$299 dan ortiq buyurtmalar uchun bepul yetkazib berish.</p>
+          <button class="btn-blue">Batafsil ma'lumot</button>
+        </div>
+      </div>
+
+      <div class="info-card pickup-store">
+        <i class="fa-solid fa-location-dot"></i>
+        <div class="info-content">
+          <h3>Do'kondandan olib ketish</h3>
+          <p>Onlayn buyurtma bering va eng yaqin do'konimizdan oling.</p>
+          <button class="btn-green">Do'konni toping</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="newsletter-help container">
+      <div class="newsletter-box">
+        <h3>YANGILIKLARGA OBUNA BO'LISH</h3>
+        <p>Eksklyuziv takliflar va mahsulot taqdimotlaridan xabardor bo'ling.</p>
+        <div class="input-group">
+          <input type="email" placeholder="Enter your email address">
+          <button class="btn-orange">Obuna bo'lish</button>
+        </div>
+      </div>
+
+      <div class="help-box">
+        <h3>YORDAM KERAKMI?</h3>
+        <p>Mijozlarga yordam xizmati jamoamiz 24/7 yordam beradi.</p>
+        <div class="btn-group">
+          <button class="btn-orange">Qollab quvvatlash</button>
+          <button class="btn-outline">Jonli chat</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+
+      <!-- BRAND -->
+      <div class="footer-col">
+        <div class="footer-logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
+        
+        <p>
+          Sifatli maishiy texnika va elektronika mahsulotlari yetkazib beruvchi
+          ishonchli hamkoringiz. Tezkor yetkazib berish va kafolatlangan xizmat.
+        </p>
+        <a href="#" class="footer-link">Ko‘proq o‘qish →</a>
+      </div>
+
+      <!-- CONTACT -->
+      <div class="footer-col">
+        <h4>ALOQA MA’LUMOTLARI</h4>
+        <ul>
+          <li>📍 Andijon viloyati, Bo‘ston MFY</li>
+          <li>✉️ info@techhouse.uz</li>
+          <li>📞 +998 90 123 45 67</li>
+          <li class="work-time">
+            Ish vaqti:<br>
+            Dushanba–Shanba: 9:00 – 20:00<br>
+            Yakshanba: 10:00 – 18:00
+          </li>
+        </ul>
+      </div>
+
+      <!-- SERVICES -->
+      <div class="footer-col">
+        <h4>MIJOZLARGA XIZMAT</h4>
+        <ul>
+          <li><a href="#">Yetkazib berish</a></li>
+          <li><a href="#">Buyurtmalarni kuzatish</a></li>
+          <li><a href="#">Qaytarish va almashtirish</a></li>
+          <li><a href="#">Kafolat ma’lumotlari</a></li>
+          <li><a href="#">Qo‘llab-quvvatlash</a></li>
+        </ul>
+      </div>
+
+      <!-- CATEGORIES -->
+      <div class="footer-col">
+        <h4>OMMABOP KATEGORIYALAR</h4>
+        <div class="footer-tags">
+          <span>Robotlar</span>
+          <span>Muzlatgich</span>
+          <span>Konditsioner</span>
+          <span>Kir yuvish</span>
+          <span>Blender</span>
+          <span>Changyutgich</span>
+          <span>Aqlli uy</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BOTTOM -->
+    <div class="footer-bottom">
+      <p>© TechHouse 2025. Barcha huquqlar himoyalangan.</p>
+
+      <div class="socials">
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-telegram"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-credit">
+      BTEC Level 3 — Unit 6 Website Development loyihasi
+    </div>
+  </footer>
+
+  <!-- ================= JS ================= -->
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/main.js"></script> <!-- agar bo‘lsa -->
+  
+
+</body>
+
+</html>

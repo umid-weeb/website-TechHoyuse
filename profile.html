@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Profil | TechHouse</title>
+
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/profile.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+
+<body>
+
+  <!-- ===== HEADER (oldingi sahifalarnikidek qoladi) ===== -->
+  <!-- ================= TOP BAR ================= -->
+  <div class="site-header">
+    <div class="top-bar">
+      <div class="container top-bar-inner">
+        <p>
+          299$ dan yuqori buyurtmalar uchun bepul yetkazib berish |
+          Kengaytirilgan kafolat mavjud
+        </p>
+        <div class="top-right">
+          <span>EN</span>
+          <span>USD</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= MAIN HEADER ================= -->
+    <header class="main-header">
+      <div class="container header-inner">
+
+        <!-- LOGO -->
+        <div class="logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
+
+        <!-- SEARCH -->
+        <div class="search-box">
+          <select>
+            <option>Barcha kategoriyalar</option>
+            <option>Oshxona</option>
+            <option>Tozalash</option>
+            <option>Aqlli uy</option>
+          </select>
+          <input type="search" placeholder="Maishiy texnika qidirish...">
+          <button><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+
+        <!-- CONTACT + ICONS -->
+        <div class="header-actions">
+          <div class="phone">
+            <small>Biz bilan bog‘lanish:</small>
+            <strong>+998 90 791 36 33</strong>
+          </div>
+
+          <div class="icons">
+            <a href="profile.html">
+              <span><i class="fa-solid fa-user"></i></span>
+            </a>
+            <span><i class="fa-solid fa-heart" style="color:red"></i></span>
+
+            <!-- CART -->
+            <a href="checkout.html"><span class="cart">
+              <i class="fa-solid fa-cart-arrow-down"></i>
+              <b id="cart-count">0</b>
+            </span></a>
+          </div>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- ================= NAV ================= -->
+    <nav class="nav-bar">
+      <div class="container nav-inner">
+        <a href="#">Sotib olish</a>
+        <a href="#">Kategoriyalar</a>
+        <a href="index.html#membership">A’zolik</a>
+        <a href="#">Qo‘llab-quvvatlash</a>
+        <a href="#">Bog‘lanish</a>
+        <a class="offer" href="#">Maxsus takliflar</a>
+        <a class="active" href="products.html">Barcha mahsulotlar</a>
+      </div>
+    </nav>
+  </div>
+
+  <!-- ===== PROFILE PAGE ===== -->
+  <main class="profile-page">
+
+    <!-- MENU CARD -->
+    <aside class="profile-menu">
+      <div class="profile-user">
+        <img id="menuAvatar" src="https://static.vecteezy.com/system/resources/previews/046/409/821/non_2x/avatar-profile-icon-in-flat-style-male-user-profile-illustration-on-isolated-background-man-profile-sign-business-concept-vector.jpg">
+        <div>
+          <strong id="menuName">Sizning ismingiz</strong>
+          <small id="menuEmail">email@gmail.com</small>
+        </div>
+      </div>
+
+      <ul>
+        <li class="active menu-profile"><i class="fa-regular fa-user"></i> Profil</li>
+        <li class="menu-settings"><i class="fa-solid fa-gear"></i> Sozlamalar</li>
+        <li><i class="fa-regular fa-bell"></i> Bildirishnomalar</li>
+        <li id="logout"><i class="fa-solid fa-right-from-bracket"></i> Chiqish</li>
+      </ul>
+      
+    </aside>
+
+    <!-- PROFILE CONTENT -->
+    <section class="profile-card">
+
+      <div class="profile-header">
+        <div class="avatar-wrapper">
+          <img id="avatar" src="https://static.vecteezy.com/system/resources/previews/046/409/821/non_2x/avatar-profile-icon-in-flat-style-male-user-profile-illustration-on-isolated-background-man-profile-sign-business-concept-vector.jpg">
+          <label for="avatarInput"><i class="fa-solid fa-pen"></i></label>
+          <input type="file" id="avatarInput" hidden>
+        </div>
+
+        <div>
+          <h2 id="profileName">Sizning ismingiz</h2>
+          <p id="profileEmail">email@gmail.com</p>
+        </div>
+      </div>
+
+      <div class="profile-info">
+        <div class="field">
+          <label>Ism</label>
+          <input id="name" type="text">
+        </div>
+
+        <div class="field">
+          <label>Email</label>
+          <input id="email" type="email">
+        </div>
+
+        <div class="field">
+          <label>Telefon raqam</label>
+          <input id="phone" type="text">
+        </div>
+
+        <div class="field">
+          <label>Manzil</label>
+          <input id="address" type="text">
+        </div>
+      </div>
+
+      <button id="saveProfile" class="save-btn">
+        O‘zgarishlarni saqlash
+      </button>
+<div class="settings-section" id="settingsSection" style="display:none;">
+
+  <h3>Parolni almashtirish</h3>
+
+  <div class="profile-info">
+    <div class="field">
+      <label>Eski parol</label>
+      <input type="password" id="oldPassword" placeholder="Eski parol">
+    </div>
+
+    <div class="field">
+      <label>Yangi parol</label>
+      <input type="password" id="newPassword" placeholder="Yangi parol">
+    </div>
+
+    <div class="field">
+      <label>Yangi parolni tasdiqlash</label>
+      <input type="password" id="confirmPassword" placeholder="Yangi parolni qayta kiriting">
+    </div>
+  </div>
+
+  <button id="changePassword" class="save-btn">
+    Parolni almashtirish
+  </button>
+
+</div>
+
+    </section>
+    <!-- ===== SETTINGS (PASSWORD CHANGE) ===== -->
+
+
+  </main>
+
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/main.js"></script> <!-- agar bo‘lsa -->
+  
+</body>
+
+</html>

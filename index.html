@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Tech House</title>
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+  <div class="site-header">
+    <div class="top-bar">
+      <div class="container top-bar-inner">
+        <p>
+          299$ dan yuqori buyurtmalar uchun bepul yetkazib berish |
+          Kengaytirilgan kafolat mavjud
+        </p>
+        <div class="top-right">
+          <span>EN</span>
+          <span>USD</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN HEADER -->
+    <header class="main-header">
+      <div class="container header-inner">
+
+        <!-- LOGO -->
+        <div class="logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
+
+        <!-- SEARCH -->
+        <div class="search-box">
+          <select>
+            <option style="border-top-left-radius:15px ;">Barcha kategoriyalar</option>
+            <option style="border-top-left-radius:15px ;">TANLANGAN MAHSULOTLAR</option>
+            <option style="border-top-left-radius:15px ;">TOP RATED PRODUCTS</option>
+            <option style="border-top-left-radius:15px ;">TOP RATED PRODUCTS</option>
+            <option style="border-top-left-radius:15px ;">BEST SELLING PRODUCTS </option>
+            <option style="border-top-left-radius:15px ;">LATEST PRODUCTS</option>
+          </select>
+          <input id="search" type="search" placeholder="Maishiy texnika qidirish...">
+          <button id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+
+        <!-- CONTACT + ICONS -->
+        <div class="header-actions">
+          <div class="phone">
+            <small>Biz bilan bog‘lanish:</small>
+            <strong>+998 90 791 36 33</strong>
+          </div>
+
+          <div class="icons">
+            <a href="auth/login.html" data-action="profile" id="nav-profile">Profile</a>
+            <span><i style="color: red;" class="fa-solid fa-heart"></i></span>
+            <a href="cart.html" id="nav-cart">Savatcha (<span id="cart-count">0</span>)</a>
+          </div>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav class="nav-bar">
+      <div class="container nav-inner">
+        <a class="active" href="#">Uy</a>
+        <a href="products.html">Sotib olish</a>
+        <a href="#">Kategoriyalar</a>
+        <a href="index.html#membership">A’zolik</a>
+        <a href="#">Qo‘llab-quvvatlash</a>
+        <a href="index.html#footer">Bog‘lanish</a>
+        <a class="offer" href="#">Maxsus takliflar</a>
+        <a href="products.html" target="_blank">Barcha maxsulotlar</a>
+      </div>
+    </nav>
+  </div>
+
+  <!-- INFO STRIP -->
+  <section class="info-strip">
+    <div class="container info-inner">
+
+      <div class="info-item">
+        <span><i class="fa-solid fa-truck-fast"></i></span>
+        <div>
+          <h4>Bepul yetkazib berish</h4>
+          <p>299$ dan yuqori barcha buyurtmalar uchun bepul yetkazib berish.</p>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <span><i class="fa-solid fa-shield"></i></span>
+        <div>
+          <h4>Kafolat himoyasi</h4>
+          <p>Rasmiy ishlab chiqaruvchi kafolati bilan himoyalangan.</p>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <span>↩</span>
+        <div>
+          <h4>Oson qaytarish</h4>
+          <p>30 kun ichida hech qanday muammosiz qaytarish.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content container">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+      <h3>KATEGORIYALAR</h3>
+
+      <select>
+        <option disabled selected>Uy buyumlari</option>
+        <option>Mebel</option>
+        <option>Chiroqlar</option>
+        <option>Uy dekorlari</option>
+        <option>Stol & jihozlar</option>
+      </select>
+
+      <select>
+        <option disabled selected>Oshxona texnikalari</option>
+        <option>Mikroto'lqinli pech</option>
+        <option>Blender & Mixer</option>
+        <option>Kofe apparati</option>
+        <option>Multivarka / Aerogril</option>
+      </select>
+
+      <select>
+        <option disabled selected>Tozalash texnikalari</option>
+        <option>Changyutgich</option>
+        <option>Robot changyutgich</option>
+        <option>Steam tozalagich</option>
+        <option>Tozalash aksessuarlari</option>
+      </select>
+
+      <select>
+        <option disabled selected>Isitish & Sovutish</option>
+        <option>Konditsioner</option>
+        <option>Isitgich</option>
+        <option>Ventilyator</option>
+        <option>Namlantiruvchi</option>
+      </select>
+
+      <select>
+        <option disabled selected>Shaxsiy parvarish</option>
+        <option>Fen & Soch tekislagich</option>
+        <option>Trimmer & Ustara</option>
+        <option>Massaj qurilmalari</option>
+        <option>Elektr tish cho'tka</option>
+      </select>
+
+      <select>
+        <option disabled selected>Aqlli uy tizimlari</option>
+        <option>Smart kamera</option>
+        <option>Smart lampa</option>
+        <option>Smart rozetka</option>
+        <option>Uy avtomatizatsiyasi</option>
+      </select>
+
+      <select>
+        <option disabled selected>Kafolat & Xizmatlar</option>
+        <option>Qo'shimcha kafolat</option>
+        <option>Ta'mirlash xizmati</option>
+        <option>O'rnatish xizmati</option>
+        <option>Konsultatsiya</option>
+      </select>
+
+      <select class="special">
+        <option disabled selected>Maxsus chegirmalar!</option>
+        <option>Haftalik aksiyalar</option>
+        <option>Chegirma mahsulotlar</option>
+        <option>Outlet tovarlar</option>
+        <option>Seasonal Sales</option>
+      </select>
+
+      <div class="sale-box">
+        <span class="badge">SAVE<br><b>40%</b></span>
+        <p>
+          Tanlangan mahsulotlarda qishki chegirma.<br>
+          Cheklangan vaqt!
+        </p>
+        <button>KO'RISH</button>
+      </div>
+    </aside>
+
+
+    <!-- RIGHT CONTENT -->
+    <section class="content">
+
+      <!-- HERO -->
+      <div class="hero">
+        <div class="hero-text">
+          <small>Uyingizni aqlli texnika bilan yangilang</small>
+          <h1>Qishgi Sotuv<br>40% gacha<br>chegirma</h1>
+          <p>Oshxona va tozalash buyumlari 30 mingdan</p>
+          <button>Sotib olish</button>
+        </div>
+
+        <div class="hero-img">
+          <img src="assets/images/hero.jpg" alt="Appliances">
+        </div>
+      </div>
+
+      <!-- CATEGORY CARDS -->
+      <div class="category-cards">
+        <div class="card">
+          <a href="product-detail.html?slug=premium-stand-mixer">
+            <img src="assets/images/kitchen.png" alt="Kitchen Appliances">
+          </a>
+          <h4>Oshxona jihozlari</h4>
+          <p>Mikserlar, pechlar, blenderlar</p>
+          <button class="add-to-cart" data-id="1" data-slug="premium-stand-mixer">
+            Savatchaga qo‘shish
+          </button>
+
+        </div>
+
+        <div class="card">
+          <a href="product-detail.html?slug=smart-robot-cleaner">
+            <img src="assets/images/cleaning.jpg" alt="Cleaning Appliances">
+          </a>
+          <h4>Tozalash jihozlari</h4>
+          <p>Changyutgichlar, robotlar</p>
+          <button class="add-to-cart" data-id="2" data-slug="smart-robot-cleaner">
+            Savatchaga qo‘shish
+          </button>
+
+        </div>
+
+        <div class="card">
+          <a href="product-detail.html?slug=smart-home-hub">
+            <img src="assets/images/smart.jpg" alt="Smart Home Appliances">
+          </a>
+          <h4>Aqlli uy jihozlari</h4>
+          <p>Ulangan uy echimlari</p>
+          <button class="add-to-cart" data-id="3" data-slug="smart-home-hub">
+            Savatchaga qo‘shish
+          </button>
+
+        </div>
+      </div>
+      <section id="featured-products" class="product-grid">
+        <!-- ...existing static HTML may remain or be replaced by script -->
+      </section>
+      <section id="latest-products" class="featured-products">
+        <div class="section-header">
+          <h2>TANLANGAN MAHSULOTLAR</h2>
+
+          <div class="slider-controls">
+            <button class="prev">‹</button>
+            <button class="next">›</button>
+          </div>
+        </div>
+
+        <div class="products-grid">
+
+          <!-- PRODUCT CARD -->
+          <div class="product-card">
+            <span class="sale-badge">SALE</span>
+            <a href="product-detail.html?slug=premium-stand-mixer">
+              <img src="assets/images/product1.jpg" alt="Product 1">
+            </a>
+            <h4>Premium Stand Mixer - 1000W</h4>
+
+            <div class="rating">★★★★★</div>
+
+            <div class="price">
+              <span class="new">$299.00</span>
+              <span class="old">$399.00</span>
+            </div>
+            <button class="add-to-cart" data-id="4" data-slug="premium-stand-mixer">
+              Savatchaga qo‘shish
+            </button>
+
+          </div>
+
+          <div class="product-card">
+            <span class="sale-badge">SALE</span>
+            <a href="product-detail.html?slug=smart-microwave-25l">
+              <img src="assets/images/product2.png" alt="Product 2">
+            </a>
+            <h4>Smart Microwave Oven 25L</h4>
+
+            <div class="rating">★★★★★</div>
+
+            <div class="price">
+              <span class="new">$189.00</span>
+              <span class="old">$249.00</span>
+            </div>
+            <button class="add-to-cart" data-id="5" data-slug="smart-microwave-25l">
+              Savatchaga qo‘shish
+            </button>
+
+          </div>
+
+          <div class="product-card">
+            <span class="sale-badge">SALE</span>
+            <a href="product-detail.html?slug=high-speed-blender">
+              <img src="assets/images/product3.jpg" alt="Product 3">
+            </a>
+            <h4>High-Speed Blender 2000W</h4>
+
+            <div class="rating">★★★★★</div>
+
+            <div class="price">
+              <span class="new">$159.00</span>
+              <span class="old">$199.00</span>
+            </div>
+            <button class="add-to-cart" data-id="6" data-slug="high-speed-blender">
+              Savatchaga qo‘shish
+            </button>
+
+          </div>
+
+          <div class="product-card">
+            <span class="sale-badge">SALE</span>
+            <a href="product-detail.html?slug=robot-vacuum-cleaner">
+              <img src="assets/images/product4.png" alt="Product 4">
+            </a>
+            <h4>Robot Vacuum Cleaner</h4>
+
+            <div class="rating">★★★★★</div>
+
+            <div class="price">
+              <span class="new">$449.00</span>
+              <span class="old">$599.00</span>
+            </div>
+            <button class="add-to-cart" data-id="7" data-slug="robot-vacuum-cleaner">
+              Savatchaga qo‘shish
+            </button>
+
+          </div>
+
+        </div>
+      </section>
+      <section class="home-bottom">
+        <div class="bottom-grid">
+          <div class="bottom-card delivery">
+            <div class="card-header">
+              <div class="icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="1" y="3" width="15" height="13"></rect>
+                  <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                  <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                  <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                </svg>
+              </div>
+              <div class="header-text">
+                <h4>Uyga yetkazib berish</h4>
+                <p>$299 dan ortiq buyurtmalar uchun bepul yetkazib berish. Buyurtmangizni real vaqt rejimida
+                  ostonangizga yetkazib beriladi.</p>
+              </div>
+            </div>
+            <button class="btn blue">Batafsil ma’lumot</button>
+          </div>
+
+          <div class="bottom-card pickup">
+            <div class="card-header">
+              <div class="icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </div>
+              <div class="header-text">
+                <h4>Do‘kondan olib ketish</h4>
+                <p>Onlayn buyurtma bering va eng yaqin do‘konimizdan oling. O‘sha kuni olib ketish tanlangan
+                  elementlarda mavjud.</p>
+              </div>
+            </div>
+            <button class="btn green">Do‘konni toping</button>
+          </div>
+
+          <div class="bottom-card newsletter">
+            <h4>YANGILIKLARGA OBUNA BO‘LISH</h4>
+            <p>Qurilmangizga yetkazib berilgan jihozlar uchun eksklyuziv takliflar, mahsulot taqdimoti va maslahatlar
+              oling pochta qutisi.</p>
+            <div class="newsletter-form">
+              <input type="email" placeholder="Enter your email address">
+              <button class="btn orange">Obuna bo'lish</button>
+            </div>
+          </div>
+
+          <div class="bottom-card support">
+            <h4>YORDAM KERAKMI?</h4>
+            <p>Mijozlarga yordam xizmati jamoamiz mahsulot tanlashda sizga 24/7 yordam beradi, buyurtmalar va sotuvdan
+              keyingi xizmat ko'rsatish.</p>
+            <div class="support-actions">
+              <button class="btn orange">Qollab quvvatlash</button>
+              <button class="btn outline">Jonli chat</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="top-rated">
+        <h2 class="section-title">TOP RATED PRODUCTS</h2>
+        <div class="products-grid" id="top-rated-products"></div>
+      </section>
+      <section class="best-selling">
+        <h2 class="section-title">BEST SELLING PRODUCTS</h2>
+
+        <div class="product-grid" id="best-selling-products">
+          <div class="product-card">
+            <div class="product-image">
+              <a href="product-detail.html?slug=smart-air-conditioner">
+                <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=500"
+                  alt="Smart Air Conditioner">
+              </a>
+            </div>
+            <div class="product-info">
+              <h4 class="product-name">Smart Air Conditioner</h4>
+              <div class="rating">⭐⭐⭐⭐⭐</div>
+              <p class="price">$699.00</p>
+            </div>
+            <button class="add-to-cart" data-id="13" data-slug="smart-air-conditioner">
+              Savatchaga qo‘shish
+            </button>
+
+          </div>
+
+          <div class="product-card">
+            <div class="product-image">
+              <a href="product-detail.html?slug=professional-hair-dryer">
+                <img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=500"
+                  alt="Professional Hair Dryer">
+              </a>
+            </div>
+            <div class="product-info">
+              <h4 class="product-name">Hair Dryer</h4>
+              <div class="rating">⭐⭐⭐⭐⭐</div>
+              <p class="price">$89.00</p>
+            </div>
+            <button class="add-to-cart" data-id="14" data-slug="professional-hair-dryer">
+              Savatchaga qo‘shish
+            </button>
+
+          </div>
+
+          <div class="product-card">
+            <div class="product-image">
+              <a href="product-detail.html?slug=cordless-vacuum">
+                <img src="https://images.unsplash.com/photo-1558317374-067fb5f30001?w=500" alt="Cordless Vacuum">
+              </a>
+            </div>
+            <div class="product-info">
+              <h4 class="product-name">Cordless Vacuum</h4>
+              <div class="rating">⭐⭐⭐⭐⭐</div>
+              <p class="price">$349.00</p>
+            </div>
+            <button class="add-to-cart" data-id="15" data-slug="cordless-vacuum">
+              Savatchaga qo‘shish
+            </button>
+
+          </div>
+
+          <div class="product-card">
+            <div class="product-image">
+              <a href="product-detail.html?slug=steam-iron">
+                <img src="https://images.unsplash.com/photo-1560343060-c140a58e9944?w=500" alt="Steam Iron">
+              </a>
+            </div>
+            <div class="product-info">
+              <h4 class="product-name">Steam Iron</h4>
+              <div class="rating">⭐⭐⭐⭐⭐</div>
+              <p class="price">$45.00</p>
+            </div>
+            <button class="add-to-cart" data-id="16" data-slug="steam-iron">
+              Savatchaga qo‘shish
+            </button>
+
+          </div>
+        </div>
+      </section>
+      <section id="latest-products" class="latest-products">
+        <h2 class="section-title">LATEST PRODUCTS</h2>
+
+        <div class="product-grid">
+          <div class="product-card">
+            <div class="product-image">
+              <a href="product-detail.html?slug=smart-home-hub">
+                <img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=500" alt="Smart Home Hub">
+              </a>
+            </div>
+            <div class="product-info">
+              <h4 class="product-name">Smart Home Hub</h4>
+              <div class="rating">⭐⭐⭐⭐⭐</div>
+              <p class="price">$199.00</p>
+            </div>
+            <button class="add-to-cart" data-id="17" data-slug="smart-home-hub">
+              Savatchaga qo‘shish
+            </button>
+
+          </div>
+
+          <div class="product-card">
+            <div class="product-image">
+              <a href="product-detail.html?slug=tower-fan-with-remote">
+                <img src="https://images.unsplash.com/photo-1544161513-0179fe746fd5?w=500" alt="Tower Fan">
+              </a>
+            </div>
+            <div class="product-info">
+              <h4 class="product-name">Tower Fan with Remote</h4>
+              <div class="rating">⭐⭐⭐⭐⭐</div>
+              <p class="price">$129.00</p>
+            </div>
+            <button class="add-to-cart" data-id="18" data-slug="tower-fan-with-remote">
+              Savatchaga qo‘shish
+            </button>
+
+          </div>
+
+          <div class="product-card">
+            <div class="product-image">
+              <a href="product-detail.html?slug=stand-mixer-pro">
+                <img src="https://images.unsplash.com/photo-1594385208974-2e75f9d8ad48?w=500" alt="Stand Mixer">
+              </a>
+            </div>
+            <div class="product-info">
+              <h4 class="product-name">Stand Mixer Pro</h4>
+              <div class="rating">⭐⭐⭐⭐⭐</div>
+              <p class="price">$299.00</p>
+            </div>
+            <button class="add-to-cart" data-id="19" data-slug="stand-mixer-pro">
+              Savatchaga qo‘shish
+            </button>
+
+          </div>
+
+          <div class="product-card">
+            <div class="product-image">
+              <a href="product-detail.html?slug=espresso-machine">
+                <img src="https://images.unsplash.com/photo-1510520434124-5bc7e642b61d?w=500" alt="Espresso Machine">
+              </a>
+            </div>
+            <div class="product-info">
+              <h4 class="product-name">Espresso Machine</h4>
+              <div class="rating">⭐⭐⭐⭐⭐</div>
+              <p class="price">$599.00</p>
+            </div>
+            <button class="add-to-cart" data-id="20" data-slug="espresso-machine">
+              Savatchaga qo‘shish
+            </button>
+
+          </div>
+        </div>
+      </section>
+      <section class="services-info">
+        <div class="services-container">
+          <div class="service-item">
+            <div class="service-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ff4f00" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <h3>KAFOLAT VA HIMOYA</h3>
+            <p class="subtitle">Kengaytirilgan kafolat mavjud</p>
+            <p class="description">
+              Barcha mahsulotlar ishlab chiqaruvchi kafolati bilan keladi. Uzaytirilgan qo'shimcha tinchlik uchun
+              kafolat va himoya rejalari mavjud.
+            </p>
+          </div>
+
+          <div class="service-item">
+            <div class="service-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ff4f00" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                <line x1="1" y1="10" x2="23" y2="10"></line>
+              </svg>
+            </div>
+            <h3>TA'MINOTLI TO'LOV</h3>
+            <p class="subtitle">Multiple Payment Options</p>
+            <p class="description">
+              Kredit karta, debet karta yoki raqamli hamyon bilan xavfsiz to'lang. Biznes hisoblari invoys to'lov
+              shartlarini talab qilishi mumkin.
+            </p>
+          </div>
+
+          <div class="service-item">
+            <div class="service-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ff4f00" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                </path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+              </svg>
+            </div>
+            <h3>BEPUL O'RNATISH</h3>
+            <p class="subtitle">Professional sozlash xizmati</p>
+            <p class="description">
+              Asosiy texnikalarga bepul o'rnatish xizmati. Bizning sertifikatlangan texnik xodimlar to'g'ri sozlash va
+              xavfsizlikni ta'minlashadi.
+            </p>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+  <section class="pricing-plans" id="membership">
+    <div class="pricing-header">
+      <h2>A’ZOLIK REJALARI</h2>
+      <p>Ehtiyojlaringiz uchun eng mos tarifni tanlang va eksklyuziv imtiyozlardan foydalaning</p>
+    </div>
+
+    <div class="plans-grid">
+      <div class="plan-card bronze">
+        <div class="plan-icon"><i class="medal-icon">🥉</i></div>
+        <h3>Bronze</h3>
+        <p class="price">Tekin</p>
+        <ul class="features">
+          <li>Asosiy sodiqlik ballari</li>
+          <li>Tanlangan chegirmalarga kirish</li>
+          <li>Xaridlarga 5% chegirma</li>
+          <li>Tug'ilgan kun maxsus taklifi</li>
+        </ul>
+        <button class="plan-btn">Bepul yozilish</button>
+      </div>
+
+      <div class="plan-card silver popular">
+        <span class="badge">Most Popular</span>
+        <div class="plan-icon"><i class="medal-icon">🥈</i></div>
+        <h3>Silver</h3>
+        <p class="price">$4.99/oyiga</p>
+        <ul class="features">
+          <li>Yana sodiqlik ballari (2x)</li>
+          <li>Mijozlarga ustuvor yordam xizmati</li>
+          <li>Oylik maxsus takliflar</li>
+          <li>Barcha xaridlarga 10% chegirma</li>
+          <li>Uzaytirilgan kafolat muddati</li>
+        </ul>
+        <button class="plan-btn">Azolikni tanlash</button>
+      </div>
+
+      <div class="plan-card gold">
+        <div class="plan-icon"><i class="medal-icon">🥇</i></div>
+        <h3>Gold</h3>
+        <p class="price">$9.99/oyiga</p>
+        <ul class="features">
+          <li>Eng yaxshi sodiqlik mukofotlari (3x)</li>
+          <li>Barcha buyurtmalar uchun bepul yetkazib berish</li>
+          <li>Yangi mahsulotlarga oldindan kirish</li>
+          <li>Barcha xaridlarga 15% chegirma</li>
+          <li>VIP mijozlarga yordam xizmati</li>
+          <li>Mahsulotni bepul o'rnatish</li>
+        </ul>
+        <button class="plan-btn">Azolikni tanlash</button>
+      </div>
+
+      <div class="plan-card business">
+        <div class="plan-icon"><i class="flash-icon">⚡</i></div>
+        <h3>Business</h3>
+        <p class="price">Biz bilan bog‘lanish</p>
+        <ul class="features">
+          <li>Ulgurji narxlash</li>
+          <li>Ulgurji buyurtmalar uchun chegirmalar</li>
+          <li>Maxsus hisob menejeri</li>
+          <li>Invoys to'lovi opsiyalari</li>
+          <li>Maxsus narxlar</li>
+          <li>Ustuvor yetkazib berish</li>
+        </ul>
+        <button class="plan-btn">Azolikni tanlash</button>
+      </div>
+    </div>
+  </section>
+  <section class="brands-section">
+    <h3>VAKOLATLI DILLERLAR</h3>
+    <div class="brands-grid">
+      <span>BOSCH</span>
+      <span class="highlight">LG</span>
+      <span>SAMSUNG</span>
+      <span class="highlight">PHILIPS</span>
+      <span>DYSON</span>
+      <span>PANASONIC</span>
+    </div>
+  </section>
+
+
+
+
+  <footer class="main-footer" id="footer">
+    <div class="footer-container">
+      <div class="footer-col brand-info">
+        <div class="footer-logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a>
+        </div>
+        <p>Sifatli maishiy texnika uchun ishonchli hamkoringiz. Biz eng yaxshi oshxona, tozalash va smart uyni
+          ta'minlash mijozlarga alohida xizmat ko'rsatadigan yechimlar va kafolatli yordam.</p>
+        <a href="#" class="more-link">batafsil...</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Bog‘lanish</h4>
+        <p>Andijon viloyati ulug‘nor tumani Bo‘ston MFY</p>
+        <p><strong>E-MAIL:</strong> Isroilov@techhouse.com</p>
+        <p><strong>Ish soatlari:</strong><br>
+          Dush - Ju / 9:00AM - 8:00PM<br>
+          Yak / 10:00AM - 6:00PM</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>MIJOZLARGA XIZMAT</h4>
+        <ul>
+          <li><a href="#">Yordam & FAQs</a></li>
+          <li><a href="#">Buyurtmalarni kuzatish</a></li>
+          <li><a href="#">Yetkazib berish</a></li>
+          <li><a href="#">Do‘kondan olib ketish</a></li>
+          <li><a href="#">Kafolat axboroti</a></li>
+          <li><a href="#">Qaytarish va ayirboshlash</a></li>
+          <li><a href="#">Obuna imtiyozlari</a></li>
+          <li><a href="#">Yordam xizmati bilan bog'lanish</a></li>
+          <li><a href="#">Ulgurji so'rovlar</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>OMMABOP TURKUMLAR</h4>
+        <div class="tags-container">
+          <span class="tag">Mixers</span>
+          <span class="tag">Ovens</span>
+          <span class="tag">Blenders</span>
+          <span class="tag">Microwaves</span>
+          <span class="tag">Vacuums</span>
+          <span class="tag">Air Conditioners</span>
+          <span class="tag">Fans</span>
+          <span class="tag">Hair Dryers</span>
+          <span class="tag">Smart Home</span>
+          <span class="tag">Choynaklar</span>
+          <span class="tag">Coffee Makers</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© Tech House. 2025. All Rights Reserved</p>
+      <div class="social-links">
+        <a href="#">Facebook</a>
+        <a href="#">Twitter</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="developer-credit">
+      Bu qilingan dizayn BTEC Level 3 uchun - Unit 6 Website Development
+    </div>
+    <script src="js/data-store.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+  </footer>
+</body>
+
+</html>
