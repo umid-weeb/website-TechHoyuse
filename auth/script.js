@@ -1,154 +1,171 @@
-document.addEventListener("DOMContentLoaded", () => {
+/**
+ * AUTH SCRIPT - Login/Register Page
+ */
+(function() {
+  "use strict";
+
   const signupForm = document.getElementById("signupForm");
   const signinForm = document.getElementById("signinForm");
   const switchForm = document.getElementById("switchForm");
   const formTitle = document.getElementById("formTitle");
   const switchInfo = document.getElementById("switchInfo");
 
-  /* =========================
-     UTILITY FUNCTIONS
-  ========================= */
-  const get = (key) => JSON.parse(localStorage.getItem(key));
-  const set = (key, val) => localStorage.setItem(key, JSON.stringify(val));
+  // Storage helpers (use same keys as Store.js)
+  const KEYS = {
+    USER: "techhouse_user",
+    USERS: "techhouse_users"
+  };
 
-  /* =========================
-     SWITCH LOGIN / REGISTER
-  ========================= */
+  function getUsers() {
+    try {
+      return JSON.parse(localStorage.getItem(KEYS.USERS)) || [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function setUsers(users) {
+    localStorage.setItem(KEYS.USERS, JSON.stringify(users));
+  }
+
+  function setUser(user) {
+    if (user) {
+      const safeUser = { ...user };
+      delete safeUser.password;
+      localStorage.setItem(KEYS.USER, JSON.stringify(safeUser));
+    } else {
+      localStorage.removeItem(KEYS.USER);
+    }
+  }
+
+  function showMessage(type, message) {
+    const colors = {
+      success: "#22c55e",
+      error: "#ef4444",
+      info: "#3b82f6"
+    };
+    
+    let toastEl = document.getElementById("auth-toast");
+    if (!toastEl) {
+      toastEl = document.createElement("div");
+      toastEl.id = "auth-toast";
+      toastEl.style.cssText = "position:fixed;top:20px;right:20px;z-index:9999;";
+      document.body.appendChild(toastEl);
+    }
+    
+    toastEl.innerHTML = `
+      <div style="background:${colors[type] || colors.info};color:#fff;padding:14px 20px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.2);min-width:250px;">
+        ${message}
+      </div>
+    `;
+    
+    setTimeout(() => { toastEl.innerHTML = ""; }, 3000);
+  }
+
+  // Switch between login and register
   switchForm?.addEventListener("click", (e) => {
     e.preventDefault();
-    const isSignupActive = signupForm.classList.contains("active");
+    const isSignupActive = signupForm?.classList.contains("active");
 
     if (isSignupActive) {
-      signupForm.classList.remove("active");
-      signinForm.classList.add("active");
+      signupForm?.classList.remove("active");
+      signinForm?.classList.add("active");
       if (formTitle) formTitle.textContent = "Tizimga kirish";
       if (switchInfo) switchInfo.textContent = "Hisobingiz yo'qmi?";
-      switchForm.textContent = "Ro'yxatdan o'tish";
+      if (switchForm) switchForm.textContent = "Ro'yxatdan o'tish";
     } else {
-      signinForm.classList.remove("active");
-      signupForm.classList.add("active");
+      signinForm?.classList.remove("active");
+      signupForm?.classList.add("active");
       if (formTitle) formTitle.textContent = "Yangi hisob yaratish";
       if (switchInfo) switchInfo.textContent = "Hisobingiz allaqachon bormi?";
-      switchForm.textContent = "Tizimga kirish";
+      if (switchForm) switchForm.textContent = "Tizimga kirish";
     }
-    // Parol tiklash oynasi ochiq bo'lsa, uni yopamiz
-    document.getElementById("resetPasswordSection").style.display = "none";
   });
 
-  /* =========================
-     REGISTER (SIGN UP)
-  ========================= */
+  // Register
   signupForm?.addEventListener("submit", (e) => {
     e.preventDefault();
-    const name = document.getElementById("signupFullname").value.trim();
-    const email = document.getElementById("signupEmail").value.trim();
-    const password = document.getElementById("signupPassword").value;
-    const confirm = document.getElementById("signupConfirm").value;
+    
+    const name = document.getElementById("signupFullname")?.value.trim();
+    const email = document.getElementById("signupEmail")?.value.trim();
+    const password = document.getElementById("signupPassword")?.value;
+    const confirm = document.getElementById("signupConfirm")?.value;
 
-    if (!name || !email || !password || password !== confirm) {
-      alert("Iltimos, barcha maydonlarni to'g'ri to'ldiring.");
+    if (!name || !email || !password) {
+      showMessage("error", "Barcha maydonlarni to'ldiring");
       return;
     }
 
-    const users = get("users") || [];
-    if (users.find((u) => u.email === email)) {
-      alert("Bu email allaqachon ro'yxatdan o'tgan.");
+    if (password !== confirm) {
+      showMessage("error", "Parollar mos kelmadi");
       return;
     }
 
-    const newUser = { id: Date.now(), name, email, password };
+    if (password.length < 6) {
+      showMessage("error", "Parol kamida 6 belgidan iborat bo'lsin");
+      return;
+    }
+
+    const users = getUsers();
+    
+    if (users.find(u => u.email.toLowerCase() === email.toLowerCase())) {
+      showMessage("error", "Bu email allaqachon ro'yxatdan o'tgan");
+      return;
+    }
+
+    const newUser = {
+      id: Date.now(),
+      name: name,
+      email: email.toLowerCase(),
+      password: password,
+      phone: "",
+      address: "",
+      createdAt: new Date().toISOString()
+    };
+
     users.push(newUser);
-    set("users", users);
-    set("currentUser", newUser); // Avtomatik login
+    setUsers(users);
+    setUser(newUser);
 
-    alert("Ro'yxatdan muvaffaqiyatli o'tdingiz!");
-    location.href = "../profile.html";
+    showMessage("success", "Ro'yxatdan muvaffaqiyatli o'tdingiz!");
+    
+    setTimeout(() => {
+      location.href = "../profile.html";
+    }, 1500);
   });
 
-  /* =========================
-     LOGIN (SIGN IN)
-  ========================= */
+  // Login
   signinForm?.addEventListener("submit", (e) => {
     e.preventDefault();
-    const email = document.getElementById("signinEmail").value.trim();
-    const password = document.getElementById("signinPassword").value;
+    
+    const email = document.getElementById("signinEmail")?.value.trim();
+    const password = document.getElementById("signinPassword")?.value;
 
-    const users = get("users") || [];
-    const user = users.find((u) => u.email === email && u.password === password);
+    if (!email || !password) {
+      showMessage("error", "Email va parol kiriting");
+      return;
+    }
+
+    const users = getUsers();
+    const user = users.find(u => 
+      u.email.toLowerCase() === email.toLowerCase() && 
+      u.password === password
+    );
 
     if (!user) {
-      alert("Email yoki parol xato");
+      showMessage("error", "Email yoki parol xato");
       return;
     }
 
-    set("currentUser", user);
-    alert("Tizimga muvaffaqiyatli kirdingiz!");
-    location.href = "../profile.html";
+    setUser(user);
+    showMessage("success", "Tizimga muvaffaqiyatli kirdingiz!");
+    
+    setTimeout(() => {
+      location.href = "../profile.html";
+    }, 1500);
   });
 
-  /* =========================
-     FORGOT PASSWORD LOGIC
-  ========================= */
-  const forgotBtn = document.getElementById("forgotPasswordBtn");
-  const resetSection = document.getElementById("resetPasswordSection");
-  const step1 = document.getElementById("step1");
-  const step2 = document.getElementById("step2");
-  const resetTitle = document.getElementById("resetTitle");
-  
-  let foundUserIndex = -1;
-
-  forgotBtn?.addEventListener("click", (e) => {
-    e.preventDefault();
-    // Login formani yashirib, tiklash oynasini ko'rsatamiz
-    signinForm.classList.remove("active");
-    resetSection.style.display = "block";
-    step1.style.display = "block";
-    step2.style.display = "none";
-    resetTitle.textContent = "Hisobni tiklash";
-  });
-
-  document.getElementById("checkUserBtn")?.addEventListener("click", () => {
-    const name = document.getElementById("resetName").value.trim();
-    const email = document.getElementById("resetEmail").value.trim();
-    const users = get("users") || [];
-
-    const idx = users.findIndex(u => u.name === name && u.email === email);
-
-    if (idx !== -1) {
-      foundUserIndex = idx;
-      step1.style.display = "none";
-      step2.style.display = "block";
-      resetTitle.textContent = "Yangi parol kiriting";
-    } else {
-      alert("Ism yoki email mos kelmadi! ❌");
-    }
-  });
-
-  document.getElementById("saveNewPassBtn")?.addEventListener("click", () => {
-    const newPass = document.getElementById("newResetPassword").value;
-    const users = get("users") || [];
-
-    if (newPass.length < 6) {
-      alert("Parol kamida 6 belgidan iborat bo'lsin!");
-      return;
-    }
-
-    if (foundUserIndex !== -1) {
-      users[foundUserIndex].password = newPass;
-      set("users", users);
-      alert("Parol yangilandi! Endi tizimga kirishingiz mumkin. ✅");
-      location.reload(); 
-    }
-  });
-
-  document.getElementById("cancelReset")?.addEventListener("click", () => {
-    resetSection.style.display = "none";
-    signinForm.classList.add("active");
-  });
-
-  /* =========================
-     TOGGLE PASSWORD VISIBILITY
-  ========================= */
+  // Toggle password visibility
   document.querySelectorAll(".input-group.password .toggle").forEach(toggle => {
     toggle.addEventListener("click", () => {
       const input = toggle.closest(".input-group").querySelector("input");
@@ -161,43 +178,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-});
-// forgotBtn bosilganda:
-forgotBtn?.addEventListener("click", (e) => {
-  e.preventDefault();
-  
-  // Login formani butunlay yashirish
-  signinForm.style.display = "none";
-  signupForm.style.display = "none"; // Agar ochiq bo'lsa
-  
-  // Tiklash bo'limini ko'rsatish
-  resetSection.style.display = "block";
-  step1.style.display = "block";
-  step2.style.display = "none";
-  resetTitle.textContent = "Ism va Emailni kiriting";
-});
 
-// "Orqaga qaytish" bosilganda:
-document.getElementById("cancelReset")?.addEventListener("click", (e) => {
-  e.preventDefault();
-  resetSection.style.display = "none";
-  signinForm.style.display = "block"; // Login formani qaytarish
-});
-
-// Foydalanuvchini tekshirish tugmasi:
-document.getElementById("checkUserBtn")?.addEventListener("click", () => {
-  const name = document.getElementById("resetName").value.trim();
-  const email = document.getElementById("resetEmail").value.trim();
-  const users = JSON.parse(localStorage.getItem("users")) || [];
-
-  const idx = users.findIndex(u => u.name === name && u.email === email);
-
-  if (idx !== -1) {
-      foundUserIndex = idx;
-      step1.style.display = "none"; // Birinchi bosqichni yashirish
-      step2.style.display = "block"; // Parol kiritishni ko'rsatish
-      resetTitle.textContent = "Yangi parol kiriting";
-  } else {
-      alert("Bunday foydalanuvchi topilmadi! ❌");
+  // Check if already logged in
+  const currentUser = localStorage.getItem(KEYS.USER);
+  if (currentUser) {
+    const goToProfile = confirm("Siz allaqachon tizimga kirgansiz. Profilga o'tishni xohlaysizmi?");
+    if (goToProfile) {
+      location.href = "../profile.html";
+    }
   }
-});
+
+})();

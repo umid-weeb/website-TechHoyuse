@@ -1,303 +1,830 @@
-// DataStore: products persistence + lookup
-(function () {
-  "use strict";
+/**
+ * DATA.JS - Single Source of Truth
+ * Barcha mahsulotlar faqat shu yerda saqlanadi (50 ta)
+ */
 
-  const DataStore = (function () {
-    let products = [];
-
-    function _seed() {
-      if (products.length) return;
-      // minimal sample products; extend as needed
-      products = Array.from({ length: 12 }, (_, i) => {
-        const id = i + 1;
-        return {
-          id,
-          slug: `product-${id}`,
-          name: `Mahsulot ${id}`,
-          price: 1000 + id * 50,
-          oldPrice: id % 3 === 0 ? 1000 + id * 70 : null,
-          rating: 4 + (id % 5) * 0.2,
-          images: [`assets/images/product-${id}.jpg`],
-          discount: id % 4 === 0,
-          description: `Tavsif ${id}`,
-        };
-      });
-    }
-
-    function getAll() {
-      return products.slice();
-    }
-
-    function getById(id) {
-      const n = Number(id);
-      if (Number.isNaN(n)) return null;
-      return products.find((p) => p.id === n) || null;
-    }
-
-    function getBySlug(slug) {
-      return products.find((p) => p.slug === slug) || null;
-    }
-
-    return {
-      _seed,
-      getAll,
-      getById,
-      getBySlug,
-    };
-  })();
-
-  // expose globally if needed
-  window.DataStore = window.DataStore || DataStore;
-})();
-
-(function () {
-  // Single source of truth for products used across the site.
-  const PRODUCTS = [
-    // Minimal product objects for IDs referenced in HTML (1..20).
-    {
-      id: 1,
-      slug: "premium-stand-mixer",
-      name: "Premium Stand Mixer - 1000W",
-      price: 299.0,
-      image: "assets/images/product1.jpg",
-      description: "Powerful stand mixer.",
-    },
-    {
-      id: 2,
-      slug: "smart-robot-cleaner",
-      name: "Smart Robot Cleaner",
-      price: 449.0,
-      image: "assets/images/product4.png",
-      description: "Smart cleaning robot.",
-    },
-    {
-      id: 3,
-      slug: "smart-home-hub",
-      name: "Smart Home Hub",
-      price: 199.0,
-      image: "assets/images/smart.jpg",
-      description: "Connect your smart devices.",
-    },
-    {
-      id: 4,
-      slug: "premium-stand-mixer",
-      name: "Premium Stand Mixer - 1000W",
-      price: 299.0,
-      image: "assets/images/product1.jpg",
-      description: "Powerful stand mixer.",
-    },
-    {
-      id: 5,
-      slug: "smart-microwave-25l",
-      name: "Smart Microwave Oven 25L",
-      price: 189.0,
-      image: "assets/images/product2.png",
-      description: "Smart microwave.",
-    },
-    {
-      id: 6,
-      slug: "high-speed-blender",
-      name: "High-Speed Blender 2000W",
-      price: 159.0,
-      image: "assets/images/product3.jpg",
-      description: "High speed blender.",
-    },
-    {
-      id: 7,
-      slug: "robot-vacuum-cleaner",
-      name: "Robot Vacuum Cleaner",
-      price: 449.0,
-      image: "assets/images/product4.png",
-      description: "Efficient robot vacuum.",
-    },
-    {
-      id: 13,
-      slug: "smart-air-conditioner",
-      name: "Smart Air Conditioner",
-      price: 699.0,
-      image:
-        "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=500",
-      description: "Smart AC.",
-    },
-    {
-      id: 14,
-      slug: "professional-hair-dryer",
-      name: "Professional Hair Dryer",
-      price: 89.0,
-      image:
-        "https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=500",
-      description: "Salon grade hair dryer.",
-    },
-    {
-      id: 15,
-      slug: "cordless-vacuum",
-      name: "Cordless Vacuum",
-      price: 349.0,
-      image: "https://images.unsplash.com/photo-1558317374-067fb5f30001?w=500",
-      description: "Cordless vacuum.",
-    },
-    {
-      id: 16,
-      slug: "steam-iron",
-      name: "Steam Iron",
-      price: 45.0,
-      image: "https://images.unsplash.com/photo-1560343060-c140a58e9944?w=500",
-      description: "Powerful steam iron.",
-    },
-    {
-      id: 17,
-      slug: "smart-home-hub",
-      name: "Smart Home Hub",
-      price: 199.0,
-      image: "https://images.unsplash.com/photo-1558002038-1055907df827?w=500",
-      description: "Smart home central hub.",
-    },
-    {
-      id: 18,
-      slug: "tower-fan-with-remote",
-      name: "Tower Fan with Remote",
-      price: 129.0,
-      image: "https://images.unsplash.com/photo-1544161513-0179fe746fd5?w=500",
-      description: "Tower fan.",
-    },
-    {
-      id: 19,
-      slug: "stand-mixer-pro",
-      name: "Stand Mixer Pro",
-      price: 299.0,
-      image:
-        "https://images.unsplash.com/photo-1594385208974-2e75f9d8ad48?w=500",
-      description: "Pro stand mixer.",
-    },
-    {
-      id: 20,
-      slug: "espresso-machine",
-      name: "Espresso Machine",
-      price: 599.0,
-      image:
-        "https://images.unsplash.com/photo-1510520434124-5bc7e642b61d?w=500",
-      description: "Espresso machine.",
-    },
-    // Ensure IDs 8-12 exist if needed (add placeholders)
-    {
-      id: 8,
-      slug: "product-8",
-      name: "Product 8",
-      price: 49.0,
-      image: "",
-      description: "",
-    },
-    {
-      id: 9,
-      slug: "product-9",
-      name: "Product 9",
-      price: 59.0,
-      image: "",
-      description: "",
-    },
-    {
-      id: 10,
-      slug: "product-10",
-      name: "Product 10",
-      price: 69.0,
-      image: "",
-      description: "",
-    },
-    {
-      id: 11,
-      slug: "product-11",
-      name: "Product 11",
-      price: 79.0,
-      image: "",
-      description: "",
-    },
-    {
-      id: 12,
-      slug: "product-12",
-      name: "Product 12",
-      price: 89.0,
-      image: "",
-      description: "",
-    },
-  ];
-
-  // Expose DataStore globally
-  window.DataStore = {
-    getAll: function () {
-      return PRODUCTS.slice();
-    },
-    getById: function (id) {
-      if (typeof id === "string") id = parseInt(id, 10);
-      return PRODUCTS.find((p) => p.id === id) || null;
-    },
-    getBySlug: function (slug) {
-      if (!slug) return null;
-      return PRODUCTS.find((p) => p.slug === slug) || null;
-    },
-  };
-})();
-
-(function () {
-  if (
-    window.DataStore &&
-    window.DataStore.getAll &&
-    window.DataStore.getById &&
-    window.DataStore.getBySlug
-  )
-    return;
-
-  // Minimal DataStore that won't overwrite existing data if present
-  const STORE = {
-    _items: [],
-    _seed() {
-      if (this._items && this._items.length) return;
-      // minimal seed -- replace with your project's real data.js content if available
-      this._items = [
-        {
-          id: 1,
-          slug: "example-product-1",
-          name: "Example Product 1",
-          price: 49.99,
-          oldPrice: 59.99,
-          rating: 4.8,
-          images: ["assets/img/example1.jpg"],
-          discount: true,
-        },
-        {
-          id: 2,
-          slug: "example-product-2",
-          name: "Example Product 2",
-          price: 29.99,
-          oldPrice: 0,
-          rating: 4.2,
-          images: ["assets/img/example2.jpg"],
-        },
-      ];
-    },
-    getAll() {
-      if (!this._items || !this._items.length) this._seed();
-      return this._items.slice();
-    },
-    getById(id) {
-      if (!this._items || !this._items.length) this._seed();
-      return this._items.find((p) => Number(p.id) === Number(id)) || null;
-    },
-    getBySlug(slug) {
-      if (!this._items || !this._items.length) this._seed();
-      return this._items.find((p) => String(p.slug) === String(slug)) || null;
-    },
-  };
-
-  // If a global DataStore exists partially, augment instead of overwrite
-  if (!window.DataStore) {
-    window.DataStore = STORE;
-  } else {
-    window.DataStore.getAll =
-      window.DataStore.getAll || STORE.getAll.bind(STORE);
-    window.DataStore.getById =
-      window.DataStore.getById || STORE.getById.bind(STORE);
-    window.DataStore.getBySlug =
-      window.DataStore.getBySlug || STORE.getBySlug.bind(STORE);
-    window.DataStore._seed = window.DataStore._seed || STORE._seed.bind(STORE);
+window.products = [
+  {
+    id: 1,
+    slug: "simsiz-changyutgich-pro-v2",
+    name: "Simsiz changyutgich Pro V2",
+    price: 349.00,
+    oldPrice: 449.00,
+    images: ["assets/images/product1.jpg"],
+    category: "tozalash",
+    brand: "Dyson",
+    rating: 4.8,
+    reviewsCount: 128,
+    description: "Kuchli simsiz changyutgich. 60 daqiqa ishlash vaqti, HEPA filtri, turli xil nasadkalar bilan.",
+    inStock: true,
+    stock: 50,
+    badges: ["sale", "popular"]
+  },
+  {
+    id: 2,
+    slug: "aqlli-kir-yuvish-mashinasi",
+    name: "Aqlli kir yuvish mashinasi",
+    price: 599.00,
+    oldPrice: 749.00,
+    images: ["assets/images/smart.jpg"],
+    category: "yirik-texnika",
+    brand: "Samsung",
+    rating: 4.5,
+    reviewsCount: 85,
+    description: "Wi-Fi orqali boshqariladigan aqlli kir yuvish mashinasi. 8kg sig'im, A+++ energiya sinfi.",
+    inStock: true,
+    stock: 30,
+    badges: ["sale"]
+  },
+  {
+    id: 3,
+    slug: "mikrotolqinli-pech",
+    name: "Mikroto'lqinli pech",
+    price: 189.00,
+    oldPrice: 239.00,
+    images: ["assets/images/smart.jpg"],
+    category: "oshxona",
+    brand: "LG",
+    rating: 4.3,
+    reviewsCount: 42,
+    description: "25 litrli mikroto'lqinli pech. Grill funksiyasi, 10 ta avtomatik dastur.",
+    inStock: true,
+    stock: 40,
+    badges: []
+  },
+  {
+    id: 4,
+    slug: "aqlli-konditsioner",
+    name: "Aqlli konditsioner",
+    price: 499.00,
+    oldPrice: 649.00,
+    images: ["assets/images/smart.jpg"],
+    category: "iqlim",
+    brand: "Samsung",
+    rating: 4.9,
+    reviewsCount: 64,
+    description: "Inverter texnologiyali aqlli konditsioner. Wi-Fi boshqaruv, 24000 BTU.",
+    inStock: true,
+    stock: 25,
+    badges: ["popular", "new"]
+  },
+  {
+    id: 5,
+    slug: "muzlatgich-no-frost-450l",
+    name: "Muzlatgich No-Frost 450L",
+    price: 729.00,
+    oldPrice: 899.00,
+    images: ["assets/images/smart.jpg"],
+    category: "yirik-texnika",
+    brand: "LG",
+    rating: 4.7,
+    reviewsCount: 92,
+    description: "No-Frost texnologiyali katta hajmli muzlatgich. A++ energiya sinfi, dispenser.",
+    inStock: true,
+    stock: 18,
+    badges: ["sale"]
+  },
+  {
+    id: 6,
+    slug: "smart-televizor-55-4k",
+    name: "Smart televizor 55\" 4K",
+    price: 649.00,
+    oldPrice: 799.00,
+    images: ["assets/images/smart.jpg"],
+    category: "tv-audio",
+    brand: "Samsung",
+    rating: 4.6,
+    reviewsCount: 156,
+    description: "55 dyuymli 4K UHD Smart televizor. HDR, Dolby Vision, Smart TV platformasi.",
+    inStock: true,
+    stock: 22,
+    badges: ["popular"]
+  },
+  {
+    id: 7,
+    slug: "elektr-choynak-1-7l",
+    name: "Elektr choynak 1.7L",
+    price: 39.00,
+    oldPrice: 55.00,
+    images: ["assets/images/smart.jpg"],
+    category: "oshxona",
+    brand: "Philips",
+    rating: 4.4,
+    reviewsCount: 203,
+    description: "Tez qaynaydigan elektr choynak. Avtomatik o'chish, LED indikator, 2200W.",
+    inStock: true,
+    stock: 120,
+    badges: ["bestseller"]
+  },
+  {
+    id: 8,
+    slug: "kofe-apparat-espresso-mini",
+    name: "Kofe apparat Espresso Mini",
+    price: 129.00,
+    oldPrice: 169.00,
+    images: ["assets/images/smart.jpg"],
+    category: "oshxona",
+    brand: "Philips",
+    rating: 4.5,
+    reviewsCount: 78,
+    description: "Kompakt espresso mashinasi. 15 bar bosim, kapuchino ko'piklagich.",
+    inStock: true,
+    stock: 35,
+    badges: ["new"]
+  },
+  {
+    id: 9,
+    slug: "havo-tozalagich-hepa-plus",
+    name: "Havo tozalagich HEPA Plus",
+    price: 159.00,
+    oldPrice: 199.00,
+    images: ["assets/images/smart.jpg"],
+    category: "iqlim",
+    brand: "Philips",
+    rating: 4.4,
+    reviewsCount: 56,
+    description: "HEPA filtri bilan havo tozalagich. 40m² gacha xonalar uchun, 3 bosqichli filtrlash.",
+    inStock: true,
+    stock: 28,
+    badges: []
+  },
+  {
+    id: 10,
+    slug: "robot-changyutgich-s10",
+    name: "Robot changyutgich S10",
+    price: 299.00,
+    oldPrice: 399.00,
+    images: ["assets/images/smart.jpg"],
+    category: "tozalash",
+    brand: "Xiaomi",
+    rating: 4.7,
+    reviewsCount: 134,
+    description: "Aqlli robot changyutgich. Laser navigatsiya, avtomatik zaryadlash, ilova orqali boshqarish.",
+    inStock: true,
+    stock: 16,
+    badges: ["sale", "new"]
+  },
+  {
+    id: 11,
+    slug: "gaz-plita-4-konforka",
+    name: "Gaz plita 4 konforka",
+    price: 219.00,
+    oldPrice: 279.00,
+    images: ["assets/images/smart.jpg"],
+    category: "oshxona",
+    brand: "Bosch",
+    rating: 4.3,
+    reviewsCount: 67,
+    description: "4 konforka bilan gaz plita. Elektr yoqish, shisha qopqoq, xrom panjaralar.",
+    inStock: true,
+    stock: 40,
+    badges: []
+  },
+  {
+    id: 12,
+    slug: "elektr-pech-60l",
+    name: "Elektr pech 60L",
+    price: 149.00,
+    oldPrice: 189.00,
+    images: ["assets/images/smart.jpg"],
+    category: "oshxona",
+    brand: "Bosch",
+    rating: 4.4,
+    reviewsCount: 89,
+    description: "Katta hajmli elektr pech. Konveksiya, grill, 60 litr sig'im.",
+    inStock: true,
+    stock: 32,
+    badges: ["sale"]
+  },
+  {
+    id: 13,
+    slug: "blender-multi-800w",
+    name: "Blender Multi 800W",
+    price: 49.00,
+    oldPrice: 69.00,
+    images: ["assets/images/smart.jpg"],
+    category: "oshxona",
+    brand: "Philips",
+    rating: 4.2,
+    reviewsCount: 112,
+    description: "Ko'p funksiyali blender. 800W quvvat, 1.5L idish, turbo rejim.",
+    inStock: true,
+    stock: 75,
+    badges: []
+  },
+  {
+    id: 14,
+    slug: "mikser-pro-5-tezlik",
+    name: "Mikser Pro 5 tezlik",
+    price: 34.00,
+    oldPrice: 45.00,
+    images: ["assets/images/smart.jpg"],
+    category: "oshxona",
+    brand: "Bosch",
+    rating: 4.1,
+    reviewsCount: 98,
+    description: "Professional mikser. 5 ta tezlik rejimi, turbo funksiya, 300W.",
+    inStock: true,
+    stock: 90,
+    badges: []
+  },
+  {
+    id: 15,
+    slug: "sharbat-siqqich-juicer-x",
+    name: "Sharbat siqqich Juicer X",
+    price: 69.00,
+    oldPrice: 89.00,
+    images: ["assets/images/smart.jpg"],
+    category: "oshxona",
+    brand: "Philips",
+    rating: 4.5,
+    reviewsCount: 76,
+    description: "Tez siqqich. Keng kirish og'zi, past tezlikda siqish, oson tozalash.",
+    inStock: true,
+    stock: 55,
+    badges: ["popular"]
+  },
+  {
+    id: 16,
+    slug: "toster-2-tilim",
+    name: "Toster 2 tilim",
+    price: 29.00,
+    oldPrice: 39.00,
+    images: ["assets/images/smart.jpg"],
+    category: "oshxona",
+    brand: "Philips",
+    rating: 4.0,
+    reviewsCount: 145,
+    description: "Kompakt toster. 2 tilim, 7 ta qovoq darajasi, muzlatilgan non funksiyasi.",
+    inStock: true,
+    stock: 100,
+    badges: []
+  },
+  {
+    id: 17,
+    slug: "dazmol-steam-2400w",
+    name: "Dazmol Steam 2400W",
+    price: 44.00,
+    oldPrice: 59.00,
+    images: ["assets/images/smart.jpg"],
+    category: "shaxsiy-parvarish",
+    brand: "Philips",
+    rating: 4.3,
+    reviewsCount: 87,
+    description: "Bug'li dazmol. 2400W, seramik taglik, vertikal bug'lash.",
+    inStock: true,
+    stock: 70,
+    badges: []
+  },
+  {
+    id: 18,
+    slug: "bug-generatori-press-5bar",
+    name: "Bug generatori Press 5bar",
+    price: 129.00,
+    oldPrice: 169.00,
+    images: ["assets/images/smart.jpg"],
+    category: "shaxsiy-parvarish",
+    brand: "Philips",
+    rating: 4.6,
+    reviewsCount: 45,
+    description: "Professional bug generatori. 5 bar bosim, 1.8L tank, tezkor isitish.",
+    inStock: true,
+    stock: 20,
+    badges: ["new"]
+  },
+  {
+    id: 19,
+    slug: "fen-ion-2000w",
+    name: "Fen ION 2000W",
+    price: 33.00,
+    oldPrice: 45.00,
+    images: ["assets/images/smart.jpg"],
+    category: "shaxsiy-parvarish",
+    brand: "Philips",
+    rating: 4.2,
+    reviewsCount: 167,
+    description: "Ion texnologiyali fen. 2000W, 3 harorat rejimi, konsentrator nasadka.",
+    inStock: true,
+    stock: 85,
+    badges: []
+  },
+  {
+    id: 20,
+    slug: "soch-tekislagich-ceramic",
+    name: "Soch tekislagich Ceramic",
+    price: 27.00,
+    oldPrice: 39.00,
+    images: ["assets/images/smart.jpg"],
+    category: "shaxsiy-parvarish",
+    brand: "Philips",
+    rating: 4.1,
+    reviewsCount: 134,
+    description: "Seramik plitali soch tekislagich. Tez isitish, harorat nazorati.",
+    inStock: true,
+    stock: 60,
+    badges: []
+  },
+  {
+    id: 21,
+    slug: "idish-yuvish-mashinasi-12-set",
+    name: "Idish yuvish mashinasi 12 set",
+    price: 459.00,
+    oldPrice: 549.00,
+    images: ["assets/images/smart.jpg"],
+    category: "yirik-texnika",
+    brand: "Bosch",
+    rating: 4.7,
+    reviewsCount: 56,
+    description: "12 to'plam idish yuvish mashinasi. 6 dastur, A++ energiya sinfi.",
+    inStock: true,
+    stock: 14,
+    badges: ["sale"]
+  },
+  {
+    id: 22,
+    slug: "kir-yuvish-mashinasi-8kg",
+    name: "Kir yuvish mashinasi 8kg",
+    price: 479.00,
+    oldPrice: 579.00,
+    images: ["assets/images/smart.jpg"],
+    category: "yirik-texnika",
+    brand: "LG",
+    rating: 4.5,
+    reviewsCount: 78,
+    description: "8kg sig'imli kir yuvish mashinasi. Inverter motor, 14 dastur.",
+    inStock: true,
+    stock: 19,
+    badges: []
+  },
+  {
+    id: 23,
+    slug: "quritish-mashinasi-7kg",
+    name: "Quritish mashinasi 7kg",
+    price: 529.00,
+    oldPrice: 649.00,
+    images: ["assets/images/smart.jpg"],
+    category: "yirik-texnika",
+    brand: "Samsung",
+    rating: 4.4,
+    reviewsCount: 34,
+    description: "7kg quritish mashinasi. Issiqlik nasosi, sensorli quritish.",
+    inStock: true,
+    stock: 12,
+    badges: ["sale"]
+  },
+  {
+    id: 24,
+    slug: "changyutgich-cyclone-2000w",
+    name: "Changyutgich Cyclone 2000W",
+    price: 119.00,
+    oldPrice: 149.00,
+    images: ["assets/images/smart.jpg"],
+    category: "tozalash",
+    brand: "Dyson",
+    rating: 4.3,
+    reviewsCount: 189,
+    description: "Siklon changyutgich. 2000W quvvat, HEPA filtri, xaltalarsiz.",
+    inStock: true,
+    stock: 45,
+    badges: []
+  },
+  {
+    id: 25,
+    slug: "konditsioner-inverter-12k",
+    name: "Konditsioner Inverter 12K",
+    price: 519.00,
+    oldPrice: 649.00,
+    images: ["assets/images/smart.jpg"],
+    category: "iqlim",
+    brand: "LG",
+    rating: 4.8,
+    reviewsCount: 67,
+    description: "12000 BTU inverter konditsioner. Wi-Fi, ionizator, A++ sinf.",
+    inStock: true,
+    stock: 10,
+    badges: ["popular", "sale"]
+  },
+  {
+    id: 26,
+    slug: "ventilyator-tower-smart",
+    name: "Ventilyator Tower Smart",
+    price: 89.00,
+    oldPrice: 119.00,
+    images: ["assets/images/smart.jpg"],
+    category: "iqlim",
+    brand: "Xiaomi",
+    rating: 4.2,
+    reviewsCount: 98,
+    description: "Tower ventilyator. Pult orqali boshqarish, 3 tezlik, taymer.",
+    inStock: true,
+    stock: 33,
+    badges: []
+  },
+  {
+    id: 27,
+    slug: "isitgich-ceramic-2000w",
+    name: "Isitgich Ceramic 2000W",
+    price: 59.00,
+    oldPrice: 79.00,
+    images: ["assets/images/smart.jpg"],
+    category: "iqlim",
+    brand: "Philips",
+    rating: 4.1,
+    reviewsCount: 112,
+    description: "Seramik isitgich. 2000W, termostat, aylanadigan.",
+    inStock: true,
+    stock: 48,
+    badges: []
+  },
+  {
+    id: 28,
+    slug: "namlagich-ultrasonic-4l",
+    name: "Namlagich Ultrasonic 4L",
+    price: 52.00,
+    oldPrice: 69.00,
+    images: ["assets/images/smart.jpg"],
+    category: "iqlim",
+    brand: "Xiaomi",
+    rating: 4.3,
+    reviewsCount: 87,
+    images: ["assets/images/smart.jpg"],
+    inStock: true,
+    stock: 41,
+    badges: []
+  },
+  {
+    id: 29,
+    slug: "gaz-kolonka-10l",
+    name: "Gaz kolonka 10L",
+    price: 149.00,
+    oldPrice: 189.00,
+    images: ["assets/images/smart.jpg"],
+    category: "yirik-texnika",
+    brand: "Bosch",
+    rating: 4.2,
+    reviewsCount: 56,
+    description: "10L gaz kolonka. Avtomatik yoqish, xavfsizlik tizimi.",
+    inStock: true,
+    stock: 26,
+    badges: []
+  },
+  {
+    id: 30,
+    slug: "suv-isitgich-boiler-80l",
+    name: "Suv isitgich (boiler) 80L",
+    price: 199.00,
+    oldPrice: 249.00,
+    images: ["assets/images/smart.jpg"],
+    category: "yirik-texnika",
+    brand: "Ariston",
+    rating: 4.4,
+    reviewsCount: 78,
+    description: "80 litrli elektr boiler. Ikki qatlamli tank, anode himoya.",
+    inStock: true,
+    stock: 21,
+    badges: []
+  },
+  {
+    id: 31,
+    slug: "kuxnya-kombayn-1200w",
+    name: "Kuxnya kombayn 1200W",
+    price: 139.00,
+    oldPrice: 179.00,
+    images: ["assets/images/product1.jpg"],
+    category: "oshxona",
+    brand: "Bosch",
+    rating: 4.5,
+    reviewsCount: 89,
+    description: "Ko'p funksiyali kuxnya kombayni. 1200W, 3L idish, to'g'ragich.",
+    inStock: true,
+    stock: 24,
+    badges: ["popular"]
+  },
+  {
+    id: 32,
+    slug: "goshtqiymalagich-1500w",
+    name: "Go'shtqiymalagich 1500W",
+    price: 79.00,
+    oldPrice: 99.00,
+    images: ["assets/images/smart.jpg"],
+    category: "oshxona",
+    brand: "Bosch",
+    rating: 4.2,
+    reviewsCount: 67,
+    description: "Kuchli go'shtqiymalagich. 1500W, turli nasadkalar, teskari aylanish.",
+    inStock: true,
+    stock: 37,
+    badges: []
+  },
+  {
+    id: 33,
+    slug: "multivarka-5l-12-dastur",
+    name: "Multivarka 5L (12 dastur)",
+    price: 99.00,
+    oldPrice: 129.00,
+    images: ["assets/images/smart.jpg"],
+    category: "oshxona",
+    brand: "Philips",
+    rating: 4.4,
+    reviewsCount: 134,
+    description: "12 dasturli multivarka. 5L idish, kechiktirilgan boshlanish.",
+    inStock: true,
+    stock: 29,
+    badges: []
+  },
+  {
+    id: 34,
+    slug: "airfryer-6l",
+    name: "Airfryer 6L",
+    price: 109.00,
+    oldPrice: 139.00,
+    images: ["assets/images/smart.jpg"],
+    category: "oshxona",
+    brand: "Philips",
+    rating: 4.6,
+    reviewsCount: 167,
+    description: "Katta hajmli airfryer. 6L, 8 dastur, tez pishirish texnologiyasi.",
+    inStock: true,
+    stock: 27,
+    badges: ["popular", "new"]
+  },
+  {
+    id: 35,
+    slug: "elektr-gril-2000w",
+    name: "Elektr gril 2000W",
+    price: 74.00,
+    oldPrice: 95.00,
+    images: ["assets/images/smart.jpg"],
+    category: "oshxona",
+    brand: "Tefal",
+    rating: 4.3,
+    reviewsCount: 78,
+    description: "Elektr gril. 2000W, yopiluvchi dizayn, yog' yig'uvchi latok.",
+    inStock: true,
+    stock: 34,
+    badges: []
+  },
+  {
+    id: 36,
+    slug: "vafli-pishirgich",
+    name: "Vafli pishirgich",
+    price: 36.00,
+    oldPrice: 49.00,
+    images: ["assets/images/smart.jpg"],
+    category: "oshxona",
+    brand: "Tefal",
+    rating: 4.1,
+    reviewsCount: 89,
+    description: "Belgiya vafli pishirgich. Yopishmaydigan qoplama, LED indikator.",
+    inStock: true,
+    stock: 58,
+    badges: []
+  },
+  {
+    id: 37,
+    slug: "sendvich-maker-3-in-1",
+    name: "Sendvich maker 3-in-1",
+    price: 41.00,
+    oldPrice: 55.00,
+    images: ["assets/images/smart.jpg"],
+    category: "oshxona",
+    brand: "Tefal",
+    rating: 4.2,
+    reviewsCount: 112,
+    description: "Ko'p funksiyali sendvich maker. Sendvich, vafli, grill plitalari.",
+    inStock: true,
+    stock: 62,
+    badges: []
+  },
+  {
+    id: 38,
+    slug: "pishirish-plita-induksiya",
+    name: "Pishirish plita (induksiya)",
+    price: 89.00,
+    oldPrice: 119.00,
+    images: ["assets/images/product38.jpg"],
+    category: "oshxona",
+    brand: "Bosch",
+    rating: 4.4,
+    reviewsCount: 67,
+    description: "Portativ induksiya plita. 2000W, 10 quvvat darajasi, taymer.",
+    inStock: true,
+    stock: 30,
+    badges: []
+  },
+  {
+    id: 39,
+    slug: "muzqaymoq-apparati-mini",
+    name: "Muzqaymoq apparati Mini",
+    price: 59.00,
+    oldPrice: 79.00,
+    images: ["assets/images/smart.jpg"],
+    category: "oshxona",
+    brand: "Ariete",
+    rating: 4.0,
+    reviewsCount: 45,
+    description: "Uy uchun muzqaymoq apparati. 1L sig'im, 30 daqiqada tayyor.",
+    inStock: true,
+    stock: 25,
+    badges: []
+  },
+  {
+    id: 40,
+    slug: "non-pishirgich-breadmaker",
+    name: "Non pishirgich (Breadmaker)",
+    price: 119.00,
+    oldPrice: 149.00,
+    images: ["assets/images/smart.jpg"],
+    category: "oshxona",
+    brand: "Philips",
+    rating: 4.5,
+    reviewsCount: 89,
+    description: "Avtomatik non pishirgich. 12 dastur, 1kg gacha non, taymer.",
+    inStock: true,
+    stock: 18,
+    badges: ["new"]
+  },
+  {
+    id: 41,
+    slug: "videoproektor-full-hd",
+    name: "Videoproektor Full HD",
+    price: 249.00,
+    oldPrice: 319.00,
+    images: ["assets/images/smart.jpg"],
+    category: "tv-audio",
+    brand: "BenQ",
+    rating: 4.3,
+    reviewsCount: 56,
+    description: "Full HD proyektor. 3000 lumen, HDMI, 300\" ekran.",
+    inStock: true,
+    stock: 13,
+    badges: []
+  },
+  {
+    id: 42,
+    slug: "soundbar-2-1",
+    name: "Soundbar 2.1",
+    price: 139.00,
+    oldPrice: 179.00,
+    images: ["assets/images/smart.jpg"],
+    category: "tv-audio",
+    brand: "Samsung",
+    rating: 4.4,
+    reviewsCount: 78,
+    description: "2.1 kanal soundbar. Simsiz sabvufer, Bluetooth, HDMI ARC.",
+    inStock: true,
+    stock: 20,
+    badges: []
+  },
+  {
+    id: 43,
+    slug: "konsol-oyin-pulti-pro",
+    name: "Konsol o'yin pulti Pro",
+    price: 49.00,
+    oldPrice: 65.00,
+    images: ["assets/images/smart.jpg"],
+    category: "tv-audio",
+    brand: "Microsoft",
+    rating: 4.2,
+    reviewsCount: 134,
+    description: "Professional o'yin pulti. Simsiz, vibratsiya, 40 soat batareya.",
+    inStock: true,
+    stock: 44,
+    badges: []
+  },
+  {
+    id: 44,
+    slug: "wifi-router-ax3000",
+    name: "Wi-Fi router AX3000",
+    price: 79.00,
+    oldPrice: 99.00,
+    images: ["assets/images/smart.jpg"],
+    category: "smart-uy",
+    brand: "TP-Link",
+    rating: 4.6,
+    reviewsCount: 189,
+    description: "Wi-Fi 6 router. 3000 Mbps, 4 antenna, MU-MIMO.",
+    inStock: true,
+    stock: 31,
+    badges: ["popular"]
+  },
+  {
+    id: 45,
+    slug: "smart-soat-pro",
+    name: "Smart soat Pro",
+    price: 89.00,
+    oldPrice: 119.00,
+    images: ["assets/images/smart.jpg"],
+    category: "smart-uy",
+    brand: "Xiaomi",
+    rating: 4.3,
+    reviewsCount: 234,
+    description: "Aqlli soat. GPS, yurak urishi, SpO2, 14 kun batareya.",
+    inStock: true,
+    stock: 52,
+    badges: ["popular"]
+  },
+  {
+    id: 46,
+    slug: "quloqchin-tws-noise-cancel",
+    name: "Quloqchin TWS (Noise Cancel)",
+    price: 69.00,
+    oldPrice: 89.00,
+    images: ["assets/images/smart.jpg"],
+    category: "tv-audio",
+    brand: "Sony",
+    rating: 4.5,
+    reviewsCount: 267,
+    description: "TWS quloqchinlar. Shovqinni bekor qilish, 30 soat batareya.",
+    inStock: true,
+    stock: 57,
+    badges: ["bestseller"]
+  },
+  {
+    id: 47,
+    slug: "powerbank-20000mah",
+    name: "Powerbank 20000mAh",
+    price: 39.00,
+    oldPrice: 55.00,
+    images: ["assets/images/smart.jpg"],
+    category: "smart-uy",
+    brand: "Xiaomi",
+    rating: 4.4,
+    reviewsCount: 312,
+    description: "Katta sig'imli powerbank. 20000mAh, tez zaryadlash, 3 port.",
+    inStock: true,
+    stock: 80,
+    badges: []
+  },
+  {
+    id: 48,
+    slug: "elektr-ustara-trimmer",
+    name: "Elektr ustara (trimmer)",
+    price: 35.00,
+    oldPrice: 49.00,
+    images: ["assets/images/smart.jpg"],
+    category: "shaxsiy-parvarish",
+    brand: "Philips",
+    rating: 4.2,
+    reviewsCount: 178,
+    description: "Ko'p funksiyali trimmer. Soqol, soch, burun, quloq uchun.",
+    inStock: true,
+    stock: 66,
+    badges: []
+  },
+  {
+    id: 49,
+    slug: "gigiyena-tarozi-smart",
+    name: "Gigiyena tarozi Smart",
+    price: 29.00,
+    oldPrice: 39.00,
+    images: ["assets/images/smart.jpg"],
+    category: "shaxsiy-parvarish",
+    brand: "Xiaomi",
+    rating: 4.1,
+    reviewsCount: 145,
+    description: "Aqlli tarozi. Vazn, yog', mushak, BMI o'lchash, ilova.",
+    inStock: true,
+    stock: 73,
+    badges: []
+  },
+  {
+    id: 50,
+    slug: "tozalash-mopi-bugli",
+    name: "Tozalash mopi (bug'li)",
+    price: 99.00,
+    oldPrice: 129.00,
+    images: ["assets/images/smart.jpg"],
+    category: "tozalash",
+    brand: "Karcher",
+    rating: 4.4,
+    reviewsCount: 89,
+    description: "Bug'li mop. 1500W, 15 soniyada isitish, dezinfeksiya.",
+    inStock: true,
+    stock: 23,
+    badges: []
   }
-})();
+];
+
+window.categories = [
+  { id: "all", name: "Barchasi" },
+  { id: "oshxona", name: "Oshxona texnikasi" },
+  { id: "tozalash", name: "Tozalash" },
+  { id: "iqlim", name: "Iqlim nazorati" },
+  { id: "yirik-texnika", name: "Yirik maishiy texnika" },
+  { id: "tv-audio", name: "TV va Audio" },
+  { id: "shaxsiy-parvarish", name: "Shaxsiy parvarish" },
+  { id: "smart-uy", name: "Smart uy" }
+];
+
+window.brands = [
+  { id: "all", name: "Barchasi" },
+  { id: "Samsung", name: "Samsung" },
+  { id: "LG", name: "LG" },
+  { id: "Philips", name: "Philips" },
+  { id: "Bosch", name: "Bosch" },
+  { id: "Dyson", name: "Dyson" },
+  { id: "Xiaomi", name: "Xiaomi" },
+  { id: "Sony", name: "Sony" },
+  { id: "Tefal", name: "Tefal" }
+];

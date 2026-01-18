@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Bog'lanish | Tech House</title>
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    .contact-page {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .contact-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .contact-header h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    .contact-header p {
+      color: #666;
+      font-size: 18px;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+    .contact-card {
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      padding: 25px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .contact-card .icon {
+      width: 50px;
+      height: 50px;
+      background: #fff7ed;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-card .icon i {
+      font-size: 24px;
+      color: #ff6a00;
+    }
+    .contact-card h3 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+    .contact-card p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .contact-form {
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      padding: 30px;
+    }
+    .contact-form h2 {
+      font-size: 22px;
+      margin-bottom: 25px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+    .field {
+      margin-bottom: 18px;
+    }
+    .field label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: #374151;
+    }
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: inherit;
+    }
+    .field input:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: #ff6a00;
+    }
+    .field textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #ff6a00, #ff3d00);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .map-section {
+      margin-top: 50px;
+    }
+    .map-section h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 24px;
+    }
+    .map-placeholder {
+      width: 100%;
+      height: 350px;
+      background: #f3f4f6;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9ca3af;
+      font-size: 18px;
+    }
+
+    @media (max-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="site-header">
+    <div class="top-bar">
+      <div class="container top-bar-inner">
+        <p>299$ dan yuqori buyurtmalar uchun bepul yetkazib berish | Kengaytirilgan kafolat mavjud</p>
+        <div class="top-right">
+          <span>EN</span>
+          <span>USD</span>
+        </div>
+      </div>
+    </div>
+
+    <header class="main-header">
+      <div class="container header-inner">
+        <div class="logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
+
+        <div class="search-box">
+          <select>
+            <option>Barcha kategoriyalar</option>
+          </select>
+          <input type="search" id="header-search" placeholder="Mahsulot qidirish...">
+          <button id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+
+        <div class="header-actions">
+          <div class="phone">
+            <small>Biz bilan bog'lanish:</small>
+            <strong>+998 90 791 36 33</strong>
+          </div>
+
+          <div class="icons">
+            <a href="auth/login.html" data-action="profile" id="nav-profile">
+              <i class="fa-solid fa-user"></i>
+            </a>
+            <a href="wishlist.html" style="color:#ef4444;">
+              <i class="fa-solid fa-heart"></i>
+            </a>
+            <a href="cart.html">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span id="cart-count" style="background:#ff6a00;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;margin-left:2px;">0</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="nav-bar">
+      <div class="container nav-inner">
+        <a href="index.html">Uy</a>
+        <a href="products.html">Mahsulotlar</a>
+        <a href="index.html#membership">A'zolik</a>
+        <a class="active" href="contact.html">Bog'lanish</a>
+        <a href="wishlist.html">Sevimlilar</a>
+      </div>
+    </nav>
+  </div>
+
+  <main class="contact-page">
+    <div class="contact-header">
+      <h1><i class="fa-solid fa-headset" style="color:#ff6a00;"></i> Biz bilan bog'laning</h1>
+      <p>Savollaringiz bo'lsa, biz yordam berishga tayyormiz</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-card">
+          <div class="icon">
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
+          <div>
+            <h3>Manzil</h3>
+            <p>Andijon viloyati, Ulug'nor tumani<br>Bo'ston MFY</p>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="icon">
+            <i class="fa-solid fa-phone"></i>
+          </div>
+          <div>
+            <h3>Telefon</h3>
+            <p>+998 90 791 36 33<br>+998 90 123 45 67</p>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="icon">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <div>
+            <h3>Email</h3>
+            <p>info@techhouse.uz<br>support@techhouse.uz</p>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="icon">
+            <i class="fa-solid fa-clock"></i>
+          </div>
+          <div>
+            <h3>Ish vaqti</h3>
+            <p>Dushanba - Shanba: 9:00 - 20:00<br>Yakshanba: 10:00 - 18:00</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <h2><i class="fa-solid fa-paper-plane" style="color:#ff6a00;"></i> Xabar yuborish</h2>
+        
+        <form id="contactForm">
+          <div class="form-row">
+            <div class="field">
+              <label>Ismingiz</label>
+              <input type="text" placeholder="To'liq ismingiz" required>
+            </div>
+            <div class="field">
+              <label>Telefon</label>
+              <input type="tel" placeholder="+998 90 123 45 67" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Email</label>
+            <input type="email" placeholder="email@example.com">
+          </div>
+
+          <div class="field">
+            <label>Mavzu</label>
+            <select>
+              <option>Umumiy savol</option>
+              <option>Buyurtma haqida</option>
+              <option>Mahsulot haqida</option>
+              <option>Kafolat haqida</option>
+              <option>Hamkorlik</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Xabar</label>
+            <textarea placeholder="Xabaringizni yozing..."></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">
+            <i class="fa-solid fa-paper-plane"></i> Yuborish
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="map-section">
+      <h2><i class="fa-solid fa-map-marker-alt" style="color:#ff6a00;"></i> Bizning joylashuvimiz</h2>
+      <div class="map-placeholder">
+        <i class="fa-solid fa-map" style="font-size:48px;margin-right:15px;"></i>
+        Xarita (Google Maps integratsiyasi)
+      </div>
+    </div>
+  </main>
+
+  <footer class="main-footer" style="margin-top:60px;">
+    <div class="footer-container container">
+      <div class="footer-col brand">
+        <div class="footer-logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
+        <p>Sifatli maishiy texnika uchun ishonchli hamkoringiz.</p>
+      </div>
+      <div class="footer-col">
+        <h4>ALOQA</h4>
+        <p>Andijon viloyati, Bo'ston MFY</p>
+        <p>info@techhouse.uz</p>
+        <p>+998 90 791 36 33</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© TechHouse 2025. Barcha huquqlar himoyalangan.</p>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script>
+    document.getElementById("contactForm")?.addEventListener("submit", function(e) {
+      e.preventDefault();
+      UI.toast("success", "Xabaringiz yuborildi! Tez orada javob beramiz.");
+      this.reset();
+    });
+  </script>
+</body>
+
+</html>

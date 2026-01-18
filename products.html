@@ -3,27 +3,107 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Tech House | Mahsulotlar</title>
-
-  <!-- MAIN CSS (home bilan bir xil) -->
+  <title>Mahsulotlar | Tech House</title>
   <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="css/products.css">
-
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    .product-card {
+      position: relative;
+    }
+    .product-card .wishlist-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .product-card .wishlist-btn:hover {
+      background: #fee2e2;
+    }
+    .product-card .badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      z-index: 5;
+    }
+    .sale-badge { background: #ef4444; color: #fff; }
+    .new-badge { background: #22c55e; color: #fff; }
+    .popular-badge { background: #f59e0b; color: #fff; }
+    .bestseller-badge { background: #3b82f6; color: #fff; }
+    .product-card h4 a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .product-card h4 a:hover {
+      color: #ff6a00;
+    }
+    .price-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .old-price {
+      text-decoration: line-through;
+      color: #999;
+      font-size: 14px;
+    }
+    .filter-categories,
+    .filter-brands {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .products-grid.list-view {
+      grid-template-columns: 1fr;
+    }
+    .products-grid.list-view .product-card {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 20px;
+      padding: 20px;
+    }
+    .products-grid.list-view .product-image {
+      margin: 0;
+    }
+    .products-grid.list-view .product-bottom {
+      margin-top: auto;
+    }
+    @media (max-width: 900px) {
+      .products-page {
+        grid-template-columns: 1fr;
+      }
+      .filters {
+        position: static;
+        margin-bottom: 20px;
+      }
+      .filters.show {
+        display: block;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- ================= TOP BAR ================= -->
   <div class="site-header">
     <div class="top-bar">
       <div class="container top-bar-inner">
-        <p>
-          299$ dan yuqori buyurtmalar uchun bepul yetkazib berish |
-          Kengaytirilgan kafolat mavjud
-        </p>
+        <p>299$ dan yuqori buyurtmalar uchun bepul yetkazib berish | Kengaytirilgan kafolat mavjud</p>
         <div class="top-right">
           <span>EN</span>
           <span>USD</span>
@@ -31,75 +111,61 @@
       </div>
     </div>
 
-    <!-- ================= MAIN HEADER ================= -->
     <header class="main-header">
       <div class="container header-inner">
-
-        <!-- LOGO -->
         <div class="logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
 
-        <!-- SEARCH -->
         <div class="search-box">
           <select>
             <option>Barcha kategoriyalar</option>
-            <option>Oshxona</option>
-            <option>Tozalash</option>
-            <option>Aqlli uy</option>
           </select>
-          <input type="search" placeholder="Maishiy texnika qidirish...">
-          <button><i class="fa-solid fa-magnifying-glass"></i></button>
+          <input type="search" id="header-search" placeholder="Mahsulot qidirish...">
+          <button id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
 
-        <!-- CONTACT + ICONS -->
         <div class="header-actions">
           <div class="phone">
-            <small>Biz bilan bog‘lanish:</small>
+            <small>Biz bilan bog'lanish:</small>
             <strong>+998 90 791 36 33</strong>
           </div>
 
           <div class="icons">
-            <a href="#" data-action="profile">
-              <span><i class="fa-solid fa-user"></i></span>
+            <a href="auth/login.html" data-action="profile" id="nav-profile">
+              <i class="fa-solid fa-user"></i>
             </a>
-            <span><i class="fa-solid fa-heart" style="color:red"></i></span>
-
-            <!-- CART -->
-            <a href="checkout.html"><span class="cart">
-                <i class="fa-solid fa-cart-arrow-down"></i>
-                <b id="cart-count">0</b>
-              </span></a>
+            <a href="wishlist.html" style="color:#ef4444;">
+              <i class="fa-solid fa-heart"></i>
+              <span id="wishlist-count" style="background:#ef4444;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;margin-left:2px;">0</span>
+            </a>
+            <a href="cart.html">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span id="cart-count" style="background:#ff6a00;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;margin-left:2px;">0</span>
+            </a>
           </div>
         </div>
-
       </div>
     </header>
 
-    <!-- ================= NAV ================= -->
     <nav class="nav-bar">
       <div class="container nav-inner">
         <a href="index.html">Uy</a>
-        <a href="#">Sotib olish</a>
-        <a href="#">Kategoriyalar</a>
-        <a href="index.html#membership">A’zolik</a>
-        <a href="#">Qo‘llab-quvvatlash</a>
-        <a href="#">Bog‘lanish</a>
-        <a href="index.html#latest-products">Maxsus takliflar</a>
-        <a class="active" href="products.html">Barcha mahsulotlar</a>
+        <a class="active" href="products.html">Mahsulotlar</a>
+        <a href="index.html#membership">A'zolik</a>
+        <a href="contact.html">Bog'lanish</a>
+        <a href="wishlist.html">Sevimlilar</a>
       </div>
     </nav>
   </div>
 
-  <!-- ================= INFO STRIP ================= -->
   <section class="info-strip">
     <div class="container info-inner">
       <div class="info-item">
         <span><i class="fa-solid fa-truck-fast"></i></span>
         <div>
           <h4>Bepul yetkazib berish</h4>
-          <p>299$ dan yuqori buyurtmalar uchun bepul.</p>
+          <p>$299 dan yuqori buyurtmalar uchun.</p>
         </div>
       </div>
-
       <div class="info-item">
         <span><i class="fa-solid fa-shield"></i></span>
         <div>
@@ -107,7 +173,6 @@
           <p>Rasmiy ishlab chiqaruvchi kafolati.</p>
         </div>
       </div>
-
       <div class="info-item">
         <span>↩</span>
         <div>
@@ -118,405 +183,103 @@
     </div>
   </section>
 
-  <!-- ================= PRODUCTS PAGE MAIN ================= -->
   <main class="container" style="margin-top:40px;">
-
-    <!-- PRODUCTS PAGE HEADER -->
-    <section class="products-header container">
-
-      <!-- PRODUCTS PAGE HEADER -->
-      <section class="products-header">
-
-        <!-- Breadcrumb -->
-        <div class="breadcrumb">
-          <a href="index.html">Bosh sahifa</a>
-          <span>/</span>
-          <span>Mahsulotlar</span>
-        </div>
-
-        <!-- Title -->
-        <h1 class="products-title">Barcha mahsulotlar</h1>
-
-        <!-- Toolbar -->
-        <div class="products-toolbar">
-
-          <!-- Left -->
-          <div class="toolbar-left">
-            <button class="filter-btn">
-              <i class="fa-solid fa-sliders"></i>
-              Filtrlar
-            </button>
-
-            <button class="clear-filter">
-              Tozalash
-            </button>
-
-            <span class="results-count">
-              8 ta mahsulot topildi
-            </span>
-          </div>
-
-          <!-- Right -->
-          <div class="toolbar-right">
-            <label for="sort">Saralash:</label>
-            <select id="sort">
-              <option>Ommabop</option>
-              <option>Arzonidan</option>
-              <option>Qimmatidan</option>
-              <option>Yangi mahsulotlar</option>
-            </select>
-
-            <div class="view-toggle">
-              <button class="active">
-                <i class="fa-solid fa-grip"></i>
-              </button>
-              <button>
-                <i class="fa-solid fa-list"></i>
-              </button>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- PRODUCTS PAGE CONTENT -->
-      <div class="products-page">
-
-        <!-- LEFT FILTER -->
-        <aside class="filters">
-          <h3>Kategoriyalar</h3>
-
-          <label><input type="checkbox"> Barchasi</label>
-          <label><input type="checkbox"> Robotlar</label>
-          <label><input type="checkbox"> Oshxona texnikasi</label>
-          <label><input type="checkbox"> Tozalash</label>
-          <label><input type="checkbox"> Iqlim nazorati</label>
-          <label><input type="checkbox"> Yirik maishiy texnika</label>
-          <label><input type="checkbox"> TV va Audio</label>
-
-          <h3>Narx oralig‘i</h3>
-          <input type="range" min="0" max="2000" value="2000">
-          <div class="price-range">0 — 2000</div>
-
-          <h3>Brendlar</h3>
-          <label><input type="checkbox"> Samsung</label>
-          <label><input type="checkbox"> LG</label>
-          <label><input type="checkbox"> Bosch</label>
-        </aside>
-
-        <!-- PRODUCTS GRID -->
-        <section class="products-grid">
-
-          <!-- PRODUCT CARD -->
-          <div class="product-card">
-            <div class="product-image">
-              <a href="product-detail.html?slug=simsiz-changyutgich-pro-v2">
-                <img src="assets/images/product1.jpg" alt="">
-              </a>
-            </div>
-
-            <small class="category">Tozalash</small>
-            <h4>Simsiz changyutgich Pro V2</h4>
-
-            <div class="rating">★★★★★ <span>(128)</span></div>
-
-            <div class="product-bottom">
-              <span class="price">$349.00</span>
-              <button class="add-to-cart" data-id="1" data-slug="simsiz-changyutgich-pro-v2">
-                <i class="fa-solid fa-cart-shopping"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="product-image">
-              <a href="product-detail.html?slug=aqlli-kir-yuvish-mashinasi">
-                <img src="assets/images/product2.png" alt="">
-              </a>
-            </div>
-
-            <small class="category">Yirik texnika</small>
-            <h4>Aqlli kir yuvish mashinasi</h4>
-
-            <div class="rating">★★★★☆ <span>(85)</span></div>
-
-            <div class="product-bottom">
-              <span class="price">$599.00</span>
-              <button class="cart-btn">
-                <i class="fa-solid fa-cart-shopping"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="product-image">
-              <a href="product-detail.html?slug=mikrotolqinli-pech">
-                <img src="assets/images/product3.jpg" alt="">
-              </a>
-            </div>
-
-            <small class="category">Oshxona</small>
-            <h4>Mikroto‘lqinli pech</h4>
-
-            <div class="rating">★★★★☆ <span>(42)</span></div>
-
-            <div class="product-bottom">
-              <span class="price">$189.00</span>
-              <button class="cart-btn">
-                <i class="fa-solid fa-cart-shopping"></i>
-              </button>
-            </div>
-          </div>
-          <div class="product-card">
-            <div class="product-image">
-              <a href="product-detail.html?slug=aqlli-konditsioner">
-                <img src="assets/images/product4.jpg" alt="">
-              </a>
-            </div>
-
-            <small class="category">Iqlim nazorati</small>
-            <h4>Aqlli konditsioner</h4>
-
-            <div class="rating">★★★★★ <span>(64)</span></div>
-
-            <div class="product-bottom">
-              <span class="price">$499.00</span>
-              <button class="cart-btn">
-                <i class="fa-solid fa-cart-shopping"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="product-image">
-              <a href="product-detail.html?slug=aqlli-konditsioner">
-                <img src="assets/images/product4.jpg" alt="">
-              </a>
-            </div>
-
-            <small class="category">Iqlim nazorati</small>
-            <h4>Aqlli konditsioner</h4>
-
-            <div class="rating">★★★★★ <span>(64)</span></div>
-
-            <div class="product-bottom">
-              <span class="price">$499.00</span>
-              <button class="cart-btn">
-                <i class="fa-solid fa-cart-shopping"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="product-image">
-              <a href="product-detail.html?slug=aqlli-konditsioner">
-                <img src="assets/images/product4.jpg" alt="">
-              </a>
-            </div>
-
-            <small class="category">Iqlim nazorati</small>
-            <h4>Aqlli konditsioner</h4>
-
-            <div class="rating">★★★★★ <span>(64)</span></div>
-
-            <div class="product-bottom">
-              <span class="price">$499.00</span>
-              <button class="cart-btn">
-                <i class="fa-solid fa-cart-shopping"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="product-image">
-              <a href="product-detail.html?slug=aqlli-konditsioner">
-                <img src="assets/images/product4.jpg" alt="">
-              </a>
-            </div>
-
-            <small class="category">Iqlim nazorati</small>
-            <h4>Aqlli konditsioner</h4>
-
-            <div class="rating">★★★★★ <span>(64)</span></div>
-
-            <div class="product-bottom">
-              <span class="price">$499.00</span>
-              <button class="cart-btn">
-                <i class="fa-solid fa-cart-shopping"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="product-image">
-              <a href="product-detail.html?slug=aqlli-konditsioner">
-                <img src="assets/images/product4.jpg" alt="">
-              </a>
-            </div>
-
-            <small class="category">Iqlim nazorati</small>
-            <h4>Aqlli konditsioner</h4>
-
-            <div class="rating">★★★★★ <span>(64)</span></div>
-
-            <div class="product-bottom">
-              <span class="price">$499.00</span>
-              <button class="cart-btn">
-                <i class="fa-solid fa-cart-shopping"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="product-image">
-              <a href="product-detail.html?slug=aqlli-konditsioner">
-                <img src="assets/images/product4.jpg" alt="">
-              </a>
-            </div>
-
-            <small class="category">Iqlim nazorati</small>
-            <h4>Aqlli konditsioner</h4>
-
-            <div class="rating">★★★★★ <span>(64)</span></div>
-
-            <div class="product-bottom">
-              <span class="price">$499.00</span>
-              <button class="cart-btn">
-                <i class="fa-solid fa-cart-shopping"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="product-image">
-              <a href="product-detail.html?slug=aqlli-konditsioner">
-                <img src="assets/images/product4.jpg" alt="">
-              </a>
-            </div>
-
-            <small class="category">Iqlim nazorati</small>
-            <h4>Aqlli konditsioner</h4>
-
-            <div class="rating">★★★★★ <span>(64)</span></div>
-
-            <div class="product-bottom">
-              <span class="price">$499.00</span>
-              <button class="cart-btn">
-                <i class="fa-solid fa-cart-shopping"></i>
-              </button>
-            </div>
-          </div>
-
-
-
-        </section>
-
+    <section class="products-header">
+      <div class="breadcrumb">
+        <a href="index.html">Bosh sahifa</a>
+        <span>/</span>
+        <span>Mahsulotlar</span>
       </div>
 
+      <h1 class="products-title">Barcha mahsulotlar</h1>
 
+      <div class="products-toolbar">
+        <div class="toolbar-left">
+          <button class="filter-btn">
+            <i class="fa-solid fa-sliders"></i> Filtrlar
+          </button>
+          <button class="clear-filter">Tozalash</button>
+          <span class="results-count">0 ta mahsulot topildi</span>
+        </div>
+
+        <div class="toolbar-right">
+          <label for="sort">Saralash:</label>
+          <select id="sort">
+            <option value="popular">Ommabop</option>
+            <option value="price-asc">Arzonidan</option>
+            <option value="price-desc">Qimmatidan</option>
+            <option value="rating">Reyting</option>
+            <option value="newest">Yangi</option>
+          </select>
+
+          <div class="view-toggle">
+            <button class="active" title="Grid ko'rinish">
+              <i class="fa-solid fa-grip"></i>
+            </button>
+            <button title="Ro'yxat ko'rinish">
+              <i class="fa-solid fa-list"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="products-page">
+      <aside class="filters">
+        <div style="margin-bottom:20px;">
+          <h3>Qidiruv</h3>
+          <input type="text" id="search-input" placeholder="Mahsulot nomi..." style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;">
+        </div>
+
+        <h3>Kategoriyalar</h3>
+        <div class="filter-categories"></div>
+
+        <h3 style="margin-top:20px;">Narx oralig'i</h3>
+        <input type="range" id="price-range" min="0" max="1000" value="1000" style="width:100%;">
+        <div class="price-range">$0 — $1000</div>
+
+        <h3 style="margin-top:20px;">Brendlar</h3>
+        <div class="filter-brands"></div>
+      </aside>
+
+      <section class="products-grid" id="products-grid"></section>
+    </div>
   </main>
-  <!-- PAGINATION -->
-  <div class="pagination container">
-    <button class="page-btn prev">‹</button>
-    <button class="page-btn active">1</button>
-    <button class="page-btn">2</button>
-    <button class="page-btn">3</button>
-    <button class="page-btn next">›</button>
-  </div>
 
-  <!-- ================= FOOTER ================= -->
+  <div class="pagination container" style="margin:40px auto;display:flex;justify-content:center;gap:8px;"></div>
+
   <footer class="site-footer">
-
     <div class="footer-top container">
-
-      <!-- BRAND -->
       <div class="footer-col brand">
         <h2 class="footer-logo">TechHouse</h2>
-        <p>
-          Sifatli texnika va elektronika mahsulotlari yetkazib beruvchi
-          ishonchli hamkoringiz.
-        </p>
-        <a href="#" class="read-more">Ko‘proq o‘qish...</a>
+        <p>Sifatli texnika va elektronika mahsulotlari yetkazib beruvchi ishonchli hamkoringiz.</p>
       </div>
-
-      <!-- CONTACT -->
       <div class="footer-col">
-        <h4>Aloqa ma’lumotlari</h4>
-
+        <h4>Aloqa ma'lumotlari</h4>
         <ul class="footer-list">
-          <li>
-            <i class="fa-solid fa-location-dot"></i>
-            Andijon viloyati, Andijon shahri
-          </li>
-          <li>
-            <i class="fa-solid fa-envelope"></i>
-            info@techhouse.uz
-          </li>
-          <li>
-            <i class="fa-solid fa-phone"></i>
-            +998 90 123 45 67
-          </li>
+          <li><i class="fa-solid fa-location-dot"></i> Andijon viloyati</li>
+          <li><i class="fa-solid fa-envelope"></i> info@techhouse.uz</li>
+          <li><i class="fa-solid fa-phone"></i> +998 90 791 36 33</li>
         </ul>
-
-        <p class="work-time">
-          <strong>Ish vaqti:</strong><br>
-          Dushanba – Shanba | 9:00 – 20:00
-        </p>
       </div>
-
-      <!-- SERVICES -->
       <div class="footer-col">
         <h4>Mijozlarga xizmat</h4>
         <ul class="footer-links">
-          <li><a href="#" data-action="delivery">To‘lov va yetkazib berish</a></li>
-          <li><a href="#" data-action="tracking">Buyurtmani kuzatish</a></li>
-          <li><a href="#" data-action="warranty">Kafolat haqida</a></li>
-          <li><a href="#" data-action="returns">Qaytarish va almashtirish</a></li>
-          <li><a href="#" data-action="security">Xavfsizlik siyosati</a></li>
+          <li><a href="cart.html">Savatcha</a></li>
+          <li><a href="wishlist.html">Sevimlilar</a></li>
+          <li><a href="contact.html">Bog'lanish</a></li>
         </ul>
       </div>
-
-      <!-- POPULAR CATEGORIES -->
-      <div class="footer-col">
-        <h4>Ommabop kategoriyalar</h4>
-        <div class="footer-tags">
-          <button class="tag">Robotlar</button>
-          <button class="tag">Muzlatgich</button>
-          <button class="tag">Konditsioner</button>
-          <button class="tag">Kir yuvish</button>
-          <button class="tag">TV</button>
-          <button class="tag">Noutbuklar</button>
-          <button class="tag">Telefonlar</button>
-          <button class="tag">Changyutgich</button>
-          <button class="tag">Blender</button>
-        </div>
-      </div>
-
     </div>
-
-    <!-- BOTTOM -->
     <div class="footer-bottom container">
-      <p>© TechHouse 2024. Barcha huquqlar himoyalangan.</p>
-
-      <div class="socials">
-        <button class="social-btn"><i class="fa-brands fa-facebook-f"></i></button>
-        <button class="social-btn"><i class="fa-brands fa-twitter"></i></button>
-        <button class="social-btn"><i class="fa-brands fa-instagram"></i></button>
-        <button class="social-btn"><i class="fa-brands fa-linkedin-in"></i></button>
-      </div>
+      <p>© TechHouse 2025. Barcha huquqlar himoyalangan.</p>
     </div>
-
   </footer>
 
   <script src="js/data.js"></script>
-  <script src="js/cart.js"></script>
-  <script src="js/main.js"></script>
-
-  <!-- sahifaga qarab -->
-  <script src="js/home.js"></script>
-  <!-- yoki -->
-  <script src="js/product.js"></script>
-
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/products.js"></script>
 </body>
 
 </html>

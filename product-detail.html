@@ -3,29 +3,162 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Tech House | Mahsulot tafsiloti</title>
-
-  <!-- MAIN CSS -->
+  <title>Mahsulot tafsiloti | Tech House</title>
   <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="css/products.css">
-
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    .product-detail-container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+    }
+    .product-image {
+      position: relative;
+    }
+    .product-image img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .product-info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .product-category {
+      color: #6b7280;
+      font-size: 14px;
+    }
+    .product-title {
+      font-size: 30px;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.3;
+    }
+    .product-rating {
+      color: #f59e0b;
+      font-size: 16px;
+    }
+    .product-rating span {
+      color: #666;
+      font-size: 14px;
+    }
+    .product-price {
+      font-size: 28px;
+      margin: 15px 0;
+    }
+    .product-price .current-price {
+      color: #ff6a00;
+      font-weight: 700;
+    }
+    .product-description {
+      color: #555;
+      line-height: 1.7;
+      margin: 10px 0;
+    }
+    .product-stock {
+      margin: 15px 0;
+    }
+    .product-actions {
+      margin-top: 20px;
+    }
+    .btn {
+      padding: 14px 28px;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #ff6a00, #ff3d00);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #ff3d00, #ff6a00);
+    }
+    .btn-primary:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .related-products {
+      max-width: 1100px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+    .related-products .section-title {
+      font-size: 24px;
+      margin-bottom: 25px;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+    }
+    .related-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 15px;
+      border: 1px solid #f1f1f1;
+      transition: all 0.25s ease;
+    }
+    .related-card:hover {
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      transform: translateY(-4px);
+    }
+    .related-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+    .related-card h4 {
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+    .related-card h4 a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .related-card h4 a:hover {
+      color: #ff6a00;
+    }
+    .related-card .price {
+      color: #ff6a00;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .product-detail-container {
+        grid-template-columns: 1fr;
+      }
+      .related-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 500px) {
+      .related-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- ================= HEADER ================= -->
   <div class="site-header">
-
-    <!-- TOP BAR -->
     <div class="top-bar">
       <div class="container top-bar-inner">
-        <p>
-          299$ dan yuqori buyurtmalar uchun bepul yetkazib berish |
-          Kengaytirilgan kafolat mavjud
-        </p>
+        <p>299$ dan yuqori buyurtmalar uchun bepul yetkazib berish | Kengaytirilgan kafolat mavjud</p>
         <div class="top-right">
           <span>EN</span>
           <span>USD</span>
@@ -33,203 +166,89 @@
       </div>
     </div>
 
-    <!-- MAIN HEADER -->
     <header class="main-header">
       <div class="container header-inner">
-
-        <!-- LOGO -->
         <div class="logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
 
-        <!-- SEARCH -->
         <div class="search-box">
           <select>
             <option>Barcha kategoriyalar</option>
-            <option>Oshxona</option>
-            <option>Tozalash</option>
-            <option>Aqlli uy</option>
           </select>
-          <input type="search" placeholder="Mahsulot qidirish...">
-          <button>
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
+          <input type="search" id="header-search" placeholder="Mahsulot qidirish...">
+          <button id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
 
-        <!-- ACTIONS -->
         <div class="header-actions">
-
           <div class="phone">
-            <small>Biz bilan bog‘lanish:</small>
+            <small>Biz bilan bog'lanish:</small>
             <strong>+998 90 791 36 33</strong>
           </div>
 
           <div class="icons">
-            <a href="auth/login.html" data-action="profile" id="nav-profile">Profile</a>
-            <span><i class="fa-solid fa-heart" style="color:red"></i></span>
-            <a href="cart.html" id="nav-cart">Savatcha (<span id="cart-count">0</span>)</a>
+            <a href="auth/login.html" data-action="profile" id="nav-profile">
+              <i class="fa-solid fa-user"></i>
+            </a>
+            <a href="wishlist.html" style="color:#ef4444;">
+              <i class="fa-solid fa-heart"></i>
+            </a>
+            <a href="cart.html">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span id="cart-count" style="background:#ff6a00;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;margin-left:2px;">0</span>
+            </a>
           </div>
-
         </div>
-
       </div>
     </header>
 
-    <!-- NAV -->
     <nav class="nav-bar">
       <div class="container nav-inner">
         <a href="index.html">Uy</a>
         <a href="products.html">Mahsulotlar</a>
-        <a href="index.html">Kategoriyalar</a>
-        <a href="index.html#membership">A’zolik</a>
-        <a href="index.html#footer">Qo‘llab-quvvatlash</a>
-        <a href="index.html#footer">Bog‘lanish</a>
-        <a class="offer" href="#">Maxsus takliflar</a>
+        <a href="index.html#membership">A'zolik</a>
+        <a href="contact.html">Bog'lanish</a>
+        <a href="wishlist.html">Sevimlilar</a>
       </div>
     </nav>
-
-  </div>
-  <h1 class="product-title"></h1>
-
-  <div class="product-image">
-    <img>
   </div>
 
-  <div class="product-price"></div>
-
-  <main>
-    <div class="product-actions">
-      <button class="add-to-cart btn" data-id="1">Savatchaga qo‘shish</button>
+  <main class="product-detail-container">
+    <div class="product-image">
+      <img src="assets/images/placeholder.jpg" alt="Mahsulot rasmi">
+    </div>
+    <div class="product-info">
+      <h1 class="product-title">Yuklanmoqda...</h1>
+      <div class="product-price"></div>
+      <div class="product-actions"></div>
     </div>
   </main>
 
-  <!-- ================= FOOTER / SCRIPTS ================= -->
-  <!-- Load data & core libs first, then main, then page-specific code -->
-  <script src="js/data-store.js"></script>
-  <script src="js/data.js"></script>
-  <script src="js/cart.js"></script>
-  <script src="js/ui.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/product.js"></script>
-
-  <!-- ================= RELATED PRODUCTS ================= -->
-  <section class="related-products container">
-    <h2 class="section-title">O‘xshash mahsulotlar</h2>
-
-    <div class="related-grid">
-
-      <!-- ITEM -->
-      <div class="related-card">
-        <img src="assets/images/smart-hub.jpg" alt="">
-        <h4>Smart Home Hub</h4>
-        <div class="rating">★★★★★</div>
-        <span class="price">$199.00</span>
-      </div>
-
-      <div class="related-card">
-        <img src="assets/images/fan.jpg" alt="">
-        <h4>Tower Fan with Remote</h4>
-        <div class="rating">★★★★★</div>
-        <span class="price">$129.00</span>
-      </div>
-
-      <div class="related-card">
-        <img src="assets/images/mixer.jpg" alt="">
-        <h4>Stand Mixer Pro</h4>
-        <div class="rating">★★★★★</div>
-        <span class="price">$299.00</span>
-      </div>
-
-      <div class="related-card">
-        <img src="assets/images/espresso.jpg" alt="">
-        <h4>Espresso Machine</h4>
-        <div class="rating">★★★★★</div>
-        <span class="price">$599.00</span>
-      </div>
-
-      <div class="related-card">
-        <img src="assets/images/fan.jpg" alt="">
-        <h4>Tower Fan with Remote</h4>
-        <div class="rating">★★★★★</div>
-        <span class="price">$129.00</span>
-      </div>
-
-    </div>
+  <section class="related-products">
+    <h2 class="section-title">O'xshash mahsulotlar</h2>
+    <div class="related-grid"></div>
   </section>
-  <!-- ================= FOOTER ================= -->
+
   <footer class="main-footer">
-
     <div class="footer-container container">
-
-      <!-- BRAND -->
       <div class="footer-col brand">
-        <div class="footer-logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a>
-        </div>
-
-        <p>
-          Sifatli maishiy texnika uchun ishonchli hamkoringiz.
-          Biz eng yaxshi oshxona, tozalash va aqlli uy yechimlarini taqdim etamiz.
-        </p>
-        <a href="#" class="read-more">Ko‘proq o‘qish...</a>
+        <div class="footer-logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
+        <p>Sifatli maishiy texnika uchun ishonchli hamkoringiz.</p>
       </div>
-
-      <!-- CONTACT -->
       <div class="footer-col">
-        <h4>ALOQA MA’LUMOTLARI</h4>
-
-        <p>📍 Andijon viloyati, Bo‘ston MFY</p>
-        <p>✉️ info@techhouse.uz</p>
-        <p>📞 +998 90 123 45 67</p>
-
-        <p class="work-time">
-          Ish vaqti:<br>
-          Du–Sha: 09:00 – 20:00<br>
-          Yak: 10:00 – 18:00
-        </p>
+        <h4>ALOQA</h4>
+        <p>Andijon viloyati, Bo'ston MFY</p>
+        <p>info@techhouse.uz</p>
+        <p>+998 90 123 45 67</p>
       </div>
-
-      <!-- CUSTOMER SERVICE -->
-      <div class="footer-col">
-        <h4>MIJOZLARGA XIZMAT</h4>
-        <ul>
-          <li><a href="#">To‘lov va yetkazib berish</a></li>
-          <li><a href="#">Buyurtmani kuzatish</a></li>
-          <li><a href="#">Kafolat haqida</a></li>
-          <li><a href="#">Qaytarish va almashtirish</a></li>
-          <li><a href="#">Xavfsizlik siyosati</a></li>
-        </ul>
-      </div>
-
-      <!-- POPULAR CATEGORIES -->
-      <div class="footer-col">
-        <h4>Ommabop kategoriyalar</h4>
-
-        <div class="footer-tags">
-          <span>Mikserlar</span>
-          <span>Pechlar</span>
-          <span>Blenderlar</span>
-          <span>Mikroto‘lqinli</span>
-          <span>Changyutgich</span>
-          <span>Konditsioner</span>
-          <span>Aqlli uy</span>
-          <span>Choynaklar</span>
-        </div>
-      </div>
-
     </div>
-
-    <!-- BOTTOM -->
     <div class="footer-bottom">
       <p>© TechHouse 2025. Barcha huquqlar himoyalangan.</p>
-
-      <div class="socials">
-        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="#"><i class="fa-brands fa-twitter"></i></a>
-        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-      </div>
     </div>
-
   </footer>
 
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/product.js"></script>
 </body>
 
 </html>

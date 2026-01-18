@@ -1,319 +1,270 @@
-export const products = [
-  {
-    id: 1,
-    name: "Robot changyutgich",
-    price: 349,
-    image: "robot.jpg",
-    inStock: true,
-  },
-  {
-    id: 2,
-    name: "Mikroto‘lqinli pech",
-    price: 189,
-    image: "micro.jpg",
-    inStock: true,
-  },
-];
-
-// Product detail page logic
-(function () {
+/**
+ * PRODUCT.JS - Product Detail Page
+ * Load product by slug from URL, show related products
+ */
+(function() {
   "use strict";
 
-  function q(sel) {
-    return document.querySelector(sel);
-  }
-  function qa(sel) {
-    return Array.from(document.querySelectorAll(sel));
-  }
+  if (!location.pathname.includes("product-detail.html")) return;
+
+  let currentProduct = null;
+  let quantity = 1;
 
   function getSlugFromUrl() {
-    const params = new URLSearchParams(window.location.search);
-    return params.get("slug");
+    const params = new URLSearchParams(location.search);
+    return params.get("slug") || params.get("id") || "";
+  }
+
+  function getProductBySlug(slug) {
+    if (!window.products || !Array.isArray(window.products)) return null;
+    return window.products.find(p => p.slug === slug) || null;
+  }
+
+  function getRelatedProducts(product, limit = 4) {
+    if (!product || !window.products) return [];
+    return window.products
+      .filter(p => p.id !== product.id && p.category === product.category)
+      .slice(0, limit);
+  }
+
+  function getCategoryName(catId) {
+    if (!window.categories) return catId;
+    const cat = window.categories.find(c => c.id === catId);
+    return cat ? cat.name : catId;
+  }
+
+  function renderNotFound() {
+    const main = document.querySelector("main");
+    if (main) {
+      main.innerHTML = `
+        <div style="text-align:center;padding:80px 20px;max-width:500px;margin:0 auto;">
+          <i class="fa-solid fa-box-open" style="font-size:64px;color:#ccc;margin-bottom:20px;"></i>
+          <h1 style="font-size:28px;margin-bottom:15px;">Mahsulot topilmadi</h1>
+          <p style="color:#666;margin-bottom:30px;">Kechirasiz, siz qidirgan mahsulot mavjud emas yoki o'chirilgan.</p>
+          <a href="products.html" style="display:inline-block;padding:14px 30px;background:#ff6a00;color:#fff;text-decoration:none;border-radius:8px;font-weight:600;">
+            <i class="fa-solid fa-arrow-left"></i> Mahsulotlarga qaytish
+          </a>
+        </div>
+      `;
+    }
+
+    // Hide related products section
+    const related = document.querySelector(".related-products");
+    if (related) related.style.display = "none";
   }
 
   function renderProduct(product) {
-    if (!product) {
-      // show fallback
-      const title = document.querySelector(".product-title");
-      if (title) title.textContent = "Mahsulot topilmadi";
-      return;
-    }
-    const titleEl = document.querySelector(".product-title");
+    currentProduct = product;
+    document.title = `${product.name} | Tech House`;
+
+    // Update main product info
     const imgEl = document.querySelector(".product-image img");
-    const priceEl = document.querySelector(".product-price");
-    const addBtn = document.querySelector(".add-to-cart");
-
-    if (titleEl) titleEl.textContent = product.title;
-    if (imgEl) imgEl.src = product.image || "";
-    if (priceEl)
-      priceEl.textContent = "$" + (Number(product.price) || 0).toFixed(2);
-
-    // stock indicator
-    let stockEl = document.querySelector(".product-stock-indicator");
-    if (!stockEl && priceEl) {
-      stockEl = document.createElement("div");
-      stockEl.className = "product-stock-indicator";
-      stockEl.style.marginTop = "8px";
-      stockEl.style.fontWeight = "600";
-      priceEl.insertAdjacentElement("afterend", stockEl);
+    if (imgEl) {
+      imgEl.src = product.images[0] || "assets/images/placeholder.jpg";
+      imgEl.alt = product.name;
     }
-    if (stockEl) {
-      if (Number(product.stock) > 0) {
-        stockEl.textContent = "Omborda: " + Number(product.stock) + " ta";
-        stockEl.style.color = "#15803d";
-      } else {
-        stockEl.textContent = "Ommaviy: Mahsulot tugadi";
-        stockEl.style.color = "#dc2626";
+
+    const titleEl = document.querySelector(".product-title");
+    if (titleEl) titleEl.textContent = product.name;
+
+    const priceEl = document.querySelector(".product-price");
+    if (priceEl) {
+      priceEl.innerHTML = `
+        <span class="current-price">${UI.formatPrice(product.price)}</span>
+        ${product.oldPrice ? `<span class="old-price" style="text-decoration:line-through;color:#999;margin-left:10px;font-size:18px;">${UI.formatPrice(product.oldPrice)}</span>` : ""}
+      `;
+    }
+
+    // Description
+    const descEl = document.querySelector(".product-description");
+    if (descEl) {
+      descEl.textContent = product.description || "";
+    } else {
+      const infoContainer = document.querySelector(".product-info");
+      if (infoContainer && product.description) {
+        const desc = document.createElement("p");
+        desc.className = "product-description";
+        desc.style.cssText = "color:#555;line-height:1.7;margin:15px 0;";
+        desc.textContent = product.description;
+        const priceEl = infoContainer.querySelector(".product-price");
+        if (priceEl) priceEl.after(desc);
       }
     }
 
-    // badges
-    let badgesWrapper = document.querySelector(".product-badges");
-    if (!badgesWrapper) {
-      badgesWrapper = document.createElement("div");
-      badgesWrapper.className = "product-badges";
-      if (titleEl) titleEl.insertAdjacentElement("afterend", badgesWrapper);
+    // Rating
+    let ratingEl = document.querySelector(".product-rating");
+    if (!ratingEl) {
+      const infoContainer = document.querySelector(".product-info");
+      if (infoContainer) {
+        ratingEl = document.createElement("div");
+        ratingEl.className = "product-rating";
+        ratingEl.style.cssText = "margin:10px 0;font-size:14px;color:#f59e0b;";
+        const titleEl = infoContainer.querySelector(".product-title");
+        if (titleEl) titleEl.after(ratingEl);
+      }
     }
-    badgesWrapper.innerHTML = "";
-    (product.badges || []).forEach((b) => {
-      const span = document.createElement("span");
-      span.className = "badge-" + b;
-      span.textContent = b.toUpperCase();
-      span.style.marginRight = "8px";
-      span.style.padding = "4px 8px";
-      span.style.borderRadius = "4px";
-      span.style.background = "#ff6a00";
-      span.style.color = "#fff";
-      badgesWrapper.appendChild(span);
-    });
+    if (ratingEl) {
+      ratingEl.innerHTML = `${UI.renderStars(product.rating)} <span style="color:#666;">(${product.reviewsCount || 0} sharhlar)</span>`;
+    }
 
-    // wire add-to-cart
-    if (addBtn) {
-      addBtn.setAttribute("data-id", product.id);
-      addBtn.disabled = Number(product.stock) <= 0;
-      addBtn.addEventListener("click", function () {
-        if (Number(product.stock) <= 0) {
-          window.UI &&
-            window.UI.toast &&
-            window.UI.toast("error", "Mahsulot omborda mavjud emas");
+    // Category
+    let catEl = document.querySelector(".product-category");
+    if (!catEl) {
+      const infoContainer = document.querySelector(".product-info");
+      if (infoContainer) {
+        catEl = document.createElement("small");
+        catEl.className = "product-category";
+        catEl.style.cssText = "color:#6b7280;display:block;margin-bottom:5px;";
+        const titleEl = infoContainer.querySelector(".product-title");
+        if (titleEl) titleEl.before(catEl);
+      }
+    }
+    if (catEl) catEl.textContent = getCategoryName(product.category);
+
+    // Stock status
+    let stockEl = document.querySelector(".product-stock");
+    if (!stockEl) {
+      const infoContainer = document.querySelector(".product-info");
+      if (infoContainer) {
+        stockEl = document.createElement("div");
+        stockEl.className = "product-stock";
+        stockEl.style.cssText = "margin:15px 0;";
+        const descEl = infoContainer.querySelector(".product-description");
+        if (descEl) descEl.after(stockEl);
+        else {
+          const priceEl = infoContainer.querySelector(".product-price");
+          if (priceEl) priceEl.after(stockEl);
+        }
+      }
+    }
+    if (stockEl) {
+      if (product.inStock && product.stock > 0) {
+        stockEl.innerHTML = `<span style="color:#22c55e;font-weight:600;"><i class="fa-solid fa-check-circle"></i> Mavjud (${product.stock} dona)</span>`;
+      } else {
+        stockEl.innerHTML = `<span style="color:#ef4444;font-weight:600;"><i class="fa-solid fa-times-circle"></i> Mavjud emas</span>`;
+      }
+    }
+
+    // Actions container
+    const actionsEl = document.querySelector(".product-actions");
+    if (actionsEl) {
+      const isWishlisted = Store.isInWishlist(product.id);
+      actionsEl.innerHTML = `
+        <div class="qty-controls" style="display:flex;align-items:center;gap:10px;margin-bottom:15px;">
+          <span style="font-weight:600;">Miqdor:</span>
+          <button class="qty-btn qty-minus" style="width:36px;height:36px;border:1px solid #ddd;background:#f5f5f5;border-radius:6px;cursor:pointer;font-size:18px;">−</button>
+          <input type="number" id="qty-input" value="1" min="1" max="${product.stock}" style="width:60px;height:36px;text-align:center;border:1px solid #ddd;border-radius:6px;font-size:16px;">
+          <button class="qty-btn qty-plus" style="width:36px;height:36px;border:1px solid #ddd;background:#f5f5f5;border-radius:6px;cursor:pointer;font-size:18px;">+</button>
+        </div>
+        <div style="display:flex;gap:10px;">
+          <button class="add-to-cart btn btn-primary" data-id="${product.id}" ${!product.inStock ? "disabled" : ""} style="flex:1;display:flex;align-items:center;justify-content:center;gap:10px;">
+            <i class="fa-solid fa-cart-shopping"></i>
+            Savatchaga qo'shish
+          </button>
+          <button class="wishlist-btn" data-id="${product.id}" style="width:50px;height:50px;border:1px solid #ddd;background:#fff;border-radius:8px;cursor:pointer;font-size:20px;">
+            <i class="${isWishlisted ? 'fa-solid' : 'fa-regular'} fa-heart" style="${isWishlisted ? 'color:#ef4444;' : ''}"></i>
+          </button>
+        </div>
+      `;
+
+      // Quantity controls
+      const qtyMinus = actionsEl.querySelector(".qty-minus");
+      const qtyPlus = actionsEl.querySelector(".qty-plus");
+      const qtyInput = actionsEl.querySelector("#qty-input");
+
+      qtyMinus?.addEventListener("click", () => {
+        quantity = Math.max(1, quantity - 1);
+        if (qtyInput) qtyInput.value = quantity;
+      });
+
+      qtyPlus?.addEventListener("click", () => {
+        quantity = Math.min(product.stock, quantity + 1);
+        if (qtyInput) qtyInput.value = quantity;
+      });
+
+      qtyInput?.addEventListener("change", (e) => {
+        quantity = Math.max(1, Math.min(product.stock, parseInt(e.target.value) || 1));
+        e.target.value = quantity;
+      });
+
+      // Override add to cart for this page to use quantity
+      const addBtn = actionsEl.querySelector(".add-to-cart");
+      addBtn?.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        if (!product.inStock || product.stock <= 0) {
+          UI.toast("error", "Mahsulot omborda yo'q");
           return;
         }
-        window.Cart && window.Cart.addToCart(product.id, 1);
+
+        const added = Store.addToCart(product.id, quantity);
+        if (added) {
+          UI.toast("success", `${product.name} (${quantity} dona) savatchaga qo'shildi`);
+        }
       });
     }
 
-    // recently viewed
-    try {
-      const key = "recentlyViewed";
-      const raw = localStorage.getItem(key);
-      let arr = raw ? JSON.parse(raw) : [];
-      arr = Array.isArray(arr) ? arr : [];
-      // prepend slug, unique
-      arr = [product.slug].concat(arr.filter((s) => s !== product.slug));
-      // limit 10
-      arr = arr.slice(0, 10);
-      localStorage.setItem(key, JSON.stringify(arr));
-    } catch (e) {
-      /* ignore */
+    // Render related products
+    renderRelatedProducts(product);
+  }
+
+  function renderRelatedProducts(product) {
+    const container = document.querySelector(".related-grid");
+    const section = document.querySelector(".related-products");
+    
+    if (!container || !section) return;
+
+    const related = getRelatedProducts(product, 4);
+    
+    if (!related.length) {
+      section.style.display = "none";
+      return;
     }
+
+    section.style.display = "block";
+    container.innerHTML = related.map(p => `
+      <div class="related-card">
+        <a href="product-detail.html?slug=${p.slug}">
+          <img src="${p.images[0] || 'assets/images/placeholder.jpg'}" alt="${p.name}" loading="lazy">
+        </a>
+        <h4><a href="product-detail.html?slug=${p.slug}">${p.name}</a></h4>
+        <div class="rating" style="color:#f59e0b;font-size:14px;">${UI.renderStars(p.rating)}</div>
+        <span class="price" style="color:#ff6a00;font-weight:700;">${UI.formatPrice(p.price)}</span>
+      </div>
+    `).join("");
   }
 
-  function attachInteractions() {
-    const qtyVal = q("#pd-qty-value");
-    let qty = Number(qtyVal.textContent || 1);
-
-    q("#pd-qty-increase").addEventListener("click", () => {
-      qty = Math.min(99, qty + 1);
-      qtyVal.textContent = qty;
-    });
-
-    q("#pd-qty-decrease").addEventListener("click", () => {
-      qty = Math.max(1, qty - 1);
-      qtyVal.textContent = qty;
-    });
-
-    q("#pd-add-to-cart").addEventListener("click", (e) => {
-      const id = Number(e.currentTarget.dataset.productId);
-      const qv = Number(q("#pd-qty-value").textContent || 1);
-      window.Cart.addToCart(id, qv);
-      window.UI && window.UI.toast("Mahsulot savatchaga qo‘shildi", "success");
-    });
-
-    // wishlist placeholder (store minimal wishlist)
-    q("#pd-wishlist").addEventListener("click", () => {
-      const pid = Number(q("#pd-add-to-cart").dataset.productId);
-      let wl = JSON.parse(localStorage.getItem("wishlist") || "[]");
-      if (!wl.includes(pid)) wl.push(pid);
-      else wl = wl.filter((i) => i !== pid);
-      localStorage.setItem("wishlist", JSON.stringify(wl));
-      window.UI && window.UI.toast("Wishlist yangilandi", "info");
-    });
-  }
-
-  function pushRecentlyViewed(product) {
-    if (!product) return;
-    const KEY = "recentlyViewed";
-    let arr = JSON.parse(localStorage.getItem(KEY) || "[]");
-    arr = arr.filter((id) => id !== product.id);
-    arr.unshift(product.id);
-    if (arr.length > 10) arr.length = 10;
-    localStorage.setItem(KEY, JSON.stringify(arr));
-  }
-
-  // init
-  window.addEventListener("DOMContentLoaded", () => {
+  function init() {
     const slug = getSlugFromUrl();
-    const product =
-      window.DataStore && window.DataStore.getBySlug
-        ? window.DataStore.getBySlug(slug)
-        : null;
-    renderProduct(product);
-    attachInteractions();
-    pushRecentlyViewed(product);
-  });
-})();
-
-(function () {
-  function qs(name) {
-    const url = new URL(window.location.href);
-    return url.searchParams.get(name);
-  }
-  function renderProduct(product) {
-    const container = document.getElementById("product-detail");
-    if (!container) return;
-    // Minimal safe rendering (do not trust HTML for price etc.)
-    container.innerHTML = `
-			<h1>${product.name}</h1>
-			<img src="${product.image || "assets/images/hero.jpg"}" alt="${product.name}">
-			<p>${product.description || ""}</p>
-			<p class="price">$${Number(product.price || 0).toFixed(2)}</p>
-			<button class="add-to-cart" data-id="${product.id}">Savatchaga qo‘shish</button>
-		`;
-  }
-  function saveRecentlyViewed(slug) {
-    try {
-      const key = "techhouse_recently";
-      const raw = localStorage.getItem(key);
-      let arr = raw ? JSON.parse(raw) : [];
-      arr = arr.filter((s) => s !== slug);
-      arr.unshift(slug);
-      if (arr.length > 10) arr = arr.slice(0, 10);
-      localStorage.setItem(key, JSON.stringify(arr));
-    } catch (e) {
-      /* ignore */
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    const slug = qs("slug");
-    if (!slug) return;
-    const product = window.DataStore ? window.DataStore.getBySlug(slug) : null;
-    if (!product) {
-      ui.showToast("Mahsulot topilmadi", { type: "error" });
-      return;
-    }
-    renderProduct(product);
-    saveRecentlyViewed(slug);
-  });
-})();
-
-(function () {
-  function getQueryParam(name) {
-    const s = new URLSearchParams(window.location.search);
-    return s.get(name);
-  }
-
-  function initProductPage() {
-    const slug = getQueryParam("slug");
-    if (!slug) return;
-    if (!window.DataStore || typeof DataStore.getBySlug !== "function") return;
-    const product = DataStore.getBySlug(slug);
-    if (!product) {
-      window.UI &&
-        window.UI.toast &&
-        window.UI.toast("error", "Mahsulot topilmadi");
+    
+    if (!slug) {
+      renderNotFound();
       return;
     }
 
-    // render product area - use only product fields (do not rely on HTML text)
-    const titleEl = document.querySelector(".product-title");
-    const priceEl = document.querySelector(".product-price");
-    const imgEl = document.querySelector(".product-image img");
-    const addBtn = document.querySelector(".add-to-cart[data-id]");
+    const product = getProductBySlug(slug);
+    
+    if (!product) {
+      renderNotFound();
+      return;
+    }
 
-    if (titleEl) titleEl.textContent = product.name;
-    if (priceEl) priceEl.textContent = `$${product.price}`;
-    if (imgEl && product.images && product.images.length)
-      imgEl.src = product.images[0];
+    renderProduct(product);
 
-    // ensure add button uses product.id from DataStore
-    if (addBtn) addBtn.setAttribute("data-id", String(product.id));
-    // attach click (delegated sitewide will handle actual add-to-cart)
-
-    // record recently viewed (store slugs)
-    try {
-      const key = "recentlyViewed";
-      const raw = localStorage.getItem(key) || "[]";
-      const arr = JSON.parse(raw);
-      const list = Array.isArray(arr) ? arr : [];
-      // keep unique, most recent first
-      const filtered = [product.slug]
-        .concat(list.filter((s) => s !== product.slug))
-        .slice(0, 20);
-      localStorage.setItem(key, JSON.stringify(filtered));
-    } catch (e) {}
+    // Track recently viewed
+    if (window.Store) {
+      let viewed = JSON.parse(localStorage.getItem("techhouse_recently_viewed") || "[]");
+      viewed = viewed.filter(id => id !== product.id);
+      viewed.unshift(product.id);
+      viewed = viewed.slice(0, 10);
+      localStorage.setItem("techhouse_recently_viewed", JSON.stringify(viewed));
+    }
   }
 
-  document.addEventListener("DOMContentLoaded", initProductPage);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 })();
-
-// Render function as required
-function renderProduct(product) {
-  const titleEl = document.querySelector(".product-title");
-  const priceEl = document.querySelector(".product-price");
-  const imgEl = document.querySelector(".product-image img");
-  const addBtn = document.querySelector(".add-to-cart");
-
-  if (titleEl) titleEl.textContent = product.name || "";
-  if (priceEl)
-    priceEl.textContent =
-      "$" + (product.price != null ? product.price : "0.00");
-  if (imgEl) {
-    imgEl.src =
-      product.images && product.images.length
-        ? product.images[0]
-        : "assets/images/placeholder.png";
-    imgEl.alt = product.name || "Product image";
-  }
-
-  if (addBtn) {
-    // set data-id attribute
-    addBtn.dataset.id = product.id;
-
-    // replace node to ensure no duplicate listeners
-    const newBtn = addBtn.cloneNode(true);
-    addBtn.parentNode.replaceChild(newBtn, addBtn);
-
-    newBtn.addEventListener("click", function () {
-      // Use existing Cart API
-      if (typeof Cart !== "undefined" && typeof Cart.addToCart === "function") {
-        Cart.addToCart(product.id);
-      }
-      // update cart count display
-      updateCartCount();
-    });
-  }
-}
-
-// update cart count in header (if element exists)
-function updateCartCount() {
-  const countEl = document.getElementById("cart-count");
-  if (!countEl) return;
-
-  const count =
-    typeof Cart !== "undefined" && typeof Cart.getCount === "function"
-      ? Cart.getCount()
-      : 0;
-
-  countEl.textContent = count;
-}

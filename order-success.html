@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Buyurtma qabul qilindi | Tech House</title>
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    .success-page {
+      max-width: 700px;
+      margin: 60px auto;
+      padding: 40px;
+      text-align: center;
+    }
+    .success-icon {
+      width: 100px;
+      height: 100px;
+      background: #22c55e;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 30px;
+    }
+    .success-icon i {
+      font-size: 50px;
+      color: #fff;
+    }
+    .success-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: #111;
+    }
+    .success-message {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 30px;
+    }
+    .order-number {
+      background: #f8fafc;
+      border: 2px dashed #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+    .order-number label {
+      display: block;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 5px;
+    }
+    .order-number strong {
+      font-size: 24px;
+      color: #ff6a00;
+      letter-spacing: 2px;
+    }
+    .order-details {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+      text-align: left;
+    }
+    .order-details h3 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    .order-item {
+      display: flex;
+      gap: 15px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .order-item:last-child {
+      border-bottom: none;
+    }
+    .order-item img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .order-item-info {
+      flex: 1;
+    }
+    .order-item-info h4 {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    .order-item-info small {
+      color: #666;
+    }
+    .order-item-price {
+      font-weight: 600;
+    }
+    .order-totals {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 2px solid #eee;
+    }
+    .order-totals .row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+    }
+    .order-totals .row.total {
+      font-size: 18px;
+      font-weight: 700;
+      color: #ff6a00;
+      padding-top: 15px;
+      border-top: 1px solid #eee;
+      margin-top: 10px;
+    }
+    .success-actions {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .success-actions a {
+      padding: 14px 30px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-primary {
+      background: #ff6a00;
+      color: #fff;
+    }
+    .btn-secondary {
+      background: #f3f4f6;
+      color: #374151;
+    }
+    .contact-info {
+      margin-top: 40px;
+      padding: 20px;
+      background: #fef3c7;
+      border-radius: 10px;
+      font-size: 14px;
+      color: #92400e;
+    }
+    .contact-info i {
+      margin-right: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="site-header">
+    <div class="top-bar">
+      <div class="container top-bar-inner">
+        <p>299$ dan yuqori buyurtmalar uchun bepul yetkazib berish | Kengaytirilgan kafolat mavjud</p>
+        <div class="top-right">
+          <span>EN</span>
+          <span>USD</span>
+        </div>
+      </div>
+    </div>
+
+    <header class="main-header">
+      <div class="container header-inner">
+        <div class="logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
+
+        <div class="search-box">
+          <select>
+            <option>Barcha kategoriyalar</option>
+          </select>
+          <input type="search" id="header-search" placeholder="Mahsulot qidirish...">
+          <button id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+
+        <div class="header-actions">
+          <div class="phone">
+            <small>Biz bilan bog'lanish:</small>
+            <strong>+998 90 791 36 33</strong>
+          </div>
+          <div class="icons">
+            <a href="auth/login.html" data-action="profile" id="nav-profile">
+              <i class="fa-solid fa-user"></i>
+            </a>
+            <a href="wishlist.html" style="color:#ef4444;">
+              <i class="fa-solid fa-heart"></i>
+            </a>
+            <a href="cart.html">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span id="cart-count" style="background:#ff6a00;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;margin-left:2px;">0</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="nav-bar">
+      <div class="container nav-inner">
+        <a href="index.html">Uy</a>
+        <a href="products.html">Mahsulotlar</a>
+        <a href="index.html#membership">A'zolik</a>
+        <a href="contact.html">Bog'lanish</a>
+      </div>
+    </nav>
+  </div>
+
+  <main class="success-page">
+    <div class="success-icon">
+      <i class="fa-solid fa-check"></i>
+    </div>
+    
+    <h1 class="success-title">Buyurtma qabul qilindi!</h1>
+    <p class="success-message">Rahmat! Sizning buyurtmangiz muvaffaqiyatli joylashtirildi.</p>
+
+    <div class="order-number">
+      <label>Buyurtma raqami</label>
+      <strong id="order-id">TH-XXXXXX</strong>
+    </div>
+
+    <div class="order-details" id="order-details">
+      <h3><i class="fa-solid fa-box"></i> Buyurtma tafsilotlari</h3>
+      <div id="order-items"></div>
+      <div class="order-totals" id="order-totals"></div>
+    </div>
+
+    <div class="success-actions">
+      <a href="products.html" class="btn-primary">
+        <i class="fa-solid fa-shopping-bag"></i> Xaridni davom ettirish
+      </a>
+      <a href="index.html" class="btn-secondary">
+        <i class="fa-solid fa-home"></i> Bosh sahifaga
+      </a>
+    </div>
+
+    <div class="contact-info">
+      <i class="fa-solid fa-phone"></i>
+      Savollaringiz bo'lsa, biz bilan bog'laning: <strong>+998 90 791 36 33</strong>
+    </div>
+  </main>
+
+  <footer class="main-footer">
+    <div class="footer-container container">
+      <div class="footer-col brand">
+        <div class="footer-logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
+        <p>Sifatli maishiy texnika uchun ishonchli hamkoringiz.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© TechHouse 2025. Barcha huquqlar himoyalangan.</p>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script>
+    (function() {
+      function init() {
+        const orderId = sessionStorage.getItem("lastOrderId");
+        
+        if (!orderId) {
+          // No order found, redirect to home
+          document.querySelector(".success-page").innerHTML = `
+            <div style="padding:60px 20px;text-align:center;">
+              <i class="fa-solid fa-exclamation-circle" style="font-size:64px;color:#f59e0b;margin-bottom:20px;"></i>
+              <h2>Buyurtma topilmadi</h2>
+              <p style="color:#666;margin:15px 0 25px;">Siz hali buyurtma bermagansiz yoki sahifa yangilangan.</p>
+              <a href="products.html" class="btn-primary" style="display:inline-block;padding:14px 30px;background:#ff6a00;color:#fff;text-decoration:none;border-radius:8px;">
+                Xarid qilish
+              </a>
+            </div>
+          `;
+          return;
+        }
+
+        const order = Store.getOrderById(orderId);
+        
+        if (!order) {
+          document.getElementById("order-id").textContent = orderId;
+          document.getElementById("order-details").style.display = "none";
+          return;
+        }
+
+        // Display order info
+        document.getElementById("order-id").textContent = order.id;
+
+        const itemsEl = document.getElementById("order-items");
+        if (itemsEl && order.items) {
+          itemsEl.innerHTML = order.items.map(item => `
+            <div class="order-item">
+              <img src="${item.image}" alt="${item.name}">
+              <div class="order-item-info">
+                <h4>${item.name}</h4>
+                <small>${item.qty} x ${UI.formatPrice(item.price)}</small>
+              </div>
+              <span class="order-item-price">${UI.formatPrice(item.subtotal)}</span>
+            </div>
+          `).join("");
+        }
+
+        const totalsEl = document.getElementById("order-totals");
+        if (totalsEl) {
+          totalsEl.innerHTML = `
+            <div class="row">
+              <span>Oraliq jami:</span>
+              <span>${UI.formatPrice(order.subtotal)}</span>
+            </div>
+            <div class="row">
+              <span>Yetkazib berish:</span>
+              <span>${order.shipping === 0 ? 'Bepul' : UI.formatPrice(order.shipping)}</span>
+            </div>
+            <div class="row total">
+              <span>Jami to'lov:</span>
+              <span>${UI.formatPrice(order.total)}</span>
+            </div>
+          `;
+        }
+
+        // Clear the session order ID
+        sessionStorage.removeItem("lastOrderId");
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+      } else {
+        init();
+      }
+    })();
+  </script>
+</body>
+
+</html>

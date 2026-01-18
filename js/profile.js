@@ -1,208 +1,133 @@
-// Profile page logic: require authentication, edit profile, change password, avatar upload (base64)
-(function () {
+/**
+ * PROFILE.JS - Profile Page Logic
+ */
+(function() {
   "use strict";
 
-  // run only on profile page
-  if (!/profile\.html/i.test(window.location.pathname)) return;
+  if (!location.pathname.includes("profile.html")) return;
 
-  document.addEventListener("DOMContentLoaded", function () {
-    const current =
-      window.Auth && window.Auth.getCurrentUser
-        ? window.Auth.getCurrentUser()
-        : null;
-    if (!current) {
-      // not logged in -> redirect to auth
-      window.location.href = "/auth/index.html";
+  function renderProfile() {
+    const user = Store.getUser();
+
+    if (!user) {
+      location.href = "auth/login.html";
       return;
     }
 
-    // elements
-    const menuName = document.getElementById("menuName");
-    const menuEmail = document.getElementById("menuEmail");
-    const avatar = document.getElementById("avatar");
-    const menuAvatar = document.getElementById("menuAvatar");
-    const nameInput = document.getElementById("name");
-    const emailInput = document.getElementById("email");
-    const phoneInput = document.getElementById("phone");
-    const addressInput = document.getElementById("address");
-    const saveBtn = document.getElementById("saveProfile");
-    const avatarInput = document.getElementById("avatarInput");
+    // Update menu
+    document.getElementById("menuName").textContent = user.name || "Sizning ismingiz";
+    document.getElementById("menuEmail").textContent = user.email || "email@example.com";
+    
+    // Update profile card
+    document.getElementById("profileName").textContent = user.name || "Sizning ismingiz";
+    document.getElementById("profileEmail").textContent = user.email || "email@example.com";
 
-    // populate
-    function populate(user) {
-      if (!user) return;
-      const users = JSON.parse(localStorage.getItem("users") || "[]");
-      const full = users.find((u) => u.id === user.id) || user;
-      menuName && (menuName.textContent = full.name || "Sizning ismingiz");
-      menuEmail && (menuEmail.textContent = full.email || "");
-      if (avatar) avatar.src = full.avatar || avatar.src;
-      if (menuAvatar) menuAvatar.src = full.avatar || menuAvatar.src;
-      if (nameInput) nameInput.value = full.name || "";
-      if (emailInput) emailInput.value = full.email || "";
-      if (phoneInput) phoneInput.value = full.phone || "";
-      if (addressInput) addressInput.value = full.address || "";
-    }
+    // Fill form inputs
+    document.getElementById("name").value = user.name || "";
+    document.getElementById("email").value = user.email || "";
+    document.getElementById("phone").value = user.phone || "";
+    document.getElementById("address").value = user.address || "";
+  }
 
-    populate(current);
+  function init() {
+    renderProfile();
 
-    // save profile
-    saveBtn &&
-      saveBtn.addEventListener("click", function () {
-        const name = (nameInput.value || "").trim();
-        const email = (emailInput.value || "").toLowerCase().trim();
-        const phone = (phoneInput.value || "").trim();
-        const address = (addressInput.value || "").trim();
+    // Save profile
+    document.getElementById("saveProfile")?.addEventListener("click", () => {
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const address = document.getElementById("address").value.trim();
 
-        // check duplicate email (except current)
-        const users = JSON.parse(localStorage.getItem("users") || "[]");
-        const dup = users.find((u) => u.email === email && u.id !== current.id);
-        if (dup) {
-          window.UI &&
-            window.UI.toast &&
-            window.UI.toast(
-              "error",
-              "Bu email boshqa foydalanuvchi tomonidan ishlatilmoqda"
-            );
-          return;
-        }
+      if (!name) {
+        UI.toast("error", "Ism kiritilishi shart");
+        return;
+      }
 
-        // update stored user object (keep password)
-        const updated = users.map((u) => {
-          if (u.id === current.id) {
-            return Object.assign({}, u, {
-              name,
-              email,
-              phone,
-              address,
-              avatar: u.avatar || "",
-            });
-          }
-          return u;
-        });
-        localStorage.setItem("users", JSON.stringify(updated));
-        // update current user
-        const cur = updated.find((u) => u.id === current.id);
-        localStorage.setItem(
-          "currentUser",
-          JSON.stringify({
-            id: cur.id,
-            name: cur.name,
-            email: cur.email,
-            avatar: cur.avatar,
-          })
-        );
-        window.UI &&
-          window.UI.toast &&
-          window.UI.toast("success", "Profil yangilandi");
-        // refresh UI
-        populate(cur);
-        // inform Auth module
-        window.Auth &&
-          window.Auth.updateCurrent &&
-          window.Auth.updateCurrent({
-            name: cur.name,
-            email: cur.email,
-            avatar: cur.avatar,
-          });
-      });
+      const updated = Store.updateUser({ name, email, phone, address });
+      if (updated) {
+        UI.toast("success", "Ma'lumotlar saqlandi");
+        renderProfile();
+      } else {
+        UI.toast("error", "Xatolik yuz berdi");
+      }
+    });
 
-    // avatar upload -> base64
-    avatarInput &&
-      avatarInput.addEventListener("change", function (ev) {
-        const file = ev.target.files && ev.target.files[0];
-        if (!file) return;
+    // Change password
+    document.getElementById("changePassword")?.addEventListener("click", () => {
+      const oldPassword = document.getElementById("oldPassword").value;
+      const newPassword = document.getElementById("newPassword").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      if (!oldPassword || !newPassword) {
+        UI.toast("error", "Barcha maydonlarni to'ldiring");
+        return;
+      }
+
+      if (newPassword !== confirmPassword) {
+        UI.toast("error", "Parollar mos kelmadi");
+        return;
+      }
+
+      if (newPassword.length < 6) {
+        UI.toast("error", "Parol kamida 6 belgidan iborat bo'lsin");
+        return;
+      }
+
+      const result = Store.changePassword(oldPassword, newPassword);
+      if (result.success) {
+        UI.toast("success", "Parol yangilandi");
+        document.getElementById("oldPassword").value = "";
+        document.getElementById("newPassword").value = "";
+        document.getElementById("confirmPassword").value = "";
+      } else {
+        UI.toast("error", result.error);
+      }
+    });
+
+    // Logout
+    document.getElementById("logout")?.addEventListener("click", () => {
+      Store.logout();
+      UI.toast("info", "Tizimdan chiqdingiz");
+      setTimeout(() => {
+        location.href = "index.html";
+      }, 1000);
+    });
+
+    // Menu navigation
+    document.querySelector(".menu-profile")?.addEventListener("click", () => {
+      document.querySelector(".profile-info")?.parentElement?.style.setProperty("display", "block");
+      document.getElementById("settingsSection")?.style.setProperty("display", "none");
+      document.querySelectorAll(".profile-menu li").forEach(li => li.classList.remove("active"));
+      document.querySelector(".menu-profile")?.classList.add("active");
+    });
+
+    document.querySelector(".menu-settings")?.addEventListener("click", () => {
+      document.querySelector(".profile-info")?.parentElement?.style.setProperty("display", "none");
+      document.getElementById("settingsSection")?.style.setProperty("display", "block");
+      document.querySelectorAll(".profile-menu li").forEach(li => li.classList.remove("active"));
+      document.querySelector(".menu-settings")?.classList.add("active");
+    });
+
+    // Avatar upload (mock)
+    document.getElementById("avatarInput")?.addEventListener("change", function(e) {
+      const file = e.target.files[0];
+      if (file) {
         const reader = new FileReader();
-        reader.onload = function (e) {
-          const base64 = e.target.result;
-          // update users and currentUser
-          const users = JSON.parse(localStorage.getItem("users") || "[]");
-          const updated = users.map((u) => {
-            if (u.id === current.id) {
-              return Object.assign({}, u, { avatar: base64 });
-            }
-            return u;
-          });
-          localStorage.setItem("users", JSON.stringify(updated));
-          const cur = updated.find((u) => u.id === current.id);
-          localStorage.setItem(
-            "currentUser",
-            JSON.stringify({
-              id: cur.id,
-              name: cur.name,
-              email: cur.email,
-              avatar: cur.avatar,
-            })
-          );
-          if (avatar) avatar.src = base64;
-          if (menuAvatar) menuAvatar.src = base64;
-          window.UI &&
-            window.UI.toast &&
-            window.UI.toast("success", "Avatar o‘zgartirildi");
-          // inform Auth
-          window.Auth &&
-            window.Auth.updateCurrent &&
-            window.Auth.updateCurrent({ avatar: base64 });
+        reader.onload = function(event) {
+          const avatarUrl = event.target.result;
+          document.getElementById("avatar").src = avatarUrl;
+          document.getElementById("menuAvatar").src = avatarUrl;
+          UI.toast("success", "Rasm yangilandi");
         };
         reader.readAsDataURL(file);
-      });
+      }
+    });
+  }
 
-    // settings section toggle
-    const settingsBtn = document.querySelector(".menu-settings");
-    const settingsSection = document.getElementById("settingsSection");
-    if (settingsBtn && settingsSection) {
-      settingsBtn.addEventListener("click", function () {
-        settingsSection.style.display =
-          settingsSection.style.display === "none" ? "block" : "none";
-      });
-    }
-
-    // change password
-    const changeBtn = document.getElementById("changePassword");
-    if (changeBtn) {
-      changeBtn.addEventListener("click", function () {
-        const oldPw = document.getElementById("oldPassword").value || "";
-        const newPw = document.getElementById("newPassword").value || "";
-        const confirmPw =
-          document.getElementById("confirmPassword").value || "";
-        if (!oldPw || !newPw) {
-          window.UI &&
-            window.UI.toast &&
-            window.UI.toast("error", "Parol maydonlari to‘ldirilishi kerak");
-          return;
-        }
-        if (newPw !== confirmPw) {
-          window.UI &&
-            window.UI.toast &&
-            window.UI.toast("error", "Yangi parollar mos kelmaydi");
-          return;
-        }
-        // verify old password from users list
-        const users = JSON.parse(localStorage.getItem("users") || "[]");
-        const user = users.find((u) => u.id === current.id);
-        if (!user || user.password !== oldPw) {
-          window.UI &&
-            window.UI.toast &&
-            window.UI.toast("error", "Eski parol noto‘g‘ri");
-          return;
-        }
-        // update password
-        const updated = users.map((u) =>
-          u.id === current.id ? Object.assign({}, u, { password: newPw }) : u
-        );
-        localStorage.setItem("users", JSON.stringify(updated));
-        window.UI &&
-          window.UI.toast &&
-          window.UI.toast("success", "Parol muvaffaqiyatli o‘zgartirildi");
-      });
-    }
-
-    // logout
-    const logoutBtn = document.getElementById("logout");
-    if (logoutBtn) {
-      logoutBtn.addEventListener("click", function () {
-        window.Auth && window.Auth.logout && window.Auth.logout();
-        window.location.href = "/";
-      });
-    }
-  });
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 })();

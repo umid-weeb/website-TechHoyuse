@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Sevimlilar | Tech House</title>
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/products.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    .wishlist-page {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .wishlist-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    .wishlist-title {
+      font-size: 28px;
+      font-weight: 700;
+    }
+    .wishlist-count {
+      color: #666;
+      font-size: 16px;
+    }
+    .wishlist-empty {
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .wishlist-empty i {
+      font-size: 80px;
+      color: #ddd;
+      margin-bottom: 20px;
+    }
+    .wishlist-empty h2 {
+      margin-bottom: 10px;
+    }
+    .wishlist-empty p {
+      color: #666;
+      margin-bottom: 25px;
+    }
+    .wishlist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 25px;
+    }
+    .wishlist-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .wishlist-actions button {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-add-cart {
+      background: #ff6a00;
+      color: #fff;
+      border: none;
+    }
+    .btn-add-cart:hover {
+      background: #e55d00;
+    }
+    .btn-remove {
+      background: #fff;
+      color: #dc2626;
+      border: 1px solid #dc2626;
+    }
+    .btn-remove:hover {
+      background: #fee2e2;
+    }
+    .clear-wishlist {
+      padding: 10px 20px;
+      background: #f3f4f6;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #374151;
+    }
+    .clear-wishlist:hover {
+      background: #e5e7eb;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="site-header">
+    <div class="top-bar">
+      <div class="container top-bar-inner">
+        <p>299$ dan yuqori buyurtmalar uchun bepul yetkazib berish | Kengaytirilgan kafolat mavjud</p>
+        <div class="top-right">
+          <span>EN</span>
+          <span>USD</span>
+        </div>
+      </div>
+    </div>
+
+    <header class="main-header">
+      <div class="container header-inner">
+        <div class="logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
+
+        <div class="search-box">
+          <select>
+            <option>Barcha kategoriyalar</option>
+          </select>
+          <input type="search" id="header-search" placeholder="Mahsulot qidirish...">
+          <button id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+
+        <div class="header-actions">
+          <div class="phone">
+            <small>Biz bilan bog'lanish:</small>
+            <strong>+998 90 791 36 33</strong>
+          </div>
+          <div class="icons">
+            <a href="auth/login.html" data-action="profile" id="nav-profile">
+              <i class="fa-solid fa-user"></i>
+            </a>
+            <a href="wishlist.html" style="color:#ef4444;">
+              <i class="fa-solid fa-heart"></i>
+              <span id="wishlist-count" style="background:#ef4444;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;margin-left:2px;">0</span>
+            </a>
+            <a href="cart.html">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span id="cart-count" style="background:#ff6a00;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;margin-left:2px;">0</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="nav-bar">
+      <div class="container nav-inner">
+        <a href="index.html">Uy</a>
+        <a href="products.html">Mahsulotlar</a>
+        <a href="index.html#membership">A'zolik</a>
+        <a href="contact.html">Bog'lanish</a>
+        <a class="active" href="wishlist.html">Sevimlilar</a>
+      </div>
+    </nav>
+  </div>
+
+  <main class="wishlist-page">
+    <div class="wishlist-header">
+      <div>
+        <h1 class="wishlist-title"><i class="fa-solid fa-heart" style="color:#ef4444;"></i> Sevimlilar</h1>
+        <p class="wishlist-count" id="wishlist-items-count">0 ta mahsulot</p>
+      </div>
+      <button class="clear-wishlist" id="clear-wishlist">
+        <i class="fa-solid fa-trash"></i> Hammasini o'chirish
+      </button>
+    </div>
+
+    <div id="wishlist-empty" class="wishlist-empty" style="display:none;">
+      <i class="fa-regular fa-heart"></i>
+      <h2>Sevimlilar ro'yxati bo'sh</h2>
+      <p>Yoqtirgan mahsulotlaringizni qo'shing</p>
+      <a href="products.html" class="btn btn-primary" style="display:inline-block;padding:14px 30px;background:#ff6a00;color:#fff;text-decoration:none;border-radius:8px;">
+        <i class="fa-solid fa-shopping-bag"></i> Mahsulotlarni ko'rish
+      </a>
+    </div>
+
+    <div class="wishlist-grid" id="wishlist-grid"></div>
+  </main>
+
+  <footer class="main-footer">
+    <div class="footer-container container">
+      <div class="footer-col brand">
+        <div class="footer-logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
+        <p>Sifatli maishiy texnika uchun ishonchli hamkoringiz.</p>
+      </div>
+      <div class="footer-col">
+        <h4>ALOQA</h4>
+        <p>Andijon viloyati, Bo'ston MFY</p>
+        <p>info@techhouse.uz</p>
+        <p>+998 90 123 45 67</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© TechHouse 2025. Barcha huquqlar himoyalangan.</p>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script>
+    (function() {
+      function renderWishlist() {
+        const grid = document.getElementById("wishlist-grid");
+        const empty = document.getElementById("wishlist-empty");
+        const countEl = document.getElementById("wishlist-items-count");
+        const clearBtn = document.getElementById("clear-wishlist");
+
+        const items = Store.getWishlistDetails();
+
+        if (countEl) countEl.textContent = `${items.length} ta mahsulot`;
+
+        if (!items.length) {
+          grid.innerHTML = "";
+          grid.style.display = "none";
+          empty.style.display = "block";
+          clearBtn.style.display = "none";
+          return;
+        }
+
+        grid.style.display = "grid";
+        empty.style.display = "none";
+        clearBtn.style.display = "block";
+
+        grid.innerHTML = items.map(p => `
+          <div class="product-card" data-id="${p.id}">
+            <div class="product-image">
+              <a href="product-detail.html?slug=${p.slug}">
+                <img src="${p.images[0] || 'assets/images/placeholder.jpg'}" alt="${p.name}">
+              </a>
+            </div>
+            <small class="category">${p.category}</small>
+            <h4><a href="product-detail.html?slug=${p.slug}">${p.name}</a></h4>
+            <div class="rating">${UI.renderStars(p.rating)} <span>(${p.reviewsCount || 0})</span></div>
+            <div class="price-wrap" style="margin:10px 0;">
+              <span class="price">${UI.formatPrice(p.price)}</span>
+              ${p.oldPrice ? `<span class="old-price" style="text-decoration:line-through;color:#999;margin-left:8px;">${UI.formatPrice(p.oldPrice)}</span>` : ""}
+            </div>
+            <div class="wishlist-actions">
+              <button class="btn-add-cart add-to-cart" data-id="${p.id}" ${!p.inStock ? "disabled" : ""}>
+                <i class="fa-solid fa-cart-shopping"></i> Savatchaga
+              </button>
+              <button class="btn-remove wishlist-remove" data-id="${p.id}">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      document.addEventListener("DOMContentLoaded", function() {
+        renderWishlist();
+
+        // Remove from wishlist
+        document.body.addEventListener("click", function(e) {
+          const btn = e.target.closest(".wishlist-remove");
+          if (!btn) return;
+          e.preventDefault();
+          Store.removeFromWishlist(btn.dataset.id);
+          UI.toast("info", "Sevimlilardan o'chirildi");
+          renderWishlist();
+        });
+
+        // Clear all
+        document.getElementById("clear-wishlist")?.addEventListener("click", function() {
+          if (confirm("Barcha sevimlilarni o'chirishni xohlaysizmi?")) {
+            Store.setWishlist([]);
+            renderWishlist();
+            UI.toast("info", "Sevimlilar tozalandi");
+          }
+        });
+
+        // Listen for updates
+        window.addEventListener("wishlist:updated", renderWishlist);
+      });
+
+      // Make it global for UI.js to call
+      window.renderWishlist = renderWishlist;
+    })();
+  </script>
+</body>
+
+</html>

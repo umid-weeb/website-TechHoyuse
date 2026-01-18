@@ -1,15 +1,173 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Auth Page</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kirish / Ro'yxatdan o'tish | Tech House</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+      padding: 20px;
+    }
+    .auth-wrapper {
+      width: 100%;
+      max-width: 420px;
+    }
+    .auth-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 40px 35px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo a {
+      font-size: 24px;
+      font-weight: 800;
+      color: #ff6a00;
+      text-decoration: none;
+    }
+    .icon {
+      font-size: 50px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    h2 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #111827;
+    }
+    .switch-text {
+      text-align: center;
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 25px;
+    }
+    .switch-text a {
+      color: #ff6a00;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .switch-text a:hover {
+      text-decoration: underline;
+    }
+    .form {
+      display: none;
+    }
+    .form.active {
+      display: block;
+    }
+    .input-group {
+      margin-bottom: 18px;
+    }
+    .input-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: #374151;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: border-color 0.2s;
+    }
+    .input-group input:focus {
+      outline: none;
+      border-color: #ff6a00;
+    }
+    .input-group.password {
+      position: relative;
+    }
+    .input-group.password .toggle {
+      position: absolute;
+      right: 12px;
+      top: 38px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 20px;
+    }
+    .checkbox input {
+      margin-top: 2px;
+    }
+    .checkbox a {
+      color: #ff6a00;
+      text-decoration: none;
+    }
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #ff6a00, #ff3d00);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+    .btn:active {
+      transform: scale(0.98);
+    }
+    .forgot-link {
+      display: block;
+      text-align: right;
+      font-size: 13px;
+      color: #6b7280;
+      text-decoration: none;
+      margin-top: 8px;
+    }
+    .forgot-link:hover {
+      color: #ff6a00;
+    }
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 25px;
+      color: #6b7280;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .back-link:hover {
+      color: #ff6a00;
+    }
+  </style>
 </head>
 <body>
 
   <div class="auth-wrapper">
     <div class="auth-card">
+
+      <div class="logo">
+        <a href="../index.html">TECH HOUSE</a>
+      </div>
 
       <div class="icon">👤</div>
 
@@ -19,56 +177,56 @@
         <a href="#" id="switchForm">Tizimga kirish</a>
       </p>
 
-      <!-- SIGN UP  bolimi bu -->
+      <!-- SIGN UP FORM -->
       <form id="signupForm" class="form active">
         <div class="input-group">
-          <label>To‘liq ism</label>
-          <input type="text" id="signupFullname" placeholder="Ibroximjon Isroilov" />
+          <label>To'liq ism</label>
+          <input type="text" id="signupFullname" placeholder="Ismingiz" required>
         </div>
 
         <div class="input-group">
           <label>E-pochta manzili</label>
-          <input type="email" id="signupEmail" placeholder="you@example.com">
+          <input type="email" id="signupEmail" placeholder="email@example.com" required>
         </div>
 
         <div class="input-group password">
           <label>Parol</label>
-          <input type="password" id="signupPassword">
+          <input type="password" id="signupPassword" placeholder="Kamida 6 belgi" required>
           <span class="toggle">👁</span>
         </div>
 
         <div class="input-group">
           <label>Parolni tasdiqlang</label>
-          <input type="password" id="signupConfirm">
+          <input type="password" id="signupConfirm" placeholder="Parolni qayta kiriting" required>
         </div>
 
         <div class="checkbox">
-          <input type="checkbox" />
-          <span>Men <a href="#">Foydalanish shartlari</a> va <a href="#">qoidalarga</a> roziman</span>
+          <input type="checkbox" required>
+          <span>Men <a href="#">Foydalanish shartlari</a> va <a href="#">Maxfiylik siyosati</a>ga roziman</span>
         </div>
 
-        <button class="btn">Hisob yaratish</button>
+        <button type="submit" class="btn">Hisob yaratish</button>
       </form>
 
-      <!-- SIGN IN  qismi-->
+      <!-- SIGN IN FORM -->
       <form id="signinForm" class="form">
         <div class="input-group">
           <label>E-pochta manzili</label>
-          <input type="email" id="signinEmail" placeholder="you@example.com">
+          <input type="email" id="signinEmail" placeholder="email@example.com" required>
         </div>
 
         <div class="input-group password">
           <label>Parol</label>
-          
-          <input type="password" id="signinPassword" autocomplete="current-password">
+          <input type="password" id="signinPassword" placeholder="Parolingiz" required>
           <span class="toggle">👁</span>
-          <a style="text-decoration: none;" href="#" id="forgotPasswordLink">Parolni unutdingizni?</a>
         </div>
-        
 
-        <button style="text-decoration: none;" class="btn"><a style="text-decoration: none; color: white;" href="index.html">Tizimga kirish</a></button>
-        
+        <button type="submit" class="btn">Tizimga kirish</button>
       </form>
+
+      <a href="../index.html" class="back-link">
+        ← Bosh sahifaga qaytish
+      </a>
 
     </div>
   </div>
