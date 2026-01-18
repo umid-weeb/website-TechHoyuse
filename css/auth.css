@@ -1,0 +1,27 @@
+.icons a {
+  text-decoration: none;   /* underline yo'qoladi */
+}
+
+.icon-link {
+  display: inline-flex;    /* baseline muammosi ketadi */
+  align-items: center;
+  gap: 6px;
+}
+
+.badge {
+  display: inline-flex;    /* pastdagi chiziq/underline ko'rinmaydi */
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 6px;
+  border-radius: 999px;
+  font-size: 10px;
+  line-height: 1;          /* pastga tushib qolish ketadi */
+  background: #ef4444;
+  color: #fff;
+}
+
+.badge-cart {
+  background: #ff6a00;
+}

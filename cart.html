@@ -3,113 +3,34 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Savatcha | Tech House</title>
   <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/cart.css">
+  <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
-    .cart-page {
-      max-width: 1100px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    .cart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-    }
-    .cart-title {
-      font-size: 28px;
-      font-weight: 700;
-    }
-    .cart-layout {
-      display: grid;
-      grid-template-columns: 1fr 350px;
-      gap: 40px;
-    }
-    .cart-items {
-      background: #fff;
-      border-radius: 12px;
-      border: 1px solid #e5e7eb;
-    }
-    .cart-summary {
-      background: #fff;
-      border-radius: 12px;
-      border: 1px solid #e5e7eb;
-      padding: 25px;
-      height: fit-content;
-      position: sticky;
-      top: 180px;
-    }
-    .cart-summary h3 {
-      font-size: 20px;
-      margin-bottom: 20px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid #eee;
-    }
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px 0;
-      font-size: 15px;
-    }
-    .summary-row.total {
-      font-size: 20px;
-      font-weight: 700;
-      border-top: 2px solid #eee;
-      margin-top: 15px;
-      padding-top: 15px;
-    }
-    .summary-row.total span:last-child {
-      color: #ff6a00;
-    }
-    #shipping-note {
-      font-size: 13px;
-      margin: 15px 0;
-    }
-    .checkout-btn {
-      width: 100%;
-      padding: 16px;
-      background: linear-gradient(135deg, #ff6a00, #ff3d00);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-    .checkout-btn:hover {
-      background: linear-gradient(135deg, #ff3d00, #ff6a00);
-    }
-    .continue-shopping {
-      display: block;
-      text-align: center;
-      margin-top: 15px;
-      color: #666;
-      text-decoration: none;
-      font-size: 14px;
-    }
-    .continue-shopping:hover {
-      color: #ff6a00;
-    }
-    @media (max-width: 900px) {
-      .cart-layout {
-        grid-template-columns: 1fr;
-      }
-      .cart-summary {
-        position: static;
-      }
-    }
-  </style>
 </head>
 
-<body>
+<body data-page="cart">
+
+  <!-- MOBILE HEADER -->
+  <div class="mobile-header mobile-header-simple">
+    <div class="mobile-header-row1">
+      <a href="products.html" class="mobile-back-btn" aria-label="Orqaga">
+        <i class="fa-solid fa-arrow-left"></i>
+      </a>
+      <h1 class="mobile-page-title">Savatcha</h1>
+      <button id="mobile-clear-cart" class="mobile-action-btn" aria-label="Tozalash">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- DRAWER OVERLAY -->
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+
+  <!-- DESKTOP HEADER -->
   <div class="site-header">
     <div class="top-bar">
       <div class="container top-bar-inner">
@@ -123,7 +44,7 @@
 
     <header class="main-header">
       <div class="container header-inner">
-        <div class="logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
+        <div class="logo"><a href="index.html">TECH HOUSE</a></div>
 
         <div class="search-box">
           <select>
@@ -142,12 +63,13 @@
             <a href="auth/login.html" data-action="profile" id="nav-profile">
               <i class="fa-solid fa-user"></i>
             </a>
-            <a href="wishlist.html" style="color:#ef4444;">
+            <a href="wishlist.html" class="icon-link">
               <i class="fa-solid fa-heart"></i>
+              <span id="wishlist-count" class="badge">0</span>
             </a>
-            <a href="cart.html" class="active">
+            <a href="cart.html" class="icon-link active">
               <i class="fa-solid fa-cart-shopping"></i>
-              <span id="cart-count" style="background:#ff6a00;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;margin-left:2px;">0</span>
+              <span id="cart-count" class="badge badge-cart">0</span>
             </a>
           </div>
         </div>
@@ -165,10 +87,10 @@
     </nav>
   </div>
 
-  <main class="cart-page">
-    <div class="cart-header">
+  <main class="cart-page container">
+    <div class="cart-header hide-mobile">
       <h1 class="cart-title"><i class="fa-solid fa-cart-shopping"></i> Savatchangiz</h1>
-      <button id="clear-cart" style="padding:10px 20px;background:#f3f4f6;border:none;border-radius:8px;cursor:pointer;color:#374151;">
+      <button id="clear-cart" class="clear-cart-btn">
         <i class="fa-solid fa-trash"></i> Tozalash
       </button>
     </div>
@@ -190,13 +112,13 @@
           <span>Yetkazib berish:</span>
           <span id="cart-shipping">$0.00</span>
         </div>
-        <div id="shipping-note"></div>
+        <div id="shipping-note" class="shipping-note"></div>
         <div class="summary-row total">
           <span>Jami:</span>
           <span id="cart-total">$0.00</span>
         </div>
 
-        <a href="checkout.html" class="checkout-btn">
+        <a href="checkout.html" class="checkout-btn" id="checkout-link">
           <i class="fa-solid fa-lock"></i> Buyurtmaga o'tish
         </a>
         <a href="products.html" class="continue-shopping">
@@ -206,17 +128,28 @@
     </div>
   </main>
 
-  <footer class="main-footer">
+  <!-- MOBILE CHECKOUT BAR -->
+  <div class="mobile-checkout-bar show-mobile">
+    <div class="mobile-checkout-info">
+      <span class="mobile-checkout-label">Jami:</span>
+      <span class="mobile-checkout-total" id="mobile-cart-total">$0.00</span>
+    </div>
+    <a href="checkout.html" class="mobile-checkout-btn" id="mobile-checkout-link">
+      Rasmiylashtirish <i class="fa-solid fa-arrow-right"></i>
+    </a>
+  </div>
+
+  <footer class="main-footer hide-mobile">
     <div class="footer-container container">
       <div class="footer-col brand">
-        <div class="footer-logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
+        <div class="footer-logo"><a href="index.html">TECH HOUSE</a></div>
         <p>Sifatli maishiy texnika uchun ishonchli hamkoringiz.</p>
       </div>
       <div class="footer-col">
         <h4>ALOQA</h4>
         <p>Andijon viloyati, Bo'ston MFY</p>
         <p>info@techhouse.uz</p>
-        <p>+998 90 123 45 67</p>
+        <p>+998 90 791 36 33</p>
       </div>
     </div>
     <div class="footer-bottom">
@@ -224,9 +157,36 @@
     </div>
   </footer>
 
+  <!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-nav" aria-label="Tez navigatsiya">
+    <a href="index.html" class="bottom-nav-item">
+      <i class="fa-solid fa-home"></i>
+      <span>Bosh</span>
+    </a>
+    <a href="products.html" class="bottom-nav-item">
+      <i class="fa-solid fa-th-large"></i>
+      <span>Katalog</span>
+    </a>
+    <a href="cart.html" class="bottom-nav-item active">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span class="nav-badge" id="bottom-cart-count">0</span>
+      <span>Savat</span>
+    </a>
+    <a href="wishlist.html" class="bottom-nav-item wishlist">
+      <i class="fa-solid fa-heart"></i>
+      <span class="nav-badge" id="bottom-wishlist-count">0</span>
+      <span>Sevimli</span>
+    </a>
+    <a href="profile.html" class="bottom-nav-item" data-action="profile">
+      <i class="fa-solid fa-user"></i>
+      <span>Profil</span>
+    </a>
+  </nav>
+
   <script src="js/data.js"></script>
   <script src="js/store.js"></script>
   <script src="js/ui.js"></script>
+  <script src="js/nav.js"></script>
   <script src="js/cart-page.js"></script>
 </body>
 

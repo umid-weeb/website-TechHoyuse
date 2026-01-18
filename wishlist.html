@@ -3,99 +3,98 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Sevimlilar | Tech House</title>
   <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="css/products.css">
+  <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
-    .wishlist-page {
-      max-width: 1200px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    .wishlist-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-    }
-    .wishlist-title {
-      font-size: 28px;
-      font-weight: 700;
-    }
-    .wishlist-count {
-      color: #666;
-      font-size: 16px;
-    }
-    .wishlist-empty {
-      text-align: center;
-      padding: 80px 20px;
-    }
-    .wishlist-empty i {
-      font-size: 80px;
-      color: #ddd;
-      margin-bottom: 20px;
-    }
-    .wishlist-empty h2 {
-      margin-bottom: 10px;
-    }
-    .wishlist-empty p {
-      color: #666;
-      margin-bottom: 25px;
-    }
-    .wishlist-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 25px;
-    }
-    .wishlist-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 15px;
-    }
-    .wishlist-actions button {
-      flex: 1;
-      padding: 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-    .btn-add-cart {
-      background: #ff6a00;
-      color: #fff;
-      border: none;
-    }
-    .btn-add-cart:hover {
-      background: #e55d00;
-    }
-    .btn-remove {
-      background: #fff;
-      color: #dc2626;
-      border: 1px solid #dc2626;
-    }
-    .btn-remove:hover {
-      background: #fee2e2;
-    }
-    .clear-wishlist {
-      padding: 10px 20px;
-      background: #f3f4f6;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      color: #374151;
-    }
-    .clear-wishlist:hover {
-      background: #e5e7eb;
-    }
-  </style>
 </head>
 
-<body>
+<body data-page="wishlist">
+
+  <!-- MOBILE HEADER -->
+  <div class="mobile-header">
+    <div class="mobile-header-row1">
+      <button class="hamburger-btn" aria-label="Menyu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <a href="index.html" class="mobile-logo">TECH HOUSE</a>
+      <div class="mobile-icons">
+        <a href="auth/login.html" class="mobile-icon-btn" data-action="profile" aria-label="Profil">
+          <i class="fa-solid fa-user"></i>
+        </a>
+        <a href="wishlist.html" class="mobile-icon-btn wishlist-icon" aria-label="Sevimlilar">
+          <i class="fa-solid fa-heart"></i>
+          <span class="icon-badge wishlist-badge" id="mobile-wishlist-count">0</span>
+        </a>
+        <a href="cart.html" class="mobile-icon-btn" aria-label="Savatcha">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="icon-badge" id="mobile-cart-count">0</span>
+        </a>
+      </div>
+    </div>
+    <div class="mobile-header-row2">
+      <div class="mobile-search">
+        <input type="search" id="mobile-search-input" placeholder="Mahsulot qidirish...">
+        <button id="mobile-search-btn" aria-label="Qidirish">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DRAWER OVERLAY -->
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+
+  <!-- MOBILE DRAWER -->
+  <nav class="drawer" id="mobile-drawer" aria-label="Asosiy navigatsiya">
+    <div class="drawer-header">
+      <a href="auth/login.html" class="drawer-user drawer-profile-link" data-action="profile">
+        <div class="drawer-user-icon">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="drawer-user-info">
+          <span class="drawer-user-name" id="drawer-user-name">Mehmon</span>
+          <small id="drawer-user-text">Kirish / Ro'yxatdan o'tish</small>
+        </div>
+      </a>
+      <button class="drawer-close" aria-label="Yopish">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="drawer-nav">
+      <div class="drawer-section">
+        <div class="drawer-section-title">Asosiy</div>
+        <a href="index.html" class="drawer-link">
+          <i class="fa-solid fa-home"></i> Bosh sahifa
+        </a>
+        <a href="products.html" class="drawer-link">
+          <i class="fa-solid fa-th-large"></i> Mahsulotlar
+        </a>
+        <a href="wishlist.html" class="drawer-link active">
+          <i class="fa-solid fa-heart"></i> Sevimlilar
+        </a>
+        <a href="cart.html" class="drawer-link">
+          <i class="fa-solid fa-cart-shopping"></i> Savatcha
+        </a>
+      </div>
+      <div class="drawer-section">
+        <div class="drawer-section-title">Yordam</div>
+        <a href="contact.html" class="drawer-link">
+          <i class="fa-solid fa-headset"></i> Bog'lanish
+        </a>
+      </div>
+    </div>
+    <div class="drawer-footer">
+      <a href="tel:+998907913633" class="drawer-footer-link">
+        <i class="fa-solid fa-phone"></i> +998 90 791 36 33
+      </a>
+    </div>
+  </nav>
+
+  <!-- DESKTOP HEADER -->
   <div class="site-header">
     <div class="top-bar">
       <div class="container top-bar-inner">
@@ -109,7 +108,7 @@
 
     <header class="main-header">
       <div class="container header-inner">
-        <div class="logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
+        <div class="logo"><a href="index.html">TECH HOUSE</a></div>
 
         <div class="search-box">
           <select>
@@ -128,13 +127,13 @@
             <a href="auth/login.html" data-action="profile" id="nav-profile">
               <i class="fa-solid fa-user"></i>
             </a>
-            <a href="wishlist.html" style="color:#ef4444;">
+            <a href="wishlist.html" class="icon-link active">
               <i class="fa-solid fa-heart"></i>
-              <span id="wishlist-count" style="background:#ef4444;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;margin-left:2px;">0</span>
+              <span id="wishlist-count" class="badge">0</span>
             </a>
-            <a href="cart.html">
+            <a href="cart.html" class="icon-link">
               <i class="fa-solid fa-cart-shopping"></i>
-              <span id="cart-count" style="background:#ff6a00;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;margin-left:2px;">0</span>
+              <span id="cart-count" class="badge badge-cart">0</span>
             </a>
           </div>
         </div>
@@ -152,14 +151,20 @@
     </nav>
   </div>
 
-  <main class="wishlist-page">
+  <main class="wishlist-page container">
+    <div class="breadcrumb show-mobile">
+      <a href="index.html">Bosh sahifa</a>
+      <span>/</span>
+      <span>Sevimlilar</span>
+    </div>
+
     <div class="wishlist-header">
       <div>
-        <h1 class="wishlist-title"><i class="fa-solid fa-heart" style="color:#ef4444;"></i> Sevimlilar</h1>
+        <h1 class="wishlist-title"><i class="fa-solid fa-heart"></i> Sevimlilar</h1>
         <p class="wishlist-count" id="wishlist-items-count">0 ta mahsulot</p>
       </div>
       <button class="clear-wishlist" id="clear-wishlist">
-        <i class="fa-solid fa-trash"></i> Hammasini o'chirish
+        <i class="fa-solid fa-trash"></i> <span class="hide-mobile">Hammasini o'chirish</span>
       </button>
     </div>
 
@@ -167,7 +172,7 @@
       <i class="fa-regular fa-heart"></i>
       <h2>Sevimlilar ro'yxati bo'sh</h2>
       <p>Yoqtirgan mahsulotlaringizni qo'shing</p>
-      <a href="products.html" class="btn btn-primary" style="display:inline-block;padding:14px 30px;background:#ff6a00;color:#fff;text-decoration:none;border-radius:8px;">
+      <a href="products.html" class="btn-primary">
         <i class="fa-solid fa-shopping-bag"></i> Mahsulotlarni ko'rish
       </a>
     </div>
@@ -178,14 +183,14 @@
   <footer class="main-footer">
     <div class="footer-container container">
       <div class="footer-col brand">
-        <div class="footer-logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
+        <div class="footer-logo"><a href="index.html">TECH HOUSE</a></div>
         <p>Sifatli maishiy texnika uchun ishonchli hamkoringiz.</p>
       </div>
       <div class="footer-col">
         <h4>ALOQA</h4>
         <p>Andijon viloyati, Bo'ston MFY</p>
         <p>info@techhouse.uz</p>
-        <p>+998 90 123 45 67</p>
+        <p>+998 90 791 36 33</p>
       </div>
     </div>
     <div class="footer-bottom">
@@ -193,9 +198,36 @@
     </div>
   </footer>
 
+  <!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-nav" aria-label="Tez navigatsiya">
+    <a href="index.html" class="bottom-nav-item">
+      <i class="fa-solid fa-home"></i>
+      <span>Bosh</span>
+    </a>
+    <a href="products.html" class="bottom-nav-item">
+      <i class="fa-solid fa-th-large"></i>
+      <span>Katalog</span>
+    </a>
+    <a href="cart.html" class="bottom-nav-item">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span class="nav-badge" id="bottom-cart-count">0</span>
+      <span>Savat</span>
+    </a>
+    <a href="wishlist.html" class="bottom-nav-item wishlist active">
+      <i class="fa-solid fa-heart"></i>
+      <span class="nav-badge" id="bottom-wishlist-count">0</span>
+      <span>Sevimli</span>
+    </a>
+    <a href="profile.html" class="bottom-nav-item" data-action="profile">
+      <i class="fa-solid fa-user"></i>
+      <span>Profil</span>
+    </a>
+  </nav>
+
   <script src="js/data.js"></script>
   <script src="js/store.js"></script>
   <script src="js/ui.js"></script>
+  <script src="js/nav.js"></script>
   <script>
     (function() {
       function renderWishlist() {
@@ -218,10 +250,13 @@
 
         grid.style.display = "grid";
         empty.style.display = "none";
-        clearBtn.style.display = "block";
+        clearBtn.style.display = "flex";
 
         grid.innerHTML = items.map(p => `
           <div class="product-card" data-id="${p.id}">
+            <button class="wishlist-btn active" data-id="${p.id}" title="O'chirish">
+              <i class="fa-solid fa-heart" style="color:#ef4444;"></i>
+            </button>
             <div class="product-image">
               <a href="product-detail.html?slug=${p.slug}">
                 <img src="${p.images[0] || 'assets/images/placeholder.jpg'}" alt="${p.name}">
@@ -230,16 +265,13 @@
             <small class="category">${p.category}</small>
             <h4><a href="product-detail.html?slug=${p.slug}">${p.name}</a></h4>
             <div class="rating">${UI.renderStars(p.rating)} <span>(${p.reviewsCount || 0})</span></div>
-            <div class="price-wrap" style="margin:10px 0;">
-              <span class="price">${UI.formatPrice(p.price)}</span>
-              ${p.oldPrice ? `<span class="old-price" style="text-decoration:line-through;color:#999;margin-left:8px;">${UI.formatPrice(p.oldPrice)}</span>` : ""}
-            </div>
-            <div class="wishlist-actions">
-              <button class="btn-add-cart add-to-cart" data-id="${p.id}" ${!p.inStock ? "disabled" : ""}>
-                <i class="fa-solid fa-cart-shopping"></i> Savatchaga
-              </button>
-              <button class="btn-remove wishlist-remove" data-id="${p.id}">
-                <i class="fa-solid fa-trash"></i>
+            <div class="product-bottom">
+              <div class="price-wrap">
+                <span class="price">${UI.formatPrice(p.price)}</span>
+                ${p.oldPrice ? `<span class="old-price">${UI.formatPrice(p.oldPrice)}</span>` : ""}
+              </div>
+              <button class="add-to-cart cart-btn" data-id="${p.id}" ${!p.inStock ? "disabled" : ""}>
+                <i class="fa-solid fa-cart-shopping"></i>
               </button>
             </div>
           </div>
@@ -249,17 +281,6 @@
       document.addEventListener("DOMContentLoaded", function() {
         renderWishlist();
 
-        // Remove from wishlist
-        document.body.addEventListener("click", function(e) {
-          const btn = e.target.closest(".wishlist-remove");
-          if (!btn) return;
-          e.preventDefault();
-          Store.removeFromWishlist(btn.dataset.id);
-          UI.toast("info", "Sevimlilardan o'chirildi");
-          renderWishlist();
-        });
-
-        // Clear all
         document.getElementById("clear-wishlist")?.addEventListener("click", function() {
           if (confirm("Barcha sevimlilarni o'chirishni xohlaysizmi?")) {
             Store.setWishlist([]);
@@ -268,11 +289,9 @@
           }
         });
 
-        // Listen for updates
         window.addEventListener("wishlist:updated", renderWishlist);
       });
 
-      // Make it global for UI.js to call
       window.renderWishlist = renderWishlist;
     })();
   </script>

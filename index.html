@@ -3,94 +3,128 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Tech House - Maishiy Texnika</title>
   <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="css/products.css">
+  <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
-    .product-card {
-      position: relative;
-    }
-    .product-card .wishlist-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: none;
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      cursor: pointer;
-      z-index: 5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .product-card .wishlist-btn:hover {
-      background: #fee2e2;
-    }
-    .product-card .badge {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      padding: 4px 10px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 600;
-      z-index: 5;
-    }
-    .sale-badge { background: #ef4444; color: #fff; }
-    .new-badge { background: #22c55e; color: #fff; }
-    .popular-badge { background: #f59e0b; color: #fff; }
-    .bestseller-badge { background: #3b82f6; color: #fff; }
-    .product-card h4 a {
-      color: inherit;
-      text-decoration: none;
-    }
-    .product-card h4 a:hover {
-      color: #ff6a00;
-    }
-    .price-wrap {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .old-price {
-      text-decoration: line-through;
-      color: #999;
-      font-size: 14px;
-    }
-    .featured-section {
-      padding: 40px 0;
-    }
-    .featured-section .section-title {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 25px;
-      text-transform: uppercase;
-    }
-    .featured-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 25px;
-    }
-    @media (max-width: 1000px) {
-      .featured-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    @media (max-width: 600px) {
-      .featured-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
 </head>
 
-<body>
+<body data-page="home">
 
+  <!-- MOBILE HEADER -->
+  <div class="mobile-header">
+    <div class="mobile-header-row1">
+      <button class="hamburger-btn" aria-label="Menyu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <a href="index.html" class="mobile-logo">TECH HOUSE</a>
+      <div class="mobile-icons">
+        <a href="auth/login.html" class="mobile-icon-btn" data-action="profile" aria-label="Profil">
+          <i class="fa-solid fa-user"></i>
+        </a>
+        <a href="wishlist.html" class="mobile-icon-btn wishlist-icon" aria-label="Sevimlilar">
+          <i class="fa-solid fa-heart"></i>
+          <span class="icon-badge wishlist-badge" id="mobile-wishlist-count">0</span>
+        </a>
+        <a href="cart.html" class="mobile-icon-btn" aria-label="Savatcha">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="icon-badge" id="mobile-cart-count">0</span>
+        </a>
+      </div>
+    </div>
+    <div class="mobile-header-row2">
+      <div class="mobile-search">
+        <input type="search" id="mobile-search-input" placeholder="Mahsulot qidirish...">
+        <button id="mobile-search-btn" aria-label="Qidirish">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-info-strip">
+      <i class="fa-solid fa-truck"></i> $299+ buyurtmalarga bepul yetkazib berish
+    </div>
+  </div>
+
+  <!-- DRAWER OVERLAY -->
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+
+  <!-- MOBILE DRAWER -->
+  <nav class="drawer" id="mobile-drawer" aria-label="Asosiy navigatsiya">
+    <div class="drawer-header">
+      <a href="auth/login.html" class="drawer-user drawer-profile-link" data-action="profile">
+        <div class="drawer-user-icon">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="drawer-user-info">
+          <span class="drawer-user-name" id="drawer-user-name">Mehmon</span>
+          <small id="drawer-user-text">Kirish / Ro'yxatdan o'tish</small>
+        </div>
+      </a>
+      <button class="drawer-close" aria-label="Yopish">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="drawer-nav">
+      <div class="drawer-section">
+        <div class="drawer-section-title">Asosiy</div>
+        <a href="index.html" class="drawer-link active">
+          <i class="fa-solid fa-home"></i> Bosh sahifa
+        </a>
+        <a href="products.html" class="drawer-link">
+          <i class="fa-solid fa-th-large"></i> Mahsulotlar
+        </a>
+        <a href="wishlist.html" class="drawer-link">
+          <i class="fa-solid fa-heart"></i> Sevimlilar
+        </a>
+        <a href="cart.html" class="drawer-link">
+          <i class="fa-solid fa-cart-shopping"></i> Savatcha
+        </a>
+      </div>
+      <div class="drawer-section">
+        <div class="drawer-section-title">Kategoriyalar</div>
+        <a href="products.html?category=oshxona" class="drawer-link">
+          <i class="fa-solid fa-utensils"></i> Oshxona texnikasi
+        </a>
+        <a href="products.html?category=tozalash" class="drawer-link">
+          <i class="fa-solid fa-broom"></i> Tozalash
+        </a>
+        <a href="products.html?category=iqlim" class="drawer-link">
+          <i class="fa-solid fa-wind"></i> Iqlim nazorati
+        </a>
+        <a href="products.html?category=yirik-texnika" class="drawer-link">
+          <i class="fa-solid fa-box"></i> Yirik texnika
+        </a>
+        <a href="products.html?category=tv-audio" class="drawer-link">
+          <i class="fa-solid fa-tv"></i> TV va Audio
+        </a>
+        <a href="products.html?category=smart-uy" class="drawer-link">
+          <i class="fa-solid fa-house-signal"></i> Smart uy
+        </a>
+      </div>
+      <div class="drawer-section">
+        <div class="drawer-section-title">Yordam</div>
+        <a href="contact.html" class="drawer-link">
+          <i class="fa-solid fa-headset"></i> Bog'lanish
+        </a>
+        <a href="index.html#membership" class="drawer-link">
+          <i class="fa-solid fa-crown"></i> A'zolik
+        </a>
+      </div>
+    </div>
+    <div class="drawer-footer">
+      <a href="tel:+998907913633" class="drawer-footer-link">
+        <i class="fa-solid fa-phone"></i> +998 90 791 36 33
+      </a>
+      <a href="mailto:info@techhouse.uz" class="drawer-footer-link">
+        <i class="fa-solid fa-envelope"></i> info@techhouse.uz
+      </a>
+    </div>
+  </nav>
+
+  <!-- DESKTOP HEADER -->
   <div class="site-header">
     <div class="top-bar">
       <div class="container top-bar-inner">
@@ -104,7 +138,7 @@
 
     <header class="main-header">
       <div class="container header-inner">
-        <div class="logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
+        <div class="logo"><a href="index.html">TECH HOUSE</a></div>
 
         <div class="search-box">
           <select>
@@ -124,13 +158,13 @@
             <a href="auth/login.html" data-action="profile" id="nav-profile" title="Profil">
               <i class="fa-solid fa-user"></i>
             </a>
-            <a href="wishlist.html" style="color:#ef4444;" title="Sevimlilar">
+            <a href="wishlist.html" class="icon-link" title="Sevimlilar">
               <i class="fa-solid fa-heart"></i>
-              <span id="wishlist-count" style="background:#ef4444;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;margin-left:2px;">0</span>
+              <span id="wishlist-count" class="badge">0</span>
             </a>
-            <a href="cart.html" id="nav-cart" title="Savatcha">
+            <a href="cart.html" id="nav-cart" class="icon-link" title="Savatcha">
               <i class="fa-solid fa-cart-shopping"></i>
-              <span id="cart-count" style="background:#ff6a00;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;margin-left:2px;">0</span>
+              <span id="cart-count" class="badge badge-cart">0</span>
             </a>
           </div>
         </div>
@@ -199,7 +233,7 @@
         <div class="hero-text">
           <small>Uyingizni aqlli texnika bilan yangilang</small>
           <h1>Qishgi Sotuv<br>40% gacha<br>chegirma</h1>
-          <p>Oshxona va tozalash buyumlari 30 mingdan</p>
+          <p>Oshxona va tozalash buyumlari</p>
           <a href="products.html" style="display:inline-block;padding:14px 30px;background:#ff6a00;color:#fff;text-decoration:none;border-radius:8px;font-weight:600;">Sotib olish</a>
         </div>
         <div class="hero-img">
@@ -223,25 +257,28 @@
             <div class="service-icon">
               <i class="fa-solid fa-shield" style="font-size:36px;color:#ff6a00;"></i>
             </div>
-            <h3>KAFOLAT VA HIMOYA</h3>
-            <p class="subtitle">Kengaytirilgan kafolat mavjud</p>
-            <p class="description">Barcha mahsulotlar ishlab chiqaruvchi kafolati bilan keladi.</p>
+            <div>
+              <h3>KAFOLAT VA HIMOYA</h3>
+              <p class="description">Barcha mahsulotlar ishlab chiqaruvchi kafolati bilan.</p>
+            </div>
           </div>
           <div class="service-item">
             <div class="service-icon">
               <i class="fa-solid fa-credit-card" style="font-size:36px;color:#ff6a00;"></i>
             </div>
-            <h3>XAVFSIZ TO'LOV</h3>
-            <p class="subtitle">Turli to'lov usullari</p>
-            <p class="description">Karta, naqd yoki bo'lib to'lash imkoniyati.</p>
+            <div>
+              <h3>XAVFSIZ TO'LOV</h3>
+              <p class="description">Karta, naqd yoki bo'lib to'lash.</p>
+            </div>
           </div>
           <div class="service-item">
             <div class="service-icon">
               <i class="fa-solid fa-box" style="font-size:36px;color:#ff6a00;"></i>
             </div>
-            <h3>BEPUL O'RNATISH</h3>
-            <p class="subtitle">Professional xizmat</p>
-            <p class="description">Yirik texnikaga bepul o'rnatish xizmati.</p>
+            <div>
+              <h3>BEPUL O'RNATISH</h3>
+              <p class="description">Yirik texnikaga bepul o'rnatish.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -264,11 +301,11 @@
           <li>Xaridlarga 5% chegirma</li>
           <li>Tug'ilgan kun taklifi</li>
         </ul>
-        <a href="auth/login.html" class="plan-btn" style="display:inline-block;padding:12px 24px;background:#cd7f32;color:#fff;text-decoration:none;border-radius:8px;">Bepul yozilish</a>
+        <a href="auth/login.html" class="plan-btn">Bepul yozilish</a>
       </div>
 
       <div class="plan-card silver popular">
-        <span class="badge" style="position:absolute;top:-10px;right:20px;background:#ff6a00;color:#fff;padding:5px 12px;border-radius:15px;font-size:12px;">Mashhur</span>
+        <span class="badge">Mashhur</span>
         <div class="plan-icon">🥈</div>
         <h3>Silver</h3>
         <p class="price">$4.99/oy</p>
@@ -278,7 +315,7 @@
           <li>10% chegirma</li>
           <li>Uzaytirilgan kafolat</li>
         </ul>
-        <a href="auth/login.html" class="plan-btn" style="display:inline-block;padding:12px 24px;background:#c0c0c0;color:#333;text-decoration:none;border-radius:8px;">Tanlash</a>
+        <a href="auth/login.html" class="plan-btn">Tanlash</a>
       </div>
 
       <div class="plan-card gold">
@@ -292,7 +329,23 @@
           <li>VIP yordam</li>
           <li>Bepul o'rnatish</li>
         </ul>
-        <a href="auth/login.html" class="plan-btn" style="display:inline-block;padding:12px 24px;background:#ffd700;color:#333;text-decoration:none;border-radius:8px;">Tanlash</a>
+        <a href="auth/login.html" class="plan-btn">Tanlash</a>
+      </div>
+
+      <div class="plan-card business recommended">
+        <span class="plan-badge">Eng foydali</span>
+        <div class="plan-icon">💼</div>
+        <h3>Business</h3>
+        <p class="price">$19.99/oy</p>
+        <ul class="features">
+          <li>Cheksiz bepul yetkazib berish</li>
+          <li>Prioritet qo'llab-quvvatlash</li>
+          <li>Maxsus chegirmalar (25%+)</li>
+          <li>Ko'p buyurtmalar uchun mos</li>
+          <li>Biznes mijozlar uchun</li>
+          <li>Bepul o'rnatish va kafolat</li>
+        </ul>
+        <a href="auth/login.html" class="plan-btn">Tanlash</a>
       </div>
     </div>
   </section>
@@ -312,19 +365,19 @@
   <footer class="main-footer" id="footer">
     <div class="footer-container">
       <div class="footer-col brand-info">
-        <div class="footer-logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
-        <p>Sifatli maishiy texnika uchun ishonchli hamkoringiz. Tezkor yetkazib berish va kafolatlangan xizmat.</p>
+        <div class="footer-logo"><a href="index.html">TECH HOUSE</a></div>
+        <p>Sifatli maishiy texnika uchun ishonchli hamkoringiz.</p>
       </div>
 
       <div class="footer-col">
         <h4>Bog'lanish</h4>
         <p>Andijon viloyati, Bo'ston MFY</p>
-        <p><strong>E-MAIL:</strong> info@techhouse.uz</p>
-        <p><strong>Telefon:</strong> +998 90 791 36 33</p>
+        <p>info@techhouse.uz</p>
+        <p>+998 90 791 36 33</p>
       </div>
 
       <div class="footer-col">
-        <h4>MIJOZLARGA XIZMAT</h4>
+        <h4>XIZMATLAR</h4>
         <ul>
           <li><a href="products.html">Mahsulotlar</a></li>
           <li><a href="cart.html">Savatcha</a></li>
@@ -332,35 +385,43 @@
           <li><a href="contact.html">Bog'lanish</a></li>
         </ul>
       </div>
-
-      <div class="footer-col">
-        <h4>OMMABOP</h4>
-        <div class="tags-container">
-          <a href="products.html?category=oshxona" class="tag" style="display:inline-block;padding:5px 10px;background:#1e293b;color:#fff;border-radius:4px;text-decoration:none;margin:3px;font-size:12px;">Oshxona</a>
-          <a href="products.html?category=tozalash" class="tag" style="display:inline-block;padding:5px 10px;background:#1e293b;color:#fff;border-radius:4px;text-decoration:none;margin:3px;font-size:12px;">Tozalash</a>
-          <a href="products.html?category=iqlim" class="tag" style="display:inline-block;padding:5px 10px;background:#1e293b;color:#fff;border-radius:4px;text-decoration:none;margin:3px;font-size:12px;">Iqlim</a>
-          <a href="products.html?category=smart-uy" class="tag" style="display:inline-block;padding:5px 10px;background:#1e293b;color:#fff;border-radius:4px;text-decoration:none;margin:3px;font-size:12px;">Smart uy</a>
-        </div>
-      </div>
     </div>
 
     <div class="footer-bottom">
       <p>© Tech House. 2025. Barcha huquqlar himoyalangan.</p>
-      <div class="social-links">
-        <a href="#">Facebook</a>
-        <a href="#">Instagram</a>
-        <a href="#">Telegram</a>
-      </div>
-    </div>
-
-    <div class="developer-credit">
-      BTEC Level 3 - Unit 6 Website Development
     </div>
   </footer>
+
+  <!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-nav" aria-label="Tez navigatsiya">
+    <a href="index.html" class="bottom-nav-item active">
+      <i class="fa-solid fa-home"></i>
+      <span>Bosh</span>
+    </a>
+    <a href="products.html" class="bottom-nav-item">
+      <i class="fa-solid fa-th-large"></i>
+      <span>Katalog</span>
+    </a>
+    <a href="cart.html" class="bottom-nav-item">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span class="nav-badge" id="bottom-cart-count">0</span>
+      <span>Savat</span>
+    </a>
+    <a href="wishlist.html" class="bottom-nav-item wishlist">
+      <i class="fa-solid fa-heart"></i>
+      <span class="nav-badge" id="bottom-wishlist-count">0</span>
+      <span>Sevimli</span>
+    </a>
+    <a href="profile.html" class="bottom-nav-item" data-action="profile">
+      <i class="fa-solid fa-user"></i>
+      <span>Profil</span>
+    </a>
+  </nav>
 
   <script src="js/data.js"></script>
   <script src="js/store.js"></script>
   <script src="js/ui.js"></script>
+  <script src="js/nav.js"></script>
   <script src="js/home.js"></script>
 </body>
 

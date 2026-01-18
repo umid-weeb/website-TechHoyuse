@@ -243,16 +243,23 @@ body {
   margin-top: 0; 
 }
 
-/* 3. Sidebar - Header bilan birga qotib turishi uchun */
+/* 3. Sidebar - Header bilan birga qotib turishi uchun (ONLY DESKTOP) */
 .sidebar {
   width: 260px;
   position: -webkit-sticky;
   position: sticky;
-  /* Header balandligi + biroz masofa (taxminan 160px-180px) */
-  top: 170px; 
+  top: 180px;
   z-index: 100; 
-  height: calc(100vh - 180px); /* Ekran bo'yi bilan cheklash */
-  overflow-y: auto; /* Agar kategoriya ko'p bo'lsa ichida scroll bo'ladi */
+  height: calc(100vh - 200px);
+  overflow-y: auto;
+  align-self: flex-start;
+}
+
+/* BUG B FIX: Hide sidebar on mobile and tablet */
+@media (max-width: 1024px) {
+  .sidebar {
+    display: none !important;
+  }
 }
 
 /* 4. Footer - Eng muhim qismi: hamma narsani yopib ketishi uchun */
@@ -2005,3 +2012,67 @@ h3 { margin: 10px 0; font-size: 20px; color: #333; }
 .add-to-cart:disabled:hover {
   transform: none;
 }
+/* ===== HEADER ICON LINK & BADGE SYSTEM (Bug A Fix) ===== */
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.icons a {
+  text-decoration: none;
+}
+
+.icon-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icons .badge,
+.icon-link .badge {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 18px;
+  background: #ef4444;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.icons .badge-cart,
+.icon-link .badge-cart {
+  background: #ff6a00;
+}
+
+/* Product card badges (different context) */
+.product-card {
+  position: relative;
+}
+
+.product-card .badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  z-index: 5;
+}
+
+.sale-badge { background: #ef4444; color: #fff; }
+.new-badge { background: #22c55e; color: #fff; }
+.popular-badge { background: #f59e0b; color: #fff; }
+.bestseller-badge { background: #3b82f6; color: #fff; }
+

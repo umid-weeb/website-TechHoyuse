@@ -20,17 +20,20 @@
 
   function renderOrderSummary() {
     const container = document.getElementById("order-summary");
+    const mobileTotal = document.getElementById("mobile-order-total");
+    
     if (!container) return;
 
     const items = Store.getCartDetails();
     
     if (!items.length) {
       container.innerHTML = `
-        <div style="text-align:center;padding:40px 20px;">
-          <p style="color:#666;">Savatingiz bo'sh</p>
-          <a href="products.html" style="color:#ff6a00;">Xarid qilish</a>
+        <div class="order-empty">
+          <p>Savatingiz bo'sh</p>
+          <a href="products.html">Xarid qilish</a>
         </div>
       `;
+      if (mobileTotal) mobileTotal.textContent = "$0.00";
       return;
     }
 
@@ -38,32 +41,33 @@
     const shipping = Store.getShippingFee();
     const total = Store.getCartTotal();
 
+    if (mobileTotal) mobileTotal.textContent = UI.formatPrice(total);
+
     container.innerHTML = `
-      <h3 style="margin-bottom:20px;font-size:18px;">Buyurtma xulosasi</h3>
-      <div class="order-items" style="max-height:300px;overflow-y:auto;margin-bottom:20px;">
+      <div class="order-items">
         ${items.map(item => `
-          <div class="order-item" style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #eee;">
-            <img src="${item.image}" alt="${item.name}" style="width:60px;height:60px;object-fit:cover;border-radius:6px;">
-            <div style="flex:1;">
-              <p style="font-weight:500;margin-bottom:4px;">${item.name}</p>
-              <small style="color:#666;">${item.qty} x ${UI.formatPrice(item.price)}</small>
+          <div class="order-item">
+            <img src="${item.image}" alt="${item.name}">
+            <div class="order-item-info">
+              <p>${item.name}</p>
+              <small>${item.qty} x ${UI.formatPrice(item.price)}</small>
             </div>
-            <span style="font-weight:600;">${UI.formatPrice(item.subtotal)}</span>
+            <span class="order-item-price">${UI.formatPrice(item.subtotal)}</span>
           </div>
         `).join("")}
       </div>
-      <div class="order-totals" style="border-top:2px solid #eee;padding-top:15px;">
-        <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+      <div class="order-totals">
+        <div class="row">
           <span>Oraliq jami:</span>
           <span>${UI.formatPrice(subtotal)}</span>
         </div>
-        <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+        <div class="row">
           <span>Yetkazib berish:</span>
-          <span>${shipping === 0 ? '<span style="color:#22c55e;">Bepul</span>' : UI.formatPrice(shipping)}</span>
+          <span>${shipping === 0 ? '<span class="free">Bepul</span>' : UI.formatPrice(shipping)}</span>
         </div>
-        <div style="display:flex;justify-content:space-between;font-size:18px;font-weight:700;margin-top:15px;padding-top:15px;border-top:1px solid #eee;">
+        <div class="row total">
           <span>Jami:</span>
-          <span style="color:#ff6a00;">${UI.formatPrice(total)}</span>
+          <span>${UI.formatPrice(total)}</span>
         </div>
       </div>
     `;
@@ -88,7 +92,6 @@
       errors.push({ field: "checkout-email", message: "Email formati noto'g'ri" });
     }
 
-    // Delivery address validation
     const deliveryMethod = document.querySelector('input[name="delivery"]:checked')?.value || "pickup";
     formData.deliveryMethod = deliveryMethod;
 
@@ -103,16 +106,17 @@
       if (!formData.city) errors.push({ field: "checkout-city", message: "Shahar kiritilishi shart" });
     }
 
-    // Payment method
     formData.paymentMethod = document.querySelector('input[name="payment"]:checked')?.value || "cash";
 
     return errors;
   }
 
   function showErrors(errors) {
-    // Clear previous errors
     document.querySelectorAll(".field-error").forEach(el => el.remove());
-    document.querySelectorAll(".input-error").forEach(el => el.classList.remove("input-error"));
+    document.querySelectorAll(".input-error").forEach(el => {
+      el.classList.remove("input-error");
+      el.style.borderColor = "";
+    });
 
     errors.forEach(err => {
       const field = document.getElementById(err.field);
@@ -150,7 +154,6 @@
       return;
     }
 
-    // Create order
     const result = Store.createOrder({
       name: formData.name + " " + formData.surname,
       phone: formData.phone,
@@ -163,7 +166,6 @@
     });
 
     if (result.success) {
-      // Save order ID for success page
       sessionStorage.setItem("lastOrderId", result.order.id);
       
       UI.toast("success", "Buyurtma muvaffaqiyatli joylashtirildi!");
@@ -179,6 +181,7 @@
   function setupDeliveryToggle() {
     const deliveryOptions = document.querySelectorAll('.delivery-option');
     const addressSection = document.getElementById("address-section");
+    const storeField = document.getElementById("store-field");
 
     deliveryOptions.forEach(opt => {
       opt.addEventListener("click", () => {
@@ -188,8 +191,12 @@
         const input = opt.querySelector('input[name="delivery"]');
         if (input) input.checked = true;
 
+        const isDelivery = input?.value === "delivery";
         if (addressSection) {
-          addressSection.style.display = input?.value === "delivery" ? "block" : "none";
+          addressSection.style.display = isDelivery ? "block" : "none";
+        }
+        if (storeField) {
+          storeField.style.display = isDelivery ? "none" : "block";
         }
       });
     });
@@ -235,19 +242,21 @@
     setupDeliveryToggle();
     setupPaymentToggle();
 
-    // Place order button
     document.getElementById("place-order-btn")?.addEventListener("click", (e) => {
       e.preventDefault();
       placeOrder();
     });
 
-    // Also handle form submit
+    document.getElementById("mobile-place-order-btn")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      placeOrder();
+    });
+
     document.getElementById("checkout-form")?.addEventListener("submit", (e) => {
       e.preventDefault();
       placeOrder();
     });
 
-    // Clear errors on input
     document.querySelectorAll("input, select, textarea").forEach(el => {
       el.addEventListener("input", () => {
         el.classList.remove("input-error");
@@ -257,7 +266,6 @@
       });
     });
 
-    // Listen for cart updates
     window.addEventListener("cart:updated", renderOrderSummary);
   }
 

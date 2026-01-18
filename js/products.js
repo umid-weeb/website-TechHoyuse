@@ -231,10 +231,21 @@
     renderFilters();
     renderProducts();
 
-    // Sort select
+    // Sort select (desktop)
     document.getElementById("sort")?.addEventListener("change", e => {
       state.sort = e.target.value;
       state.page = 1;
+      const mobileSort = document.getElementById("mobile-sort");
+      if (mobileSort) mobileSort.value = state.sort;
+      renderProducts();
+    });
+
+    // Sort select (mobile)
+    document.getElementById("mobile-sort")?.addEventListener("change", e => {
+      state.sort = e.target.value;
+      state.page = 1;
+      const desktopSort = document.getElementById("sort");
+      if (desktopSort) desktopSort.value = state.sort;
       renderProducts();
     });
 

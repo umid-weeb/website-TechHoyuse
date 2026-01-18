@@ -14,25 +14,98 @@
       return;
     }
 
-    // Update menu
-    document.getElementById("menuName").textContent = user.name || "Sizning ismingiz";
-    document.getElementById("menuEmail").textContent = user.email || "email@example.com";
+    const menuName = document.getElementById("menuName");
+    const menuEmail = document.getElementById("menuEmail");
+    const profileName = document.getElementById("profileName");
+    const profileEmail = document.getElementById("profileEmail");
     
-    // Update profile card
-    document.getElementById("profileName").textContent = user.name || "Sizning ismingiz";
-    document.getElementById("profileEmail").textContent = user.email || "email@example.com";
+    if (menuName) menuName.textContent = user.name || "Sizning ismingiz";
+    if (menuEmail) menuEmail.textContent = user.email || "email@example.com";
+    if (profileName) profileName.textContent = user.name || "Sizning ismingiz";
+    if (profileEmail) profileEmail.textContent = user.email || "email@example.com";
 
-    // Fill form inputs
-    document.getElementById("name").value = user.name || "";
-    document.getElementById("email").value = user.email || "";
-    document.getElementById("phone").value = user.phone || "";
-    document.getElementById("address").value = user.address || "";
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const phoneInput = document.getElementById("phone");
+    const addressInput = document.getElementById("address");
+
+    if (nameInput) nameInput.value = user.name || "";
+    if (emailInput) emailInput.value = user.email || "";
+    if (phoneInput) phoneInput.value = user.phone || "";
+    if (addressInput) addressInput.value = user.address || "";
+
+    renderOrders();
+  }
+
+  function renderOrders() {
+    const container = document.getElementById("orders-list");
+    if (!container) return;
+
+    const orders = Store.getUserOrders();
+
+    if (!orders.length) {
+      container.innerHTML = `
+        <div class="orders-empty">
+          <i class="fa-solid fa-box-open"></i>
+          <p>Hali buyurtmalar yo'q</p>
+          <a href="products.html" class="btn-primary">Xarid qilish</a>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = orders.map(order => `
+      <div class="order-card">
+        <div class="order-card-header">
+          <div>
+            <span class="order-id">${order.id}</span>
+            <span class="order-date">${new Date(order.createdAt).toLocaleDateString('uz-UZ')}</span>
+          </div>
+          <span class="order-status ${order.status}">${order.status === 'pending' ? 'Kutilmoqda' : 'Bajarildi'}</span>
+        </div>
+        <div class="order-card-body">
+          <span>${order.items.length} ta mahsulot</span>
+          <span class="order-total">${UI.formatPrice(order.total)}</span>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  function switchTab(tabId) {
+    document.querySelectorAll(".profile-tab").forEach(tab => {
+      tab.classList.toggle("active", tab.dataset.tab === tabId);
+    });
+
+    document.querySelectorAll(".profile-tab-content").forEach(content => {
+      content.classList.toggle("active", content.id === `tab-${tabId}`);
+    });
+
+    document.querySelectorAll(".profile-menu li").forEach(li => {
+      li.classList.remove("active");
+    });
+
+    if (tabId === "info") {
+      document.querySelector(".menu-profile")?.classList.add("active");
+    } else if (tabId === "orders") {
+      document.querySelector(".menu-orders")?.classList.add("active");
+    } else if (tabId === "settings") {
+      document.querySelector(".menu-settings")?.classList.add("active");
+    }
   }
 
   function init() {
     renderProfile();
 
-    // Save profile
+    document.querySelectorAll(".profile-tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        switchTab(tab.dataset.tab);
+      });
+    });
+
+    document.querySelector(".menu-profile")?.addEventListener("click", () => switchTab("info"));
+    document.querySelector(".menu-orders")?.addEventListener("click", () => switchTab("orders"));
+    document.querySelector(".menu-settings")?.addEventListener("click", () => switchTab("settings"));
+
     document.getElementById("saveProfile")?.addEventListener("click", () => {
       const name = document.getElementById("name").value.trim();
       const email = document.getElementById("email").value.trim();
@@ -53,7 +126,6 @@
       }
     });
 
-    // Change password
     document.getElementById("changePassword")?.addEventListener("click", () => {
       const oldPassword = document.getElementById("oldPassword").value;
       const newPassword = document.getElementById("newPassword").value;
@@ -85,39 +157,28 @@
       }
     });
 
-    // Logout
-    document.getElementById("logout")?.addEventListener("click", () => {
+    function handleLogout() {
       Store.logout();
       UI.toast("info", "Tizimdan chiqdingiz");
       setTimeout(() => {
         location.href = "index.html";
       }, 1000);
-    });
+    }
 
-    // Menu navigation
-    document.querySelector(".menu-profile")?.addEventListener("click", () => {
-      document.querySelector(".profile-info")?.parentElement?.style.setProperty("display", "block");
-      document.getElementById("settingsSection")?.style.setProperty("display", "none");
-      document.querySelectorAll(".profile-menu li").forEach(li => li.classList.remove("active"));
-      document.querySelector(".menu-profile")?.classList.add("active");
-    });
+    document.getElementById("logout")?.addEventListener("click", handleLogout);
+    document.getElementById("mobile-logout")?.addEventListener("click", handleLogout);
+    document.getElementById("mobile-logout-btn")?.addEventListener("click", handleLogout);
 
-    document.querySelector(".menu-settings")?.addEventListener("click", () => {
-      document.querySelector(".profile-info")?.parentElement?.style.setProperty("display", "none");
-      document.getElementById("settingsSection")?.style.setProperty("display", "block");
-      document.querySelectorAll(".profile-menu li").forEach(li => li.classList.remove("active"));
-      document.querySelector(".menu-settings")?.classList.add("active");
-    });
-
-    // Avatar upload (mock)
     document.getElementById("avatarInput")?.addEventListener("change", function(e) {
       const file = e.target.files[0];
       if (file) {
         const reader = new FileReader();
         reader.onload = function(event) {
           const avatarUrl = event.target.result;
-          document.getElementById("avatar").src = avatarUrl;
-          document.getElementById("menuAvatar").src = avatarUrl;
+          const avatar = document.getElementById("avatar");
+          const menuAvatar = document.getElementById("menuAvatar");
+          if (avatar) avatar.src = avatarUrl;
+          if (menuAvatar) menuAvatar.src = avatarUrl;
           UI.toast("success", "Rasm yangilandi");
         };
         reader.readAsDataURL(file);

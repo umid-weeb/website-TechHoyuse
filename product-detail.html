@@ -3,158 +3,37 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Mahsulot tafsiloti | Tech House</title>
   <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="css/products.css">
+  <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
-    .product-detail-container {
-      max-width: 1100px;
-      margin: 40px auto;
-      padding: 20px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 50px;
-    }
-    .product-image {
-      position: relative;
-    }
-    .product-image img {
-      width: 100%;
-      max-width: 500px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
-    .product-info {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .product-category {
-      color: #6b7280;
-      font-size: 14px;
-    }
-    .product-title {
-      font-size: 30px;
-      font-weight: 700;
-      margin: 0;
-      line-height: 1.3;
-    }
-    .product-rating {
-      color: #f59e0b;
-      font-size: 16px;
-    }
-    .product-rating span {
-      color: #666;
-      font-size: 14px;
-    }
-    .product-price {
-      font-size: 28px;
-      margin: 15px 0;
-    }
-    .product-price .current-price {
-      color: #ff6a00;
-      font-weight: 700;
-    }
-    .product-description {
-      color: #555;
-      line-height: 1.7;
-      margin: 10px 0;
-    }
-    .product-stock {
-      margin: 15px 0;
-    }
-    .product-actions {
-      margin-top: 20px;
-    }
-    .btn {
-      padding: 14px 28px;
-      border: none;
-      cursor: pointer;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: 600;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, #ff6a00, #ff3d00);
-      color: #fff;
-    }
-    .btn-primary:hover {
-      background: linear-gradient(135deg, #ff3d00, #ff6a00);
-    }
-    .btn-primary:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-    }
-
-    .related-products {
-      max-width: 1100px;
-      margin: 60px auto;
-      padding: 0 20px;
-    }
-    .related-products .section-title {
-      font-size: 24px;
-      margin-bottom: 25px;
-    }
-    .related-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 25px;
-    }
-    .related-card {
-      background: #fff;
-      border-radius: 12px;
-      padding: 15px;
-      border: 1px solid #f1f1f1;
-      transition: all 0.25s ease;
-    }
-    .related-card:hover {
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-      transform: translateY(-4px);
-    }
-    .related-card img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 12px;
-    }
-    .related-card h4 {
-      font-size: 15px;
-      margin-bottom: 8px;
-    }
-    .related-card h4 a {
-      color: inherit;
-      text-decoration: none;
-    }
-    .related-card h4 a:hover {
-      color: #ff6a00;
-    }
-    .related-card .price {
-      color: #ff6a00;
-      font-weight: 700;
-      font-size: 16px;
-    }
-
-    @media (max-width: 900px) {
-      .product-detail-container {
-        grid-template-columns: 1fr;
-      }
-      .related-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    @media (max-width: 500px) {
-      .related-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
 </head>
 
-<body>
+<body data-page="products">
 
+  <!-- MOBILE HEADER -->
+  <div class="mobile-header mobile-header-simple">
+    <div class="mobile-header-row1">
+      <a href="products.html" class="mobile-back-btn" aria-label="Orqaga">
+        <i class="fa-solid fa-arrow-left"></i>
+      </a>
+      <h1 class="mobile-page-title" id="mobile-product-title">Mahsulot</h1>
+      <div class="mobile-icons-mini">
+        <a href="cart.html" class="mobile-icon-btn-small" aria-label="Savatcha">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="icon-badge-small" id="mobile-cart-count">0</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DRAWER OVERLAY -->
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+
+  <!-- DESKTOP HEADER -->
   <div class="site-header">
     <div class="top-bar">
       <div class="container top-bar-inner">
@@ -168,7 +47,7 @@
 
     <header class="main-header">
       <div class="container header-inner">
-        <div class="logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
+        <div class="logo"><a href="index.html">TECH HOUSE</a></div>
 
         <div class="search-box">
           <select>
@@ -188,12 +67,13 @@
             <a href="auth/login.html" data-action="profile" id="nav-profile">
               <i class="fa-solid fa-user"></i>
             </a>
-            <a href="wishlist.html" style="color:#ef4444;">
+            <a href="wishlist.html" class="icon-link">
               <i class="fa-solid fa-heart"></i>
+              <span id="wishlist-count" class="badge">0</span>
             </a>
-            <a href="cart.html">
+            <a href="cart.html" class="icon-link">
               <i class="fa-solid fa-cart-shopping"></i>
-              <span id="cart-count" style="background:#ff6a00;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;margin-left:2px;">0</span>
+              <span id="cart-count" class="badge badge-cart">0</span>
             </a>
           </div>
         </div>
@@ -211,33 +91,57 @@
     </nav>
   </div>
 
-  <main class="product-detail-container">
+  <main class="product-detail-container container">
     <div class="product-image">
-      <img src="assets/images/placeholder.jpg" alt="Mahsulot rasmi">
+      <img id="product-main-image" src="assets/images/placeholder.jpg" alt="Mahsulot rasmi">
     </div>
-    <div class="product-info">
-      <h1 class="product-title">Yuklanmoqda...</h1>
-      <div class="product-price"></div>
-      <div class="product-actions"></div>
+    <div class="product-info" id="product-info">
+      <div class="breadcrumb">
+        <a href="index.html">Bosh sahifa</a>
+        <span>/</span>
+        <a href="products.html">Mahsulotlar</a>
+        <span>/</span>
+        <span id="product-breadcrumb">Mahsulot</span>
+      </div>
+      <p class="product-category" id="product-category"></p>
+      <h1 class="product-title" id="product-title">Yuklanmoqda...</h1>
+      <div class="product-rating" id="product-rating"></div>
+      <div class="product-price" id="product-price"></div>
+      <p class="product-description" id="product-description"></p>
+      <div class="product-stock" id="product-stock"></div>
+      <div class="product-actions" id="product-actions"></div>
     </div>
   </main>
 
-  <section class="related-products">
+  <section class="related-products container">
     <h2 class="section-title">O'xshash mahsulotlar</h2>
-    <div class="related-grid"></div>
+    <div class="related-grid" id="related-grid"></div>
   </section>
+
+  <!-- MOBILE ADD TO CART BAR -->
+  <div class="mobile-product-bar show-mobile" id="mobile-product-bar">
+    <div class="mobile-product-price" id="mobile-product-price">$0.00</div>
+    <div class="mobile-product-actions">
+      <button class="mobile-wishlist-btn" id="mobile-wishlist-toggle" aria-label="Sevimlilar">
+        <i class="fa-regular fa-heart"></i>
+      </button>
+      <button class="mobile-add-cart-btn" id="mobile-add-cart">
+        <i class="fa-solid fa-cart-shopping"></i> Savatchaga
+      </button>
+    </div>
+  </div>
 
   <footer class="main-footer">
     <div class="footer-container container">
       <div class="footer-col brand">
-        <div class="footer-logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
+        <div class="footer-logo"><a href="index.html">TECH HOUSE</a></div>
         <p>Sifatli maishiy texnika uchun ishonchli hamkoringiz.</p>
       </div>
       <div class="footer-col">
         <h4>ALOQA</h4>
         <p>Andijon viloyati, Bo'ston MFY</p>
         <p>info@techhouse.uz</p>
-        <p>+998 90 123 45 67</p>
+        <p>+998 90 791 36 33</p>
       </div>
     </div>
     <div class="footer-bottom">
@@ -245,9 +149,36 @@
     </div>
   </footer>
 
+  <!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-nav" aria-label="Tez navigatsiya">
+    <a href="index.html" class="bottom-nav-item">
+      <i class="fa-solid fa-home"></i>
+      <span>Bosh</span>
+    </a>
+    <a href="products.html" class="bottom-nav-item active">
+      <i class="fa-solid fa-th-large"></i>
+      <span>Katalog</span>
+    </a>
+    <a href="cart.html" class="bottom-nav-item">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span class="nav-badge" id="bottom-cart-count">0</span>
+      <span>Savat</span>
+    </a>
+    <a href="wishlist.html" class="bottom-nav-item wishlist">
+      <i class="fa-solid fa-heart"></i>
+      <span class="nav-badge" id="bottom-wishlist-count">0</span>
+      <span>Sevimli</span>
+    </a>
+    <a href="profile.html" class="bottom-nav-item" data-action="profile">
+      <i class="fa-solid fa-user"></i>
+      <span>Profil</span>
+    </a>
+  </nav>
+
   <script src="js/data.js"></script>
   <script src="js/store.js"></script>
   <script src="js/ui.js"></script>
+  <script src="js/nav.js"></script>
   <script src="js/product.js"></script>
 </body>
 

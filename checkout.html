@@ -3,215 +3,31 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Checkout | Tech House</title>
   <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
-    .checkout-page {
-      max-width: 1100px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    .checkout-header {
-      margin-bottom: 30px;
-    }
-    .checkout-header h1 {
-      font-size: 28px;
-      font-weight: 700;
-    }
-    .checkout-header a {
-      color: #666;
-      text-decoration: none;
-      font-size: 14px;
-    }
-    .checkout-header a:hover {
-      color: #ff6a00;
-    }
-    .checkout-layout {
-      display: grid;
-      grid-template-columns: 1fr 400px;
-      gap: 40px;
-    }
-    .checkout-form {
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
-    }
-    .checkout-card {
-      background: #fff;
-      border-radius: 12px;
-      border: 1px solid #e5e7eb;
-      padding: 25px;
-    }
-    .checkout-card h3 {
-      font-size: 18px;
-      margin-bottom: 5px;
-    }
-    .checkout-card .subtitle {
-      color: #666;
-      font-size: 14px;
-      margin-bottom: 20px;
-    }
-    .input-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-    }
-    .field {
-      margin-bottom: 15px;
-    }
-    .field label {
-      display: block;
-      font-size: 14px;
-      font-weight: 500;
-      margin-bottom: 6px;
-      color: #374151;
-    }
-    .field input,
-    .field select {
-      width: 100%;
-      padding: 12px 14px;
-      border: 1px solid #d1d5db;
-      border-radius: 8px;
-      font-size: 15px;
-      transition: border-color 0.2s;
-    }
-    .field input:focus,
-    .field select:focus {
-      outline: none;
-      border-color: #ff6a00;
-    }
-    .field input.input-error {
-      border-color: #ef4444;
-    }
-
-    .delivery-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      margin-bottom: 20px;
-    }
-    .delivery-option {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 20px;
-      border: 2px solid #e5e7eb;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .delivery-option:hover {
-      border-color: #ff6a00;
-    }
-    .delivery-option.active {
-      border-color: #ff6a00;
-      background: #fff7ed;
-    }
-    .delivery-option input {
-      display: none;
-    }
-    .delivery-option i {
-      font-size: 24px;
-      color: #ff6a00;
-    }
-    .delivery-option b {
-      display: block;
-      font-size: 14px;
-    }
-    .delivery-option span {
-      font-size: 12px;
-      color: #666;
-    }
-
-    .payment-option {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      padding: 18px;
-      border: 2px solid #e5e7eb;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-bottom: 12px;
-      transition: all 0.2s;
-    }
-    .payment-option:hover {
-      border-color: #ff6a00;
-    }
-    .payment-option.active {
-      border-color: #ff6a00;
-      background: #fff7ed;
-    }
-    .payment-option input[type="radio"] {
-      width: 18px;
-      height: 18px;
-      accent-color: #ff6a00;
-    }
-    .payment-info b {
-      display: block;
-      font-size: 15px;
-    }
-    .payment-info span {
-      font-size: 13px;
-      color: #666;
-    }
-
-    .order-sidebar {
-      position: sticky;
-      top: 180px;
-      height: fit-content;
-    }
-    .order-summary-card {
-      background: #fff;
-      border-radius: 12px;
-      border: 1px solid #e5e7eb;
-      padding: 25px;
-    }
-    .order-summary-card h3 {
-      font-size: 18px;
-      margin-bottom: 20px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid #eee;
-    }
-
-    #place-order-btn {
-      width: 100%;
-      padding: 16px;
-      background: linear-gradient(135deg, #ff6a00, #ff3d00);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-    #place-order-btn:hover {
-      background: linear-gradient(135deg, #ff3d00, #ff6a00);
-    }
-
-    @media (max-width: 900px) {
-      .checkout-layout {
-        grid-template-columns: 1fr;
-      }
-      .order-sidebar {
-        position: static;
-      }
-      .input-row,
-      .delivery-row {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
 </head>
 
-<body>
+<body data-page="checkout">
 
+  <!-- MOBILE HEADER -->
+  <div class="mobile-header mobile-header-simple">
+    <div class="mobile-header-row1">
+      <a href="cart.html" class="mobile-back-btn" aria-label="Orqaga">
+        <i class="fa-solid fa-arrow-left"></i>
+      </a>
+      <h1 class="mobile-page-title">Xaridni rasmiylashtirish</h1>
+      <div style="width:40px;"></div>
+    </div>
+  </div>
+
+  <!-- DRAWER OVERLAY -->
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+
+  <!-- DESKTOP HEADER -->
   <div class="site-header">
     <div class="top-bar">
       <div class="container top-bar-inner">
@@ -225,7 +41,7 @@
 
     <header class="main-header">
       <div class="container header-inner">
-        <div class="logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
+        <div class="logo"><a href="index.html">TECH HOUSE</a></div>
 
         <div class="search-box">
           <select>
@@ -244,12 +60,13 @@
             <a href="auth/login.html" data-action="profile" id="nav-profile">
               <i class="fa-solid fa-user"></i>
             </a>
-            <a href="wishlist.html" style="color:#ef4444;">
+            <a href="wishlist.html" class="icon-link">
               <i class="fa-solid fa-heart"></i>
+              <span id="wishlist-count" class="badge">0</span>
             </a>
-            <a href="cart.html">
+            <a href="cart.html" class="icon-link">
               <i class="fa-solid fa-cart-shopping"></i>
-              <span id="cart-count" style="background:#ff6a00;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;margin-left:2px;">0</span>
+              <span id="cart-count" class="badge badge-cart">0</span>
             </a>
           </div>
         </div>
@@ -266,8 +83,8 @@
     </nav>
   </div>
 
-  <main class="checkout-page">
-    <div class="checkout-header">
+  <main class="checkout-page container">
+    <div class="checkout-header hide-mobile">
       <a href="cart.html"><i class="fa-solid fa-arrow-left"></i> Savatchaga qaytish</a>
       <h1>Buyurtmani rasmiylashtirish</h1>
     </div>
@@ -276,7 +93,7 @@
       <form class="checkout-form" id="checkout-form">
         
         <div class="checkout-card">
-          <h3>Bog'lanish uchun ma'lumot</h3>
+          <h3><i class="fa-solid fa-user"></i> Bog'lanish uchun ma'lumot</h3>
           <p class="subtitle">Buyurtma yangiliklari shu ma'lumotlarga yuboriladi</p>
 
           <div class="input-row">
@@ -302,7 +119,7 @@
         </div>
 
         <div class="checkout-card">
-          <h3>Yetkazib berish usuli</h3>
+          <h3><i class="fa-solid fa-truck"></i> Yetkazib berish usuli</h3>
 
           <div class="delivery-row">
             <div class="delivery-option" data-value="delivery">
@@ -335,7 +152,7 @@
             </div>
           </div>
 
-          <div class="field">
+          <div class="field" id="store-field">
             <label for="checkout-store">Do'konni tanlang</label>
             <select id="checkout-store">
               <option>Tech House - Andijon markazi</option>
@@ -346,7 +163,7 @@
         </div>
 
         <div class="checkout-card">
-          <h3>To'lov usuli</h3>
+          <h3><i class="fa-solid fa-credit-card"></i> To'lov usuli</h3>
 
           <label class="payment-option active">
             <input type="radio" name="payment" value="card" checked>
@@ -379,7 +196,7 @@
         <div class="order-summary-card">
           <h3><i class="fa-solid fa-receipt"></i> Buyurtma xulosasi</h3>
           <div id="order-summary"></div>
-          <button type="button" id="place-order-btn">
+          <button type="button" id="place-order-btn" class="place-order-btn">
             <i class="fa-solid fa-check"></i> Buyurtmani tasdiqlash
           </button>
         </div>
@@ -387,10 +204,21 @@
     </div>
   </main>
 
-  <footer class="main-footer" style="margin-top:60px;">
+  <!-- MOBILE ORDER BUTTON -->
+  <div class="mobile-checkout-bar show-mobile">
+    <div class="mobile-checkout-info">
+      <span class="mobile-checkout-label">Jami:</span>
+      <span class="mobile-checkout-total" id="mobile-order-total">$0.00</span>
+    </div>
+    <button type="button" id="mobile-place-order-btn" class="mobile-checkout-btn">
+      Tasdiqlash <i class="fa-solid fa-check"></i>
+    </button>
+  </div>
+
+  <footer class="main-footer hide-mobile">
     <div class="footer-container container">
       <div class="footer-col brand">
-        <div class="footer-logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
+        <div class="footer-logo"><a href="index.html">TECH HOUSE</a></div>
         <p>Sifatli maishiy texnika uchun ishonchli hamkoringiz.</p>
       </div>
     </div>
@@ -402,6 +230,7 @@
   <script src="js/data.js"></script>
   <script src="js/store.js"></script>
   <script src="js/ui.js"></script>
+  <script src="js/nav.js"></script>
   <script src="js/checkout-page.js"></script>
 </body>
 

@@ -3,158 +3,26 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Buyurtma qabul qilindi | Tech House</title>
   <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
-    .success-page {
-      max-width: 700px;
-      margin: 60px auto;
-      padding: 40px;
-      text-align: center;
-    }
-    .success-icon {
-      width: 100px;
-      height: 100px;
-      background: #22c55e;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 30px;
-    }
-    .success-icon i {
-      font-size: 50px;
-      color: #fff;
-    }
-    .success-title {
-      font-size: 32px;
-      font-weight: 700;
-      margin-bottom: 15px;
-      color: #111;
-    }
-    .success-message {
-      font-size: 18px;
-      color: #666;
-      margin-bottom: 30px;
-    }
-    .order-number {
-      background: #f8fafc;
-      border: 2px dashed #e2e8f0;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 30px;
-    }
-    .order-number label {
-      display: block;
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 5px;
-    }
-    .order-number strong {
-      font-size: 24px;
-      color: #ff6a00;
-      letter-spacing: 2px;
-    }
-    .order-details {
-      background: #fff;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 25px;
-      margin-bottom: 30px;
-      text-align: left;
-    }
-    .order-details h3 {
-      font-size: 18px;
-      margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #eee;
-    }
-    .order-item {
-      display: flex;
-      gap: 15px;
-      padding: 12px 0;
-      border-bottom: 1px solid #f3f4f6;
-    }
-    .order-item:last-child {
-      border-bottom: none;
-    }
-    .order-item img {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-    .order-item-info {
-      flex: 1;
-    }
-    .order-item-info h4 {
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
-    .order-item-info small {
-      color: #666;
-    }
-    .order-item-price {
-      font-weight: 600;
-    }
-    .order-totals {
-      margin-top: 20px;
-      padding-top: 15px;
-      border-top: 2px solid #eee;
-    }
-    .order-totals .row {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-    }
-    .order-totals .row.total {
-      font-size: 18px;
-      font-weight: 700;
-      color: #ff6a00;
-      padding-top: 15px;
-      border-top: 1px solid #eee;
-      margin-top: 10px;
-    }
-    .success-actions {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .success-actions a {
-      padding: 14px 30px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .btn-primary {
-      background: #ff6a00;
-      color: #fff;
-    }
-    .btn-secondary {
-      background: #f3f4f6;
-      color: #374151;
-    }
-    .contact-info {
-      margin-top: 40px;
-      padding: 20px;
-      background: #fef3c7;
-      border-radius: 10px;
-      font-size: 14px;
-      color: #92400e;
-    }
-    .contact-info i {
-      margin-right: 8px;
-    }
-  </style>
 </head>
 
-<body>
+<body data-page="success">
+
+  <!-- MOBILE HEADER -->
+  <div class="mobile-header mobile-header-simple mobile-header-success">
+    <div class="mobile-header-row1">
+      <div style="width:40px;"></div>
+      <a href="index.html" class="mobile-logo">TECH HOUSE</a>
+      <div style="width:40px;"></div>
+    </div>
+  </div>
+
+  <!-- DESKTOP HEADER -->
   <div class="site-header">
     <div class="top-bar">
       <div class="container top-bar-inner">
@@ -168,7 +36,7 @@
 
     <header class="main-header">
       <div class="container header-inner">
-        <div class="logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
+        <div class="logo"><a href="index.html">TECH HOUSE</a></div>
 
         <div class="search-box">
           <select>
@@ -187,12 +55,13 @@
             <a href="auth/login.html" data-action="profile" id="nav-profile">
               <i class="fa-solid fa-user"></i>
             </a>
-            <a href="wishlist.html" style="color:#ef4444;">
+            <a href="wishlist.html" class="icon-link">
               <i class="fa-solid fa-heart"></i>
+              <span id="wishlist-count" class="badge">0</span>
             </a>
-            <a href="cart.html">
+            <a href="cart.html" class="icon-link">
               <i class="fa-solid fa-cart-shopping"></i>
-              <span id="cart-count" style="background:#ff6a00;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;margin-left:2px;">0</span>
+              <span id="cart-count" class="badge badge-cart">0</span>
             </a>
           </div>
         </div>
@@ -209,7 +78,7 @@
     </nav>
   </div>
 
-  <main class="success-page">
+  <main class="success-page container">
     <div class="success-icon">
       <i class="fa-solid fa-check"></i>
     </div>
@@ -237,7 +106,7 @@
       </a>
     </div>
 
-    <div class="contact-info">
+    <div class="contact-info-box">
       <i class="fa-solid fa-phone"></i>
       Savollaringiz bo'lsa, biz bilan bog'laning: <strong>+998 90 791 36 33</strong>
     </div>
@@ -246,7 +115,7 @@
   <footer class="main-footer">
     <div class="footer-container container">
       <div class="footer-col brand">
-        <div class="footer-logo"><a style="text-decoration: none; color: #ff6a00;" href="index.html">TECH HOUSE</a></div>
+        <div class="footer-logo"><a href="index.html">TECH HOUSE</a></div>
         <p>Sifatli maishiy texnika uchun ishonchli hamkoringiz.</p>
       </div>
     </div>
@@ -255,23 +124,49 @@
     </div>
   </footer>
 
+  <!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-nav" aria-label="Tez navigatsiya">
+    <a href="index.html" class="bottom-nav-item">
+      <i class="fa-solid fa-home"></i>
+      <span>Bosh</span>
+    </a>
+    <a href="products.html" class="bottom-nav-item">
+      <i class="fa-solid fa-th-large"></i>
+      <span>Katalog</span>
+    </a>
+    <a href="cart.html" class="bottom-nav-item">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span class="nav-badge" id="bottom-cart-count">0</span>
+      <span>Savat</span>
+    </a>
+    <a href="wishlist.html" class="bottom-nav-item wishlist">
+      <i class="fa-solid fa-heart"></i>
+      <span class="nav-badge" id="bottom-wishlist-count">0</span>
+      <span>Sevimli</span>
+    </a>
+    <a href="profile.html" class="bottom-nav-item" data-action="profile">
+      <i class="fa-solid fa-user"></i>
+      <span>Profil</span>
+    </a>
+  </nav>
+
   <script src="js/data.js"></script>
   <script src="js/store.js"></script>
   <script src="js/ui.js"></script>
+  <script src="js/nav.js"></script>
   <script>
     (function() {
       function init() {
         const orderId = sessionStorage.getItem("lastOrderId");
         
         if (!orderId) {
-          // No order found, redirect to home
           document.querySelector(".success-page").innerHTML = `
-            <div style="padding:60px 20px;text-align:center;">
-              <i class="fa-solid fa-exclamation-circle" style="font-size:64px;color:#f59e0b;margin-bottom:20px;"></i>
+            <div class="success-empty">
+              <i class="fa-solid fa-exclamation-circle"></i>
               <h2>Buyurtma topilmadi</h2>
-              <p style="color:#666;margin:15px 0 25px;">Siz hali buyurtma bermagansiz yoki sahifa yangilangan.</p>
-              <a href="products.html" class="btn-primary" style="display:inline-block;padding:14px 30px;background:#ff6a00;color:#fff;text-decoration:none;border-radius:8px;">
-                Xarid qilish
+              <p>Siz hali buyurtma bermagansiz yoki sahifa yangilangan.</p>
+              <a href="products.html" class="btn-primary">
+                <i class="fa-solid fa-shopping-bag"></i> Xarid qilish
               </a>
             </div>
           `;
@@ -286,7 +181,6 @@
           return;
         }
 
-        // Display order info
         document.getElementById("order-id").textContent = order.id;
 
         const itemsEl = document.getElementById("order-items");
@@ -321,7 +215,6 @@
           `;
         }
 
-        // Clear the session order ID
         sessionStorage.removeItem("lastOrderId");
       }
 

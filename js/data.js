@@ -66,7 +66,7 @@ window.products = [
     description: "Inverter texnologiyali aqlli konditsioner. Wi-Fi boshqaruv, 24000 BTU.",
     inStock: true,
     stock: 25,
-    badges: ["popular", "new"]
+    badges: ["popular"]
   },
   {
     id: 5,
@@ -546,7 +546,7 @@ window.products = [
     description: "Katta hajmli airfryer. 6L, 8 dastur, tez pishirish texnologiyasi.",
     inStock: true,
     stock: 27,
-    badges: ["popular", "new"]
+    badges: ["popular"]
   },
   {
     id: 35,
