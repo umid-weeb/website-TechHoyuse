@@ -1,6 +1,4 @@
-/**
- * AUTH SCRIPT - Login/Register Page
- */
+
 (function() {
   "use strict";
 
@@ -10,7 +8,7 @@
   const formTitle = document.getElementById("formTitle");
   const switchInfo = document.getElementById("switchInfo");
 
-  // Storage helpers (use same keys as Store.js)
+  
   const KEYS = {
     USER: "techhouse_user",
     USERS: "techhouse_users"
@@ -62,7 +60,7 @@
     setTimeout(() => { toastEl.innerHTML = ""; }, 3000);
   }
 
-  // Switch between login and register
+  
   switchForm?.addEventListener("click", (e) => {
     e.preventDefault();
     const isSignupActive = signupForm?.classList.contains("active");
@@ -82,7 +80,7 @@
     }
   });
 
-  // Register
+  
   signupForm?.addEventListener("submit", (e) => {
     e.preventDefault();
     
@@ -134,7 +132,7 @@
     }, 1500);
   });
 
-  // Login
+  
   signinForm?.addEventListener("submit", (e) => {
     e.preventDefault();
     
@@ -165,7 +163,7 @@
     }, 1500);
   });
 
-  // Toggle password visibility
+  
   document.querySelectorAll(".input-group.password .toggle").forEach(toggle => {
     toggle.addEventListener("click", () => {
       const input = toggle.closest(".input-group").querySelector("input");
@@ -179,7 +177,7 @@
     });
   });
 
-  // Check if already logged in
+  
   const currentUser = localStorage.getItem(KEYS.USER);
   if (currentUser) {
     const goToProfile = confirm("Siz allaqachon tizimga kirgansiz. Profilga o'tishni xohlaysizmi?");

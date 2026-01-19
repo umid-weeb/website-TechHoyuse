@@ -1,4 +1,4 @@
-/* PROFILE PAGE STYLES */
+
 
 .profile-page {
   max-width: 1000px;
@@ -195,7 +195,7 @@
   background: linear-gradient(135deg, #374151, #1f2937);
 }
 
-/* Profile Tabs for Mobile */
+
 .profile-tabs {
   display: none;
   gap: 8px;
@@ -230,7 +230,7 @@
   font-size: 16px;
 }
 
-/* Tab Content */
+
 .profile-tab-content {
   display: none;
 }
@@ -253,7 +253,7 @@
   color: #ff6a00;
 }
 
-/* Orders List */
+
 .orders-list {
   display: flex;
   flex-direction: column;
@@ -322,7 +322,7 @@
   font-size: 16px;
 }
 
-/* Logout Section */
+
 .logout-section {
   margin-top: 30px;
   padding-top: 30px;
@@ -349,7 +349,7 @@
   background: #fecaca;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
   .profile-page {
     grid-template-columns: 1fr;

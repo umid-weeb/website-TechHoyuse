@@ -1,9 +1,6 @@
-/* ============================================
-   RESPONSIVE.CSS - Mobile-First Responsive System
-   Tech House E-commerce
-   ============================================ */
 
-/* ===== CSS VARIABLES ===== */
+
+
 :root {
   --color-primary: #ff6a00;
   --color-primary-dark: #e55d00;
@@ -55,7 +52,7 @@
   --safe-area-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-/* ===== RESET & BASE ===== */
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -92,7 +89,7 @@ button {
   cursor: pointer;
 }
 
-/* Focus styles for accessibility */
+
 button:focus-visible,
 a:focus-visible,
 input:focus-visible,
@@ -101,7 +98,7 @@ select:focus-visible {
   outline-offset: 2px;
 }
 
-/* ===== UTILITY CLASSES ===== */
+
 .hide-mobile {
   display: block;
 }
@@ -127,7 +124,7 @@ select:focus-visible {
   padding: 0 16px;
 }
 
-/* ===== MOBILE HEADER ===== */
+
 .mobile-header {
   display: none;
 }
@@ -263,19 +260,19 @@ select:focus-visible {
     text-align: center;
   }
 
-  /* Hide desktop header on mobile */
+  
   .site-header {
     display: none !important;
   }
 
-  /* Adjust body padding for mobile header */
+  
   body {
     padding-top: var(--header-height-mobile) !important;
     padding-bottom: calc(var(--bottom-nav-height) + var(--safe-area-bottom) + 10px);
   }
 }
 
-/* ===== SIMPLE MOBILE HEADER (for cart, checkout, profile) ===== */
+
 .mobile-header-simple .mobile-header-row1 {
   justify-content: space-between;
   border-bottom: none;
@@ -357,7 +354,7 @@ select:focus-visible {
   }
 }
 
-/* ===== OFF-CANVAS DRAWER ===== */
+
 .drawer-overlay {
   position: fixed;
   inset: 0;
@@ -499,7 +496,7 @@ select:focus-visible {
   color: var(--color-text-light);
 }
 
-/* ===== BOTTOM NAVIGATION ===== */
+
 .bottom-nav {
   display: none;
 }
@@ -564,7 +561,7 @@ select:focus-visible {
   }
 }
 
-/* ===== FILTER DRAWER (Products Page) ===== */
+
 .filter-drawer {
   position: fixed;
   bottom: 0;
@@ -698,7 +695,7 @@ select:focus-visible {
   color: #fff;
 }
 
-/* ===== MOBILE PRODUCT GRID ===== */
+
 @media (max-width: 768px) {
   .products-grid {
     grid-template-columns: repeat(2, 1fr) !important;
@@ -741,8 +738,10 @@ select:focus-visible {
 
   .product-card .product-bottom {
     flex-direction: column;
-    align-items: flex-start !important;
-    gap: 8px !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+    padding-top: 8px !important;
+    border-top: 1px solid var(--color-border);
   }
 
   .product-card .price {
@@ -756,8 +755,8 @@ select:focus-visible {
   .product-card .cart-btn,
   .product-card .add-to-cart {
     width: 100% !important;
-    height: 40px !important;
-    border-radius: var(--radius-sm) !important;
+    height: 46px !important;
+    border-radius: var(--radius-md) !important;
     font-size: var(--font-sm) !important;
   }
 
@@ -796,7 +795,7 @@ select:focus-visible {
   }
 }
 
-/* ===== MOBILE PRODUCTS PAGE ===== */
+
 @media (max-width: 768px) {
   .products-main {
     margin-top: 16px !important;
@@ -895,7 +894,7 @@ select:focus-visible {
   }
 }
 
-/* ===== MOBILE PRODUCT DETAIL ===== */
+
 @media (max-width: 768px) {
   .product-detail-container {
     grid-template-columns: 1fr !important;
@@ -955,7 +954,7 @@ select:focus-visible {
     font-size: var(--font-sm) !important;
   }
 
-  /* Mobile Product Action Bar */
+  
   .mobile-product-bar {
     position: fixed;
     bottom: var(--bottom-nav-height);
@@ -1017,7 +1016,7 @@ select:focus-visible {
   }
 }
 
-/* ===== MOBILE CART ===== */
+
 @media (max-width: 768px) {
   .cart-page {
     padding: 16px !important;
@@ -1084,7 +1083,7 @@ select:focus-visible {
     margin-bottom: 80px;
   }
 
-  /* Mobile Checkout Bar */
+  
   .mobile-checkout-bar {
     position: fixed;
     bottom: var(--bottom-nav-height);
@@ -1133,7 +1132,7 @@ select:focus-visible {
   }
 }
 
-/* ===== MOBILE CHECKOUT ===== */
+
 @media (max-width: 768px) {
   .checkout-page {
     padding: 16px !important;
@@ -1187,7 +1186,7 @@ select:focus-visible {
   }
 }
 
-/* ===== MOBILE WISHLIST ===== */
+
 @media (max-width: 768px) {
   .wishlist-page {
     padding: 16px !important;
@@ -1232,7 +1231,7 @@ select:focus-visible {
   }
 }
 
-/* ===== MOBILE CONTACT ===== */
+
 @media (max-width: 768px) {
   .contact-page {
     padding: 16px !important;
@@ -1269,7 +1268,7 @@ select:focus-visible {
   }
 }
 
-/* ===== MOBILE SUCCESS PAGE ===== */
+
 @media (max-width: 768px) {
   .success-page {
     padding: 24px 16px !important;
@@ -1347,7 +1346,7 @@ select:focus-visible {
   }
 }
 
-/* ===== MOBILE HOME PAGE ===== */
+
 @media (max-width: 768px) {
   .main-content {
     flex-direction: column !important;
@@ -1482,7 +1481,7 @@ select:focus-visible {
   }
 }
 
-/* ===== MOBILE FOOTER ===== */
+
 @media (max-width: 768px) {
   .main-footer,
   .site-footer {
@@ -1507,7 +1506,7 @@ select:focus-visible {
   }
 }
 
-/* ===== TABLET ADJUSTMENTS ===== */
+
 @media (min-width: 769px) and (max-width: 1024px) {
   .container {
     width: 95% !important;
@@ -1531,7 +1530,7 @@ select:focus-visible {
   }
 }
 
-/* ===== HORIZONTAL SCROLL CARDS ===== */
+
 .horizontal-scroll {
   display: flex;
   overflow-x: auto;
@@ -1551,7 +1550,7 @@ select:focus-visible {
   scroll-snap-align: start;
 }
 
-/* ===== TOAST MOBILE ===== */
+
 @media (max-width: 768px) {
   #site-toast {
     left: 16px !important;
@@ -1565,7 +1564,7 @@ select:focus-visible {
   }
 }
 
-/* ===== BTN STYLES ===== */
+
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -1604,7 +1603,7 @@ select:focus-visible {
   min-height: 48px;
 }
 
-/* ===== BADGE STYLES ===== */
+
 .badge {
   display: inline-flex;
   align-items: center;
@@ -1623,7 +1622,7 @@ select:focus-visible {
   background: var(--color-primary);
 }
 
-/* Desktop header icon link styling */
+
 .icon-link {
   display: inline-flex;
   align-items: center;
@@ -1634,7 +1633,7 @@ select:focus-visible {
   text-decoration: none;
 }
 
-/* Logo link styling */
+
 .logo a {
   text-decoration: none;
   color: var(--color-primary);

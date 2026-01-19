@@ -1,4 +1,4 @@
-/* AUTH PAGES - Mobile-First Responsive */
+
 
 * {
   margin: 0;
@@ -294,7 +294,7 @@ h2 {
   background: #f9fafb;
 }
 
-/* Error states */
+
 .input-group input.error {
   border-color: #ef4444;
 }
@@ -305,7 +305,7 @@ h2 {
   margin-top: 4px;
 }
 
-/* Toast notification for auth */
+
 .auth-toast {
   position: fixed;
   bottom: 20px;

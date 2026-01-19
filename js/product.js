@@ -1,7 +1,4 @@
-/**
- * PRODUCT.JS - Product Detail Page
- * Load product by slug from URL, show related products
- */
+
 (function() {
   "use strict";
 
@@ -225,7 +222,7 @@
     
     if (!container || !section) return;
 
-    const related = getRelatedProducts(product, 4);
+    const related = getRelatedProducts(product, 3);
     
     if (!related.length) {
       section.style.display = "none";

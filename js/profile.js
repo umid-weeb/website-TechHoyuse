@@ -1,6 +1,4 @@
-/**
- * PROFILE.JS - Profile Page Logic
- */
+
 (function() {
   "use strict";
 

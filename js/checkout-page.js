@@ -1,6 +1,4 @@
-/**
- * CHECKOUT-PAGE.JS - Checkout Page Logic
- */
+
 (function() {
   "use strict";
 

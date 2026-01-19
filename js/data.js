@@ -1,7 +1,4 @@
-/**
- * DATA.JS - Single Source of Truth
- * Barcha mahsulotlar faqat shu yerda saqlanadi (50 ta)
- */
+
 
 window.products = [
   {

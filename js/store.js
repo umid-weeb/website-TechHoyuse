@@ -1,7 +1,4 @@
-/**
- * STORE.JS - Unified State Management
- * Cart, Wishlist, User, Orders - localStorage-based
- */
+
 (function() {
   "use strict";
 
@@ -50,7 +47,7 @@
   const Store = {
     _initialized: true,
 
-    // ==================== CART ====================
+    
     getCart() {
       return safeGet(KEYS.CART, []);
     },
@@ -174,7 +171,7 @@
       return this.getCartCount() === 0;
     },
 
-    // ==================== WISHLIST ====================
+    
     getWishlist() {
       return safeGet(KEYS.WISHLIST, []);
     },
@@ -196,7 +193,7 @@
       }
 
       this.setWishlist(wishlist);
-      return idx < 0; // returns true if added, false if removed
+      return idx < 0; 
     },
 
     addToWishlist(productId) {
@@ -229,7 +226,7 @@
       return this.getWishlist().length;
     },
 
-    // ==================== USER / AUTH ====================
+    
     getUser() {
       return safeGet(KEYS.USER, null);
     },
@@ -338,7 +335,7 @@
       return { success: true };
     },
 
-    // ==================== ORDERS ====================
+    
     getOrders() {
       return safeGet(KEYS.ORDERS, []);
     },
@@ -395,7 +392,7 @@
       return this.getOrders().find(o => o.id === orderId) || null;
     },
 
-    // ==================== UTILITIES ====================
+    
     formatPrice(price) {
       return "$" + Number(price || 0).toFixed(2);
     },
@@ -409,15 +406,15 @@
     getProductById: getProductById,
     getProductBySlug: getProductBySlug,
 
-    // ==================== INIT ====================
+    
     init() {
-      // Ensure arrays exist
+      
       if (!safeGet(KEYS.CART)) safeSet(KEYS.CART, []);
       if (!safeGet(KEYS.WISHLIST)) safeSet(KEYS.WISHLIST, []);
       if (!safeGet(KEYS.ORDERS)) safeSet(KEYS.ORDERS, []);
       if (!safeGet(KEYS.USERS)) safeSet(KEYS.USERS, []);
 
-      // Initial events
+      
       dispatch("cart:updated", { cart: this.getCart(), count: this.getCartCount() });
       dispatch("wishlist:updated", { wishlist: this.getWishlist(), count: this.getWishlistCount() });
       dispatch("auth:changed", { user: this.getUser() });
@@ -426,14 +423,14 @@
 
   window.Store = Store;
 
-  // Initialize on DOM ready
+  
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => Store.init());
   } else {
     Store.init();
   }
 
-  // Cross-tab sync
+  
   window.addEventListener("storage", function(e) {
     if (e.key === KEYS.CART) {
       dispatch("cart:updated", { cart: Store.getCart(), count: Store.getCartCount() });

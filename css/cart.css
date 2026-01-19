@@ -1,4 +1,4 @@
-/* CART PAGE STYLES */
+
 
 .cart-page {
   max-width: 1100px;
@@ -185,7 +185,7 @@
   background: #fecaca;
 }
 
-/* Cart Empty State */
+
 .cart-empty {
   text-align: center;
   padding: 60px 20px;
@@ -224,7 +224,7 @@
   background: #e55d00;
 }
 
-/* Cart Summary */
+
 .cart-summary {
   background: #fff;
   border-radius: 12px;
@@ -310,7 +310,7 @@
   color: #ff6a00;
 }
 
-/* Responsive */
+
 @media (max-width: 900px) {
   .cart-layout {
     grid-template-columns: 1fr;

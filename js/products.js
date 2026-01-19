@@ -1,7 +1,4 @@
-/**
- * PRODUCTS.JS - Products Listing Page
- * Full filtering, sorting, pagination, search
- */
+
 (function() {
   "use strict";
 
@@ -11,8 +8,8 @@
 
   let state = {
     search: "",
-    category: "all",
-    brand: "all",
+    categories: ["all"],
+    brands: ["all"],
     minPrice: 0,
     maxPrice: 1000,
     sort: "popular",
@@ -50,7 +47,7 @@
   function filterProducts() {
     let products = getProducts().slice();
 
-    // Search
+    
     if (state.search.trim()) {
       const q = state.search.toLowerCase().trim();
       products = products.filter(p =>
@@ -61,20 +58,20 @@
       );
     }
 
-    // Category
-    if (state.category && state.category !== "all") {
-      products = products.filter(p => p.category === state.category);
+    
+    if (state.categories.length && !state.categories.includes("all")) {
+      products = products.filter(p => state.categories.includes(p.category));
     }
 
-    // Brand
-    if (state.brand && state.brand !== "all") {
-      products = products.filter(p => p.brand === state.brand);
+    
+    if (state.brands.length && !state.brands.includes("all")) {
+      products = products.filter(p => state.brands.includes(p.brand));
     }
 
-    // Price range
+    
     products = products.filter(p => p.price >= state.minPrice && p.price <= state.maxPrice);
 
-    // Sort
+    
     switch (state.sort) {
       case "price-asc":
         products.sort((a, b) => a.price - b.price);
@@ -110,11 +107,11 @@
     const allFiltered = filterProducts();
     const products = paginate(allFiltered);
 
-    // Update results count
+    
     const countEl = document.querySelector(".results-count");
     if (countEl) countEl.textContent = `${allFiltered.length} ta mahsulot topildi`;
 
-    // Empty state
+    
     if (!products.length) {
       container.innerHTML = `
         <div class="no-products" style="grid-column:1/-1;text-align:center;padding:60px 20px;">
@@ -127,11 +124,11 @@
       return;
     }
 
-    // Render products
+    
     container.innerHTML = products.map(p => UI.createProductCard(p)).join("");
     container.className = state.viewMode === "list" ? "products-grid list-view" : "products-grid";
 
-    // Render pagination
+    
     renderPagination(allFiltered.length);
   }
 
@@ -168,29 +165,29 @@
     const priceRange = getPriceRange();
     state.maxPrice = priceRange.max;
 
-    // Categories
+    
     const categoryContainer = document.querySelector(".filter-categories");
     if (categoryContainer) {
       categoryContainer.innerHTML = getCategories().map(c => `
         <label>
-          <input type="checkbox" name="category" value="${c.id}" ${state.category === c.id ? "checked" : ""}>
+          <input type="checkbox" name="category" value="${c.id}" ${state.categories.includes(c.id) ? "checked" : ""}>
           ${c.name}
         </label>
       `).join("");
     }
 
-    // Brands
+    
     const brandContainer = document.querySelector(".filter-brands");
     if (brandContainer) {
       brandContainer.innerHTML = getBrands().map(b => `
         <label>
-          <input type="checkbox" name="brand" value="${b.id}" ${state.brand === b.id ? "checked" : ""}>
+          <input type="checkbox" name="brand" value="${b.id}" ${state.brands.includes(b.id) ? "checked" : ""}>
           ${b.name}
         </label>
       `).join("");
     }
 
-    // Price range
+    
     const rangeEl = document.getElementById("price-range");
     if (rangeEl) {
       rangeEl.min = priceRange.min;
@@ -203,13 +200,13 @@
       rangeValueEl.textContent = `$${state.minPrice} — $${state.maxPrice}`;
     }
 
-    // Sort
+    
     const sortEl = document.getElementById("sort");
     if (sortEl) {
       sortEl.value = state.sort;
     }
 
-    // Search
+    
     const searchEl = document.getElementById("search-input");
     if (searchEl) {
       searchEl.value = state.search;
@@ -220,8 +217,8 @@
     const params = new URLSearchParams(location.search);
     
     if (params.get("search")) state.search = params.get("search");
-    if (params.get("category")) state.category = params.get("category");
-    if (params.get("brand")) state.brand = params.get("brand");
+    if (params.get("category")) state.categories = [params.get("category")];
+    if (params.get("brand")) state.brands = [params.get("brand")];
     if (params.get("sort")) state.sort = params.get("sort");
     if (params.get("page")) state.page = parseInt(params.get("page")) || 1;
   }
@@ -231,7 +228,7 @@
     renderFilters();
     renderProducts();
 
-    // Sort select (desktop)
+    
     document.getElementById("sort")?.addEventListener("change", e => {
       state.sort = e.target.value;
       state.page = 1;
@@ -240,7 +237,7 @@
       renderProducts();
     });
 
-    // Sort select (mobile)
+    
     document.getElementById("mobile-sort")?.addEventListener("change", e => {
       state.sort = e.target.value;
       state.page = 1;
@@ -249,7 +246,7 @@
       renderProducts();
     });
 
-    // Price range
+    
     document.getElementById("price-range")?.addEventListener("input", e => {
       state.maxPrice = Number(e.target.value);
       const rangeValueEl = document.querySelector(".price-range");
@@ -261,41 +258,66 @@
       renderProducts();
     });
 
-    // Search input in filters
+    
     document.getElementById("search-input")?.addEventListener("input", UI.debounce(e => {
       state.search = e.target.value;
       state.page = 1;
       renderProducts();
     }, 300));
 
-    // Category checkboxes
+    
     document.querySelector(".filters")?.addEventListener("change", e => {
       if (e.target.name === "category") {
-        // Uncheck others, allow only one
-        document.querySelectorAll('input[name="category"]').forEach(cb => {
-          if (cb !== e.target) cb.checked = false;
-        });
-        state.category = e.target.checked ? e.target.value : "all";
+        const allBox = document.querySelector('input[name="category"][value="all"]');
+        if (e.target.value === "all" && e.target.checked) {
+          document.querySelectorAll('input[name="category"]').forEach(cb => {
+            if (cb !== e.target) cb.checked = false;
+          });
+        } else {
+          if (allBox) allBox.checked = false;
+        }
+
+        const selected = Array.from(document.querySelectorAll('input[name="category"]:checked'))
+          .map(cb => cb.value);
+        if (!selected.length && allBox) {
+          allBox.checked = true;
+          state.categories = ["all"];
+        } else {
+          state.categories = selected.length ? selected : ["all"];
+        }
         state.page = 1;
         renderProducts();
       }
 
       if (e.target.name === "brand") {
-        document.querySelectorAll('input[name="brand"]').forEach(cb => {
-          if (cb !== e.target) cb.checked = false;
-        });
-        state.brand = e.target.checked ? e.target.value : "all";
+        const allBox = document.querySelector('input[name="brand"][value="all"]');
+        if (e.target.value === "all" && e.target.checked) {
+          document.querySelectorAll('input[name="brand"]').forEach(cb => {
+            if (cb !== e.target) cb.checked = false;
+          });
+        } else {
+          if (allBox) allBox.checked = false;
+        }
+
+        const selected = Array.from(document.querySelectorAll('input[name="brand"]:checked'))
+          .map(cb => cb.value);
+        if (!selected.length && allBox) {
+          allBox.checked = true;
+          state.brands = ["all"];
+        } else {
+          state.brands = selected.length ? selected : ["all"];
+        }
         state.page = 1;
         renderProducts();
       }
     });
 
-    // Clear filters
+    
     document.querySelector(".clear-filter")?.addEventListener("click", () => {
       state = {
         search: "",
-        category: "all",
-        brand: "all",
+        categories: ["all"],
+        brands: ["all"],
         minPrice: 0,
         maxPrice: getPriceRange().max,
         sort: "popular",
@@ -306,7 +328,7 @@
       renderProducts();
     });
 
-    // View toggle
+    
     document.querySelectorAll(".view-toggle button").forEach((btn, idx) => {
       btn.addEventListener("click", () => {
         document.querySelectorAll(".view-toggle button").forEach(b => b.classList.remove("active"));
@@ -319,7 +341,7 @@
       });
     });
 
-    // Pagination
+    
     document.querySelector(".pagination")?.addEventListener("click", e => {
       const btn = e.target.closest(".page-btn");
       if (!btn || btn.disabled) return;
@@ -339,7 +361,7 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    // Filter toggle button (mobile)
+    
     document.querySelector(".filter-btn")?.addEventListener("click", () => {
       const filters = document.querySelector(".filters");
       if (filters) {

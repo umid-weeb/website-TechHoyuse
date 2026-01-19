@@ -1,15 +1,15 @@
 .icons a {
-  text-decoration: none;   /* underline yo'qoladi */
+  text-decoration: none;   
 }
 
 .icon-link {
-  display: inline-flex;    /* baseline muammosi ketadi */
+  display: inline-flex;    
   align-items: center;
   gap: 6px;
 }
 
 .badge {
-  display: inline-flex;    /* pastdagi chiziq/underline ko'rinmaydi */
+  display: inline-flex;    
   align-items: center;
   justify-content: center;
   min-width: 18px;
@@ -17,7 +17,7 @@
   padding: 0 6px;
   border-radius: 999px;
   font-size: 10px;
-  line-height: 1;          /* pastga tushib qolish ketadi */
+  line-height: 1;          
   background: #ef4444;
   color: #fff;
 }

@@ -1,7 +1,4 @@
-/**
- * NAV.JS - Mobile Navigation & Drawer Logic
- * Hamburger menu, filter drawer, bottom nav
- */
+
 (function() {
   "use strict";
 

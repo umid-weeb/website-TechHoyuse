@@ -1,6 +1,4 @@
-/**
- * UI.JS - UI Utilities, Toast, Header Updates
- */
+
 (function() {
   "use strict";
   if (window.UI && window.UI._initialized) return;
@@ -73,7 +71,7 @@
         }
       });
 
-      // Update profile text if exists
+      
       const user = window.Store ? Store.getUser() : null;
       document.querySelectorAll(".user-name, #user-name").forEach(el => {
         el.textContent = user ? user.name : "Profile";
@@ -185,7 +183,7 @@
     }
   };
 
-  // Event listeners
+  
   window.addEventListener("cart:updated", () => UI.updateCartCount());
   window.addEventListener("wishlist:updated", () => UI.updateWishlistCount());
   window.addEventListener("auth:changed", () => UI.updateProfileLink());
@@ -196,7 +194,7 @@
     UI.updateProfileLink();
     UI.setupHeaderSearch();
 
-    // Global add-to-cart handler
+    
     document.body.addEventListener("click", (e) => {
       const btn = e.target.closest(".add-to-cart");
       if (!btn) return;
@@ -225,7 +223,7 @@
       }
     });
 
-    // Global wishlist toggle handler
+    
     document.body.addEventListener("click", (e) => {
       const btn = e.target.closest(".wishlist-btn, .like-btn");
       if (!btn) return;
@@ -251,7 +249,7 @@
         }
       }
 
-      // Refresh wishlist page if on it
+      
       if (location.pathname.includes("wishlist.html") && typeof renderWishlist === "function") {
         renderWishlist();
       }

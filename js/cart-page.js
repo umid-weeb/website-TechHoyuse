@@ -1,6 +1,4 @@
-/**
- * CART-PAGE.JS - Cart Page Logic
- */
+
 (function() {
   "use strict";
 
