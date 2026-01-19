@@ -20,7 +20,7 @@
       <div class="icon"><i class="fa-solid fa-user-circle"></i></div>
 
       <h2 id="formTitle">Yangi hisob yaratish</h2>
-      <p class="switch-text">
+      <p class="switch-text" id="switchWrap">
         <span id="switchInfo">Hisobingiz allaqachon bormi?</span>
         <a href="#" id="switchForm">Tizimga kirish</a>
       </p>
@@ -35,6 +35,11 @@
         <div class="input-group">
           <label>E-pochta manzili</label>
           <input type="email" id="signupEmail" placeholder="email@example.com" required>
+        </div>
+
+        <div class="input-group">
+          <label>Telefon raqami</label>
+          <input type="tel" id="signupPhone" placeholder="+998 90 123 45 67">
         </div>
 
         <div class="input-group password">
@@ -60,9 +65,19 @@
 
       
       <form id="signinForm" class="form">
+        <div class="auth-tabs" role="tablist" aria-label="Kirish usuli">
+          <button type="button" class="tab-btn active" data-login="email">Email</button>
+          <button type="button" class="tab-btn" data-login="phone">Telefon</button>
+        </div>
+
         <div class="input-group">
           <label>E-pochta manzili</label>
           <input type="email" id="signinEmail" placeholder="email@example.com" required>
+        </div>
+
+        <div class="input-group is-hidden" id="signinPhoneGroup">
+          <label>Telefon raqami</label>
+          <input type="tel" id="signinPhone" placeholder="+998 90 123 45 67">
         </div>
 
         <div class="input-group password">
@@ -73,7 +88,18 @@
           </button>
         </div>
 
+        <button type="button" class="link-btn" id="openRecovery">Parolni unutdingizmi?</button>
         <button type="submit" class="btn">Tizimga kirish</button>
+      </form>
+
+      <form id="recoveryForm" class="form">
+        <div class="input-group">
+          <label>Hisobingiz emaili</label>
+          <input type="email" id="recoveryEmail" placeholder="email@example.com" required>
+        </div>
+
+        <button type="submit" class="btn">Parolni tiklash</button>
+        <button type="button" class="link-btn" id="backToLogin">Kirishga qaytish</button>
       </form>
 
       <a href="../index.html" class="back-link">

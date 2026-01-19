@@ -7,6 +7,13 @@
   const switchForm = document.getElementById("switchForm");
   const formTitle = document.getElementById("formTitle");
   const switchInfo = document.getElementById("switchInfo");
+  const recoveryForm = document.getElementById("recoveryForm");
+  const switchWrap = document.getElementById("switchWrap");
+  const openRecovery = document.getElementById("openRecovery");
+  const backToLogin = document.getElementById("backToLogin");
+  const signinPhoneGroup = document.getElementById("signinPhoneGroup");
+  const loginTabs = document.querySelectorAll(".tab-btn");
+  let loginMethod = "email";
 
   
   const KEYS = {
@@ -33,6 +40,53 @@
       localStorage.setItem(KEYS.USER, JSON.stringify(safeUser));
     } else {
       localStorage.removeItem(KEYS.USER);
+    }
+  }
+
+  function normalizePhone(value) {
+    return String(value || "").replace(/[^\d]/g, "");
+  }
+
+  function setActiveForm(type) {
+    signupForm?.classList.remove("active");
+    signinForm?.classList.remove("active");
+    recoveryForm?.classList.remove("active");
+
+    if (type === "signup") {
+      signupForm?.classList.add("active");
+      if (formTitle) formTitle.textContent = "Yangi hisob yaratish";
+      if (switchInfo) switchInfo.textContent = "Hisobingiz allaqachon bormi?";
+      if (switchForm) switchForm.textContent = "Tizimga kirish";
+      if (switchWrap) switchWrap.style.display = "block";
+    } else if (type === "signin") {
+      signinForm?.classList.add("active");
+      if (formTitle) formTitle.textContent = "Tizimga kirish";
+      if (switchInfo) switchInfo.textContent = "Hisobingiz yo'qmi?";
+      if (switchForm) switchForm.textContent = "Ro'yxatdan o'tish";
+      if (switchWrap) switchWrap.style.display = "block";
+    } else if (type === "recovery") {
+      recoveryForm?.classList.add("active");
+      if (formTitle) formTitle.textContent = "Parolni tiklash";
+      if (switchWrap) switchWrap.style.display = "none";
+    }
+  }
+
+  function setLoginMethod(method) {
+    loginMethod = method;
+    loginTabs.forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.login === method);
+    });
+    const emailGroup = document.getElementById("signinEmail")?.closest(".input-group");
+    if (method === "phone") {
+      emailGroup?.classList.add("is-hidden");
+      signinPhoneGroup?.classList.remove("is-hidden");
+      document.getElementById("signinEmail")?.removeAttribute("required");
+      document.getElementById("signinPhone")?.setAttribute("required", "required");
+    } else {
+      emailGroup?.classList.remove("is-hidden");
+      signinPhoneGroup?.classList.add("is-hidden");
+      document.getElementById("signinPhone")?.removeAttribute("required");
+      document.getElementById("signinEmail")?.setAttribute("required", "required");
     }
   }
 
@@ -64,20 +118,21 @@
   switchForm?.addEventListener("click", (e) => {
     e.preventDefault();
     const isSignupActive = signupForm?.classList.contains("active");
+    setActiveForm(isSignupActive ? "signin" : "signup");
+  });
 
-    if (isSignupActive) {
-      signupForm?.classList.remove("active");
-      signinForm?.classList.add("active");
-      if (formTitle) formTitle.textContent = "Tizimga kirish";
-      if (switchInfo) switchInfo.textContent = "Hisobingiz yo'qmi?";
-      if (switchForm) switchForm.textContent = "Ro'yxatdan o'tish";
-    } else {
-      signinForm?.classList.remove("active");
-      signupForm?.classList.add("active");
-      if (formTitle) formTitle.textContent = "Yangi hisob yaratish";
-      if (switchInfo) switchInfo.textContent = "Hisobingiz allaqachon bormi?";
-      if (switchForm) switchForm.textContent = "Tizimga kirish";
-    }
+  openRecovery?.addEventListener("click", () => {
+    setActiveForm("recovery");
+  });
+
+  backToLogin?.addEventListener("click", () => {
+    setActiveForm("signin");
+  });
+
+  loginTabs.forEach(btn => {
+    btn.addEventListener("click", () => {
+      setLoginMethod(btn.dataset.login || "email");
+    });
   });
 
   
@@ -86,6 +141,8 @@
     
     const name = document.getElementById("signupFullname")?.value.trim();
     const email = document.getElementById("signupEmail")?.value.trim();
+    const phoneRaw = document.getElementById("signupPhone")?.value.trim();
+    const phone = normalizePhone(phoneRaw);
     const password = document.getElementById("signupPassword")?.value;
     const confirm = document.getElementById("signupConfirm")?.value;
 
@@ -111,12 +168,22 @@
       return;
     }
 
+    if (phone && phone.length < 7) {
+      showMessage("error", "Telefon raqam noto'g'ri");
+      return;
+    }
+
+    if (phone && users.find(u => normalizePhone(u.phone) === phone)) {
+      showMessage("error", "Bu telefon raqam allaqachon ro'yxatdan o'tgan");
+      return;
+    }
+
     const newUser = {
       id: Date.now(),
       name: name,
       email: email.toLowerCase(),
       password: password,
-      phone: "",
+      phone: phoneRaw || "",
       address: "",
       createdAt: new Date().toISOString()
     };
@@ -137,18 +204,26 @@
     e.preventDefault();
     
     const email = document.getElementById("signinEmail")?.value.trim();
+    const phoneInput = document.getElementById("signinPhone")?.value.trim();
+    const phone = normalizePhone(phoneInput);
     const password = document.getElementById("signinPassword")?.value;
 
-    if (!email || !password) {
-      showMessage("error", "Email va parol kiriting");
-      return;
-    }
-
     const users = getUsers();
-    const user = users.find(u => 
-      u.email.toLowerCase() === email.toLowerCase() && 
-      u.password === password
-    );
+    let user = null;
+
+    if (loginMethod === "phone") {
+      if (!phone || !password) {
+        showMessage("error", "Telefon va parol kiriting");
+        return;
+      }
+      user = users.find(u => normalizePhone(u.phone) === phone && u.password === password);
+    } else {
+      if (!email || !password) {
+        showMessage("error", "Email va parol kiriting");
+        return;
+      }
+      user = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
+    }
 
     if (!user) {
       showMessage("error", "Email yoki parol xato");
@@ -163,19 +238,42 @@
     }, 1500);
   });
 
+  recoveryForm?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = document.getElementById("recoveryEmail")?.value.trim();
+    if (!email) {
+      showMessage("error", "Email kiriting");
+      return;
+    }
+    showMessage("success", "Agar email mavjud bo'lsa, tiklash havolasi yuboriladi");
+    setTimeout(() => {
+      setActiveForm("signin");
+    }, 1200);
+  });
+
   
   document.querySelectorAll(".input-group.password .toggle").forEach(toggle => {
     toggle.addEventListener("click", () => {
       const input = toggle.closest(".input-group").querySelector("input");
+      const icon = toggle.querySelector("i");
       if (input.type === "password") {
         input.type = "text";
-        toggle.textContent = "🙈";
+        if (icon) {
+          icon.classList.remove("fa-eye");
+          icon.classList.add("fa-eye-slash");
+        }
       } else {
         input.type = "password";
-        toggle.textContent = "👁";
+        if (icon) {
+          icon.classList.remove("fa-eye-slash");
+          icon.classList.add("fa-eye");
+        }
       }
     });
   });
+
+  setActiveForm("signup");
+  setLoginMethod("email");
 
   
   const currentUser = localStorage.getItem(KEYS.USER);

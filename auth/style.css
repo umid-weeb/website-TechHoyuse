@@ -107,12 +107,44 @@ h2 {
   text-decoration: underline;
 }
 
+.auth-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  background: #f3f4f6;
+  padding: 6px;
+  border-radius: 12px;
+}
+
+.tab-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.tab-btn.active {
+  background: #fff;
+  color: #111827;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
 .form {
   display: none;
 }
 
 .form.active {
   display: block;
+}
+
+.is-hidden {
+  display: none;
 }
 
 .input-group {
@@ -260,6 +292,23 @@ h2 {
 
 .btn:active {
   transform: scale(0.98);
+}
+
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  font-size: 13px;
+  cursor: pointer;
+  margin: 6px 0 12px;
+}
+
+.link-btn:hover {
+  color: #ff6a00;
 }
 
 .forgot-link {

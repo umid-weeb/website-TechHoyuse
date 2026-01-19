@@ -771,7 +771,7 @@ select:focus-visible {
     font-size: 9px !important;
     padding: 3px 6px !important;
     top: 8px !important;
-    left: 8px !important;
+    left: 23px !important;
   }
 }
 
@@ -1363,9 +1363,10 @@ select:focus-visible {
 
   .hero {
     flex-direction: column !important;
-    padding: 20px !important;
-    gap: 20px !important;
+    padding: 10px 12px !important;
+    gap: 8px !important;
     min-height: auto !important;
+    border-radius: 14px !important;
   }
 
   .hero-text {
@@ -1374,7 +1375,24 @@ select:focus-visible {
   }
 
   .hero-text h1 {
-    font-size: var(--font-2xl) !important;
+    font-size: var(--font-lg) !important;
+    line-height: 1.15 !important;
+    margin: 4px 0 !important;
+  }
+
+  .hero-text small {
+    font-size: 11px !important;
+  }
+
+  .hero-text p {
+    font-size: 12px !important;
+    margin-top: 4px !important;
+  }
+
+  .hero-text a {
+    padding: 8px 14px !important;
+    font-size: 12px !important;
+    border-radius: 8px !important;
   }
 
   .hero-img {
@@ -1383,7 +1401,7 @@ select:focus-visible {
   }
 
   .hero-img img {
-    max-height: 200px;
+    max-height: 120px;
     margin: 0 auto;
   }
 
