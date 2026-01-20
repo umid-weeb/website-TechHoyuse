@@ -164,6 +164,24 @@ body {
   text-decoration: none;
   color: #333;
   font-size: 15px;
+  position: relative;
+}
+
+.nav-inner a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  background: #ff6a00;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+.nav-inner a:hover::after {
+  transform: scaleX(1);
 }
 
 .nav-inner a.active {
