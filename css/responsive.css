@@ -740,6 +740,7 @@ select:focus-visible {
     font-size: 16px;
     outline: none;
     -webkit-appearance: none;
+    
   }
 
   .mobile-search button {
